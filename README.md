@@ -3,7 +3,7 @@ Abrir la consola de comandos en la carpeta raíz del area de trabajo o iniciar e
 ingresar la siguiente secuencia de comandos
 
 git init
-git remote add |REPONAME| https://github.com/AdrianY1997/taller-19.git
+git remote add |REPONAME| https://github.com/EstebanCrdoba/progamadorcoordinacion.git
 git branch -M |BRANCHNAME|
 git add .
 git commit -m "Aqui el respectivo commit"
