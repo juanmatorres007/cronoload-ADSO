@@ -1,0 +1,1 @@
+{"version":1,"defects":{"rolTest::testRol":7,"OperationsTest::testSumWithTwoValues":8,"OperationsTest::testSumWithNullValues":8,"OperationsTest::test_sumar":7},"times":{"rolTest::testRol":0.011,"OperationsTest::test_sumar":0.027}}
