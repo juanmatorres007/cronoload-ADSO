@@ -120,6 +120,16 @@
     padding-top: 5%;
 }
 
+.perfilContent{
+    padding-left: 15%;
+    padding-top: 8%;
+}
+
+.registerContent{
+    padding-left: 15%;
+    padding-top: 8%;
+}
+
 .label {
     position: relative;
 }

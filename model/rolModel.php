@@ -22,4 +22,12 @@ class RolModel{
 
         return $rol;
       }
+
+      public function consulRol(){
+
+        $sql = $this->conn->prepare("SELECT name_rol FROM rol");
+        $sql -> execute();
+        
+        return $sql->fetchAll(PDO::FETCH_COLUMN);
+      }
 }

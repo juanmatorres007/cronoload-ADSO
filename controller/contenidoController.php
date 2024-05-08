@@ -10,8 +10,16 @@ class ContenidoController{
     public function view2(){
       include "../view/sideBar.php";
     }
-    
-      public function view3(){
+
+    public function view3(){
       include '../view/mainContent.php';
       }
+
+      public function view4(){
+        include "../view/perfil.php";
+      }
+
+        public function view5(){
+          include "../view/registro.php";
+        }
 }

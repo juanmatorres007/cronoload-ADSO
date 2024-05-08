@@ -1,5 +1,4 @@
 <?php
-
 class SessionModel
 {
 
@@ -27,11 +26,11 @@ class SessionModel
 
         if ($usuario) {
             $sqlUser = $this->conn->prepare("SELECT * FROM user WHERE id_auto_user=?");
-            $sqlUser->bindParam(1, $usuario['id_user_acc']); 
+            $sqlUser->bindParam(1, $usuario['id_user_acc']);
             $sqlUser->execute();
             $datosUsuario = $sqlUser->fetch(PDO::FETCH_ASSOC);
-            
-            if ($datosUsuario){
+
+            if ($datosUsuario) {
                 session_start();
                 $_SESSION["usuario"] = array_merge($usuario, $datosUsuario);
                 return $_SESSION['usuario'];
