@@ -20,7 +20,7 @@
 
             <div class="col p-5 bg-white">
                 <div class="col-md-12 text-end col-sm-3 offset-sm-3 text-center">
-                    <img src="img/logo.png" width="230px">
+                    <img src="img/logo.png" width="230px" class="">
                 </div>
 
                 <h5 class="fw-bold text-center py-5">INICIAR SESIÓN</h5>
