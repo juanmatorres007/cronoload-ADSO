@@ -9,6 +9,14 @@
         width: 250px;
     }
 </style>
+
+<?php
+
+if(!isset($roles)){
+    $roles = array();
+}
+?>
+
 <div class="registerContent">
     <form action="../routes/user.php" method="POST">
         <h2>Formulario de Registro</h2>
@@ -28,12 +36,20 @@
         <label><strong>Número de identidad: </strong></label>
         <input type="number" name="munber_id_user" placeholder="Ingrese Numero de Identidad"><br><br>
 
-        <label><strong>Rol: </strong></label>
-        <select id="rolSelect">
+        <!-- <label><strong>Rol: </strong></label>
+        <select name="rol" id="rolSelect">
             <option value="Aprendiz">Aprendiz</option>
             <option value="Instructor">Instructor</option>
             <option value="coordinador">Coordinador</option>
             <option value="administrador">Administrador</option>
+        </select><br><br> -->
+        <?php var_dump($roles); ?>
+        <label><strong>Rol: </strong></label>
+        <select name="rol">
+            <?php foreach ($roles as $rol) { ?>
+                <option value="<?php echo $rol; ?>"><?php echo $rol; ?></option>
+                
+            <?php } ?>
         </select><br><br>
 
         <div id="optionsForInstructor" style="display: none;">
@@ -57,19 +73,6 @@
             <label><strong>Nivel formativo: </strong></label>
             <input type="text" name="id_information_lvl_user" placeholder="Ingrese nivel formativo"><br><br>
         </div>
-
-        <script>
-            document.getElementById("rolSelect").addEventListener("change", function() {
-                var rol = this.value;
-                var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
-
-                if (rol === "Instructor") {
-                    optionsForInstructorDiv.style.display = "block";
-                } else {
-                    optionsForInstructorDiv.style.display = "none";
-                }
-            });
-        </script>
         <button type="submit">Registrar</button>
     </form>
 </div>

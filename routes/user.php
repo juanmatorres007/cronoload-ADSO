@@ -12,11 +12,7 @@ $fromlvl = $_REQUEST['id_information_lvl_user'];
 $tipo_contrato = $_REQUEST['tcontrato'];
 $fecha_I_contrato = $_REQUEST['FI'];
 $fecha_F_contrato = $_REQUEST['FF'];
-$rol = $_REQUEST['rolSelect'];
-
-if($rol == "Aprendiz"){
-    
-}
+$rol = $_REQUEST['rol'];
 
 $userController = new UserController();
 $datosregistrado = $userController->validarRegistro($name, $lastname, $tipoid, $noid, $aredc, $fromlvl);

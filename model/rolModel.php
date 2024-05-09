@@ -1,33 +1,31 @@
 <?php
-class RolModel{
+class RolModel
+{
   private $conn;
-   
-      public function __construct(){
-        $this->db();
-      }
 
-      public function db(){
+  public function __construct(){
+    $this->db();
+  }
 
-        $this->conn = conectaDb();
-      }
+  public function db(){
+    $this->conn = conectaDb();
+  }
 
-      public function insertRol($name_rol, $state_rol){
+  public function insertRol($name_rol, $state_rol){
 
-        $sql = $this->conn->prepare("INSERT INTO rol (name_rol,state_rol,date_register_rol) VALUES (?,?,now())");
+    $sql = $this->conn->prepare("INSERT INTO rol (name_rol,state_rol,date_register_rol) VALUES (?,?,now())");
 
-        $sql -> bindParam(1,$name_rol);
-        $sql -> bindParam(2,$state_rol);
+    $sql->bindParam(1, $name_rol);
+    $sql->bindParam(2, $state_rol);
+    $rol = $sql->execute();
+    return $rol;
+  }
 
-        $rol = $sql -> execute();
+  public function consulRol(){
+    
+    $sql = $this->conn->prepare("SELECT name_rol FROM rol");
+    $sql->execute();
 
-        return $rol;
-      }
-
-      public function consulRol(){
-
-        $sql = $this->conn->prepare("SELECT name_rol FROM rol");
-        $sql -> execute();
-        
-        return $sql->fetchAll(PDO::FETCH_COLUMN);
-      }
+    return $sql->fetchAll(PDO::FETCH_COLUMN);
+  }
 }

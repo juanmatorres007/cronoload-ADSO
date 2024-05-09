@@ -12,9 +12,7 @@ include_once '../controller/sessionController.php';
     if($var_access > 0){
       $usuarioController = new SessionController();
       $usuarioController->iniciarSesion($number_ident, $pass);
-      
     } else {      
       header("Location: ../index.php?accion=mostrarFormularioLogin");
       exit();
     }
-?>

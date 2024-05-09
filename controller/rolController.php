@@ -6,6 +6,11 @@ include_once "../model/rolModel.php";
 
 class RolController{
 
+  public function getRoles(){
+    $rolModel = new RolModel();
+    return $rolModel->consulRol();
+  }
+
   public function insertRol($name_rol, $state_rol){
       
     $rolModel = new RolModel();
