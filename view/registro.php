@@ -10,15 +10,8 @@
     }
 </style>
 
-<?php
-
-if(!isset($roles)){
-    $roles = array();
-}
-?>
-
 <div class="registerContent">
-    <form action="../routes/user.php" method="POST">
+    <form id="registrationForm" action="../routes/user.php" method="POST">
         <h2>Formulario de Registro</h2>
 
         <label><strong>Nombre: </strong></label>
@@ -36,20 +29,9 @@ if(!isset($roles)){
         <label><strong>Número de identidad: </strong></label>
         <input type="number" name="munber_id_user" placeholder="Ingrese Numero de Identidad"><br><br>
 
-        <!-- <label><strong>Rol: </strong></label>
-        <select name="rol" id="rolSelect">
-            <option value="Aprendiz">Aprendiz</option>
-            <option value="Instructor">Instructor</option>
-            <option value="coordinador">Coordinador</option>
-            <option value="administrador">Administrador</option>
-        </select><br><br> -->
-        <?php var_dump($roles); ?>
         <label><strong>Rol: </strong></label>
-        <select name="rol">
-            <?php foreach ($roles as $rol) { ?>
-                <option value="<?php echo $rol; ?>"><?php echo $rol; ?></option>
-                
-            <?php } ?>
+        <select name="rol" id="rolSelect">
+
         </select><br><br>
 
         <div id="optionsForInstructor" style="display: none;">
@@ -76,3 +58,42 @@ if(!isset($roles)){
         <button type="submit">Registrar</button>
     </form>
 </div>
+
+<script>
+document.getElementById("rolSelect").addEventListener("change", function () {
+  var rol = this.value;
+  var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
+
+  if (rol === "Instructor") {
+    optionsForInstructorDiv.style.display = "block";
+  } else {
+    optionsForInstructorDiv.style.display = "none";
+  }
+});
+
+     // Función para cargar los roles dinámicamente
+     function loadRoles() {
+        fetch('../routes/Rol.php')
+            .then(response => response.json())
+            .then(data => {
+                const roleSelect = document.getElementById('rolSelect');
+                roleSelect.innerHTML = ''; // Limpia opciones anteriores
+
+                data.forEach(role => {
+                    const option = document.createElement('option');
+                    option.value = role;
+                    option.text = role;
+                    roleSelect.appendChild(option);
+                });
+
+                // Llamada al evento change después de cargar los roles para asegurar la correcta visualización de los campos
+                roleSelect.dispatchEvent(new Event('change'));
+            })
+            .catch(error => console.error('Error fetching roles:', error));
+    }
+
+    // Cargar roles al cargar la página
+    loadRoles();
+
+//  // Función para cargar los roles dinámicamente
+</script>

@@ -8,15 +8,16 @@ class RolController{
 
   public function getRoles(){
     $rolModel = new RolModel();
-    return $rolModel->consulRol();
+    $roles = $rolModel->consulRol();
+    return $roles;
   }
 
   public function insertRol($name_rol, $state_rol){
       
     $rolModel = new RolModel();
     $rol = $rolModel->insertRol($name_rol,$state_rol);
-    echo "Rol successfully";
-    include "../view/formularioRol.php";
+    // echo "Rol successfully";
+    // include "../view/formularioRol.php";
   }
 
   public function consulRol(){

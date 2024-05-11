@@ -4,11 +4,15 @@ class RolModel
   private $conn;
 
   public function __construct(){
+
     $this->db();
+
   }
 
   public function db(){
+
     $this->conn = conectaDb();
+
   }
 
   public function insertRol($name_rol, $state_rol){
@@ -22,10 +26,25 @@ class RolModel
   }
 
   public function consulRol(){
-    
-    $sql = $this->conn->prepare("SELECT name_rol FROM rol");
-    $sql->execute();
 
-    return $sql->fetchAll(PDO::FETCH_COLUMN);
+    $roles_query = "SELECT name_rol FROM rol";
+    $roles_result = $this->conn->query($roles_query);
+
+    // Array para almacenar los datos de los roles 
+    $roles_data = array();
+
+    // Procesar resultados de roles 
+    if ($roles_result) {
+      while($row = $roles_result->fetch(PDO::FETCH_ASSOC)) {
+        $role_name = $row["name_rol"];
+        $roles_data[] = $role_name;        
+      }
+}
+
+  // Cerrar conexiones y liberar resultados
+  // $roles_result->closeCursor;
+  $this->conn = null;
+
+  return $roles_data;
   }
 }

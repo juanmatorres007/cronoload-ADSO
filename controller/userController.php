@@ -1,9 +1,16 @@
 <?php
 include "../conexion/conexion.php";
 include "../model/UserModel.php";
+include_once "../controller/rolController.php";
+include_once "../model/rolModel.php";
 
-class UserController
-{
+class UserController{
+
+   public function showRegistrationForm(){
+      $rolController = new RolController();
+      $roles = $rolController->getRoles();
+      include_once "../view/headerContenido.php";
+   }
 
    public function validarRegistro($name, $lastname, $tipoid, $noid, $aredc, $fromlvl)
    {

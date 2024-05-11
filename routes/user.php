@@ -15,12 +15,15 @@ $fecha_F_contrato = $_REQUEST['FF'];
 $rol = $_REQUEST['rol'];
 
 $userController = new UserController();
-$datosregistrado = $userController->validarRegistro($name, $lastname, $tipoid, $noid, $aredc, $fromlvl);
-echo $datosregistrado;
-    if ($datosregistrado > 0) {
-        $respuesta = $userController->registroVinculacion($tipo_contrato, $fecha_I_contrato, $fecha_F_contrato, $datosregistrado);
-    }
+$userController->showRegistrationForm();
 
+if($userController > 0){
+    $datosregistrado = $userController->validarRegistro($name, $lastname, $tipoid, $noid, $aredc, $fromlvl);
+    echo $datosregistrado;
+        if ($datosregistrado > 0) {
+            $respuesta = $userController->registroVinculacion($tipo_contrato, $fecha_I_contrato, $fecha_F_contrato, $datosregistrado);
+        }
+}
 // if() {
 //     $updateUser = $registrouser->update($name, $lastname, $tipoid, $noid, $aredc, $fromlvl, $datosregistrado);    
 // }
