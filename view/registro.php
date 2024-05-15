@@ -27,7 +27,7 @@
         </select><br><br>
 
         <label><strong>Número de identidad: </strong></label>
-        <input type="number" name="munber_id_user" placeholder="Ingrese Numero de Identidad"><br><br>
+        <input type="number" name="number_id_user" placeholder="Ingrese Numero de Identidad"><br><br>
 
         <label><strong>Rol: </strong></label>
         <select name="rol" id="rolSelect">
@@ -45,47 +45,52 @@
 
             <label><strong>Fecha inicial de contrato: </strong></label>
             <input type="date" id="fechaInicio" name="FI"><br><br>
-
             <label><strong>Fecha de finalización de contrato: </strong></label>
             <input type="date" id="fechaFin" name="FF"><br><br>
 
             <label><strong>Area de conocimiento: </strong></label>
-            <input type="text" name="id_know_user" placeholder="Ingrese are de conocimiento"><br><br>
+            <select name="id_know_user" id="knowSelect">
 
+            </select><br><br>
+            
             <label><strong>Nivel formativo: </strong></label>
-            <input type="text" name="id_information_lvl_user" placeholder="Ingrese nivel formativo"><br><br>
+            <select name="id_formation_lvl_user" id="lvlFormSelect">
+
+            </select>
         </div>
         <button type="submit">Registrar</button>
     </form>
 </div>
 
 <script>
-document.getElementById("rolSelect").addEventListener("change", function () {
-  var rol = this.value;
-  var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
+    document.getElementById("rolSelect").addEventListener("change", function() {
+        var rol = this.options[this.selectedIndex].text;
+        var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
 
-  if (rol === "Instructor") {
-    optionsForInstructorDiv.style.display = "block";
-  } else {
-    optionsForInstructorDiv.style.display = "none";
-  }
-});
+        if (rol === "Instructor" || rol === "Coordinador") {
+            optionsForInstructorDiv.style.display = "block";
+        } else {
+            optionsForInstructorDiv.style.display = "none";
+        }
+    });
 
-     // Función para cargar los roles dinámicamente
-     function loadRoles() {
+    // Función para cargar los roles dinámicamente
+    function loadRoles() {
         fetch('../routes/Rol.php')
             .then(response => response.json())
             .then(data => {
                 const roleSelect = document.getElementById('rolSelect');
                 roleSelect.innerHTML = ''; // Limpia opciones anteriores
 
-                data.forEach(role => {
-                    const option = document.createElement('option');
-                    option.value = role;
-                    option.text = role;
-                    roleSelect.appendChild(option);
-                });
-
+                for (const roleName in data) {
+                    if (data.hasOwnProperty(roleName)) {
+                        const roleId = data[roleName];
+                        const option = document.createElement('option');
+                        option.value = roleId; // Utiliza el ID del rol como valor
+                        option.text = roleName;
+                        roleSelect.appendChild(option);
+                    }
+                }
                 // Llamada al evento change después de cargar los roles para asegurar la correcta visualización de los campos
                 roleSelect.dispatchEvent(new Event('change'));
             })
@@ -95,5 +100,7 @@ document.getElementById("rolSelect").addEventListener("change", function () {
     // Cargar roles al cargar la página
     loadRoles();
 
-//  // Función para cargar los roles dinámicamente
+    function loadknow(){
+        fecth('../routes/form.php')
+    }
 </script>

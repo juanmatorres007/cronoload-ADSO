@@ -27,7 +27,7 @@ class RolModel
 
   public function consulRol(){
 
-    $roles_query = "SELECT name_rol FROM rol";
+    $roles_query = "SELECT id_auto_rol, name_rol FROM rol";
     $roles_result = $this->conn->query($roles_query);
 
     // Array para almacenar los datos de los roles 
@@ -37,12 +37,11 @@ class RolModel
     if ($roles_result) {
       while($row = $roles_result->fetch(PDO::FETCH_ASSOC)) {
         $role_name = $row["name_rol"];
-        $roles_data[] = $role_name;        
+        $role_id = $row["id_auto_rol"];
+        $roles_data[$role_name] = $role_id;        
       }
 }
 
-  // Cerrar conexiones y liberar resultados
-  // $roles_result->closeCursor;
   $this->conn = null;
 
   return $roles_data;

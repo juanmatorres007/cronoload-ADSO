@@ -6,17 +6,22 @@ include_once "../model/rolModel.php";
 
 class UserController{
 
-   public function showRegistrationForm(){
-      $rolController = new RolController();
-      $roles = $rolController->getRoles();
-      include_once "../view/headerContenido.php";
+   // public function showRegistrationForm(){
+   //    $rolController = new RolController();
+   //    $roles = $rolController->getRoles();
+   //    include_once "../view/headerContenido.php";
+   // }
+
+   public function validarRegistro($name, $lastname, $type_id, $number_id, $know, $form_lvl){
+      $userModel = new UserModel();
+      $userReg = $userModel->reGUSer($name, $lastname, $type_id, $number_id, $know, $form_lvl);
+      return $userReg;
    }
 
-   public function validarRegistro($name, $lastname, $tipoid, $noid, $aredc, $fromlvl)
-   {
-      $userReg = new UserModel();
-      $rta = $userReg->reGUSer($name, $lastname, $tipoid, $noid, $aredc, $fromlvl);
-      return $rta;
+   public function registerRolUser($rol,$userInfo){
+      $userModel = new UserModel();
+      $rolReg = $userModel->registerRolUser($rol,$userInfo);
+      return $rolReg;
    }
 
    public function update($name, $lastname, $tipoid, $noid, $aredc, $fromlvl, $datosregistrado){

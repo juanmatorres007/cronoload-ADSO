@@ -14,20 +14,30 @@ class UserModel{
         $this-> conn = conectaDb();
     }
 
-    public function reGUSer($name_user, $lastname_user, $tp_id, $num_id, $are_cmt, $fromlvl_id){
-        $sql =$this -> conn -> prepare("INSERT INTO user(name_user, lastname_user, type_id_user, number_id_user)
-        VALUES (?,?,?,?)");
-        $sql ->bindParam(1,$name_user);
-        $sql ->bindParam(2,$lastname_user);
-        $sql ->bindParam(3,$tp_id);
-        $sql ->bindParam(4,$num_id);
-        // $sql ->bindParam(5,$are_cmt);
-        // $sql ->bindParam(6,$fromlvl_id);
+    public function reGUSer($name, $lastname, $type_id, $number_id, $know, $form_lvl){
+        $sql =$this -> conn -> prepare("INSERT INTO user(name_user, lastname_user, type_id_user, number_id_user, id_know_user, id_formation_lvl_user)
+        VALUES (?,?,?,?,?,?)");
+
+        $sql ->bindParam(1,$name);
+        $sql ->bindParam(2,$lastname);
+        $sql ->bindParam(3,$type_id);
+        $sql ->bindParam(4,$number_id);
+        $sql ->bindParam(5,$know);
+        $sql ->bindParam(6,$form_lvl);
         $sql ->execute();
         
         $rta = $sql ->rowCount();
         $varid = $this -> conn -> lastInsertId();
         return $varid;
+    }
+
+    public function registerRolUser($rol, $userInfo){
+        $sql = $this->conn->prepare("INSERT INTO relation_rol_user(id_rol_relaru, id_user_relaru) VALUES (?,?)");
+
+        $id_usuario = $userInfo['id_auto_user'];
+
+        $sql->bindParam(1,$rol);
+        $sql->bindParam(2,$id_usuario);
     }
 
     public function update($name, $lastname, $tipoid, $noid, $aredc, $fromlvl, $datosregistrado){
