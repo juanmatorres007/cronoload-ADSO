@@ -52,7 +52,7 @@ function loadRolesAndFields() {
     .catch((error) => console.error("Error fetching roles and fields:", error));
 }
 
-// Cargar roles y campos al cargar la página
+// Cargar roles  y campos al cargar la página
 loadRolesAndFields();
 
 // Obtener el enlace del usuario
