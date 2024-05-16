@@ -11,7 +11,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src='../js/jquery.min.js'></script>
     <script src='../js/moment.min.js'></script>
-    <script src='..js/fullcalendar.min.js'></script>
+    <script src='../js/fullcalendar.min.js'></script>
 </head>
 
 <body>
@@ -28,8 +28,6 @@
             $('#CalendarioWeb').fullCalendar();
         });
     </script>
-
-
 </body>
 
 </html>
