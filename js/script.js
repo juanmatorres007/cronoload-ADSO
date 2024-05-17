@@ -6,14 +6,14 @@ window.addEventListener("focus", () => {
   document.title = docTitle;
 });
 
-document.getElementById("rolSelect").addEventListener("change", function () {
-  var rol = this.value;
+document.getElementById("rolSelect").addEventListener("change", function() {
+  var rol = this.options[this.selectedIndex].text;
   var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
 
-  if (rol === "Instructor") {
-    optionsForInstructorDiv.style.display = "block";
+  if (rol === "Instructor" || rol === "Coordinador") {
+      optionsForInstructorDiv.style.display = "block";
   } else {
-    optionsForInstructorDiv.style.display = "none";
+      optionsForInstructorDiv.style.display = "none";
   }
 });
 

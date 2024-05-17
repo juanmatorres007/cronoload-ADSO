@@ -16,14 +16,14 @@
 
     <div class="cont-menu" id="miSidebar">
       <nav>
-        <a href="#" id="usuario"><strong>
+        <a id="calendar" href="#"><strong>
+            <h5>Calendario</h5>
+          </strong></a>
+        <a id="usuario" href="#"><strong>
             <h5>Usuario</h5>
           </strong></a>
         <a id="registro" href="#"><strong>
             <h5>Registro</h5>
-          </strong></a>
-        <a href=""><strong>
-            <h5>Depende</h5>
           </strong></a>
         <a href=""><strong>
             <h5>Quiza</h5>
@@ -43,4 +43,9 @@
       var vista = "registro";
       window.location.href = "../routes/contenido.php?dato=" + vista;
     });
+
+    document.getElementById("calendar").addEventListener("click", function() {
+      var vista = "calendar";
+      window.location.href = "../routes/contenido.php?dato=" + vista;
+    })
   </script>

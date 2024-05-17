@@ -15,8 +15,11 @@ if(isset($_GET['dato'])) {
     $view->view1();
     $view->view2();
     $view->view5();
-
-  } else {
+  } elseif ($miVariable == "calendar"){
+    $view->view1();
+    $view->view2();
+    $view->view6();
+  }else {
     http_response_code(400);
     echo "Error: Vista desconocida.";
   }

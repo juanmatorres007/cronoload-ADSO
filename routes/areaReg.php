@@ -1,11 +1,20 @@
 <?php    
 include_once "../controller/userController.php";
 
-extract($_REQUEST);
-$nombreArea=$_REQUEST['area'];
-$estado=$_REQUEST['estado'];
-date_default_timezone_set('America/Bogota');
-$var_date = date("Y-m-d");
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+  $registro_area = new UserController();
+    $nombreArea = $_POST['area'];
+    $estado = $_POST['estado'];
+    date_default_timezone_set('America/Bogota');
+    $var_date = date("Y-m-d");
 
-$Registro_area = new UserController();
-$Registro_area -> regArea($nombreArea, $var_date, $estado);
+    $registro_area->registerArea($nombreArea, $var_date, $estado);
+// Devuelve una respuesta de éxito si es necesario
+    // echo json_encode(array("message" => "Área de conocimiento registrada exitosamente"));
+}else{  
+  $consulta_area = new UserController();
+  $areas = $consulta_area->getKnowArea();
+
+  header('Content-Type: application/json');
+  echo json_encode($areas); 
+}

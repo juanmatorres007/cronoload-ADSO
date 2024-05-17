@@ -27,7 +27,7 @@
         </select><br><br>
 
         <label><strong>Número de identidad: </strong></label>
-        <input type="number" name="munber_id_user" placeholder="Ingrese Numero de Identidad"><br><br>
+        <input type="number" name="number_id_user" placeholder="Ingrese Numero de Identidad"><br><br>
 
         <label><strong>Rol: </strong></label>
         <select name="rol" id="rolSelect">
@@ -45,55 +45,102 @@
 
             <label><strong>Fecha inicial de contrato: </strong></label>
             <input type="date" id="fechaInicio" name="FI"><br><br>
-
             <label><strong>Fecha de finalización de contrato: </strong></label>
             <input type="date" id="fechaFin" name="FF"><br><br>
 
             <label><strong>Area de conocimiento: </strong></label>
-            <input type="text" name="id_know_user" placeholder="Ingrese are de conocimiento"><br><br>
+            <select name="id_know_user" id="knowSelect">
 
+            </select><br><br>
+            
             <label><strong>Nivel formativo: </strong></label>
-            <input type="text" name="id_information_lvl_user" placeholder="Ingrese nivel formativo"><br><br>
+            <select name="id_formation_lvl_user" id="lvlFormSelect">
+
+            </select>
         </div>
         <button type="submit">Registrar</button>
     </form>
 </div>
 
 <script>
-document.getElementById("rolSelect").addEventListener("change", function () {
-  var rol = this.value;
-  var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
+    document.getElementById("rolSelect").addEventListener("change", function() {
+        var rol = this.options[this.selectedIndex].text;
+        var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
 
-  if (rol === "Instructor") {
-    optionsForInstructorDiv.style.display = "block";
-  } else {
-    optionsForInstructorDiv.style.display = "none";
-  }
-});
+        if (rol === "Instructor" || rol === "Coordinador") {
+            optionsForInstructorDiv.style.display = "block";
+        } else {
+            optionsForInstructorDiv.style.display = "none";
+        }
+    });
 
-     // Función para cargar los roles dinámicamente
-     function loadRoles() {
+    function loadRoles() {
         fetch('../routes/Rol.php')
             .then(response => response.json())
             .then(data => {
                 const roleSelect = document.getElementById('rolSelect');
-                roleSelect.innerHTML = ''; // Limpia opciones anteriores
+                roleSelect.innerHTML = ''; 
 
-                data.forEach(role => {
-                    const option = document.createElement('option');
-                    option.value = role;
-                    option.text = role;
-                    roleSelect.appendChild(option);
-                });
-
-                // Llamada al evento change después de cargar los roles para asegurar la correcta visualización de los campos
+                for (const roleName in data) {
+                    if (data.hasOwnProperty(roleName)) {
+                        const roleId = data[roleName];
+                        const option = document.createElement('option');
+                        option.value = roleId; 
+                        option.text = roleName;
+                        roleSelect.appendChild(option);
+                    }
+                }
                 roleSelect.dispatchEvent(new Event('change'));
             })
             .catch(error => console.error('Error fetching roles:', error));
     }
 
-    // Cargar roles al cargar la página
     loadRoles();
 
-//  // Función para cargar los roles dinámicamente
+    function loadKnow(){
+        fetch('../routes/areaReg.php')
+        .then(response => response.json())
+        .then(data => {
+            const areaSelect = document.getElementById('knowSelect');
+            areaSelect.innerHTML = '';
+
+            for(const areaName in data){
+                if(data.hasOwnProperty(areaName)){
+                const areaId = data[areaName];
+                const option = document.createElement('option')
+                option.value = areaId
+                option.text = areaName;
+                areaSelect.appendChild(option);
+                }
+            }
+            areaSelect.dispatchEvent(new Event('change'))
+        })
+        .catch(error => console.error('Error fetching Area Knowledge:', error))
+
+    }
+
+    loadKnow();
+
+    function loadLvlForm(){
+        fetch('../routes/lvlForm.php')
+        .then(response => response.json())
+        .then(data =>{
+            const lvlFormSelect = document.getElementById('lvlFormSelect')
+            lvlFormSelect.innerHTML = "";
+
+            for(const lvlFormName in data){
+                const lvlFormId = data[lvlFormName];
+                const option = document.createElement('option');
+                option.value = lvlFormId;
+                option.text = lvlFormName;
+                lvlFormSelect.appendChild(option);
+            }
+            lvlFormSelect.dispatchEvent(new Event('change'))
+        })
+        .catch(error => console.error('Error fetching Area Knowledge:', error)) 
+
+    }
+
+    loadLvlForm();
+
 </script>

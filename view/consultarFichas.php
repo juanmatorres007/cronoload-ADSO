@@ -11,8 +11,9 @@
 
 <?php
 
-$ct =1;
-foreach($rta as $row): 
+$ct=1;
+foreach($rta as $row):
+     
 ?>
 <tr>
     <td><?php echo $ct; ?></td>
@@ -26,6 +27,7 @@ foreach($rta as $row):
 $ct++;
 endforeach;
 ?>
+
 </table>
 
 <a href="../routes/validarIdProyecto.php?x=<?php echo $idproyect;?>">Registrar ficha</a>

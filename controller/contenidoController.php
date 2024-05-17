@@ -22,4 +22,8 @@ class ContenidoController{
         public function view5(){
           include "../view/registro.php";
         }
+
+          public function view6(){
+            include "../view/Calendar.php";
+          }
 }

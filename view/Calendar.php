@@ -14,7 +14,7 @@
     <script src='../js/fullcalendar.min.js'></script>
 </head>
 
-<body>
+<body><br><br><br><br>
     <div class="container">
         <div class="row">
             <div class="col"></div>
@@ -29,5 +29,4 @@
         });
     </script>
 </body>
-
 </html>
