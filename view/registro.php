@@ -74,33 +74,73 @@
         }
     });
 
-    // Función para cargar los roles dinámicamente
     function loadRoles() {
         fetch('../routes/Rol.php')
             .then(response => response.json())
             .then(data => {
                 const roleSelect = document.getElementById('rolSelect');
-                roleSelect.innerHTML = ''; // Limpia opciones anteriores
+                roleSelect.innerHTML = ''; 
 
                 for (const roleName in data) {
                     if (data.hasOwnProperty(roleName)) {
                         const roleId = data[roleName];
                         const option = document.createElement('option');
-                        option.value = roleId; // Utiliza el ID del rol como valor
+                        option.value = roleId; 
                         option.text = roleName;
                         roleSelect.appendChild(option);
                     }
                 }
-                // Llamada al evento change después de cargar los roles para asegurar la correcta visualización de los campos
                 roleSelect.dispatchEvent(new Event('change'));
             })
             .catch(error => console.error('Error fetching roles:', error));
     }
 
-    // Cargar roles al cargar la página
     loadRoles();
 
-    function loadknow(){
-        fecth('../routes/form.php')
+    function loadKnow(){
+        fetch('../routes/areaReg.php')
+        .then(response => response.json())
+        .then(data => {
+            const areaSelect = document.getElementById('knowSelect');
+            areaSelect.innerHTML = '';
+
+            for(const areaName in data){
+                if(data.hasOwnProperty(areaName)){
+                const areaId = data[areaName];
+                const option = document.createElement('option')
+                option.value = areaId
+                option.text = areaName;
+                areaSelect.appendChild(option);
+                }
+            }
+            areaSelect.dispatchEvent(new Event('change'))
+        })
+        .catch(error => console.error('Error fetching Area Knowledge:', error))
+
     }
+
+    loadKnow();
+
+    function loadLvlForm(){
+        fetch('../routes/lvlForm.php')
+        .then(response => response.json())
+        .then(data =>{
+            const lvlFormSelect = document.getElementById('lvlFormSelect')
+            lvlFormSelect.innerHTML = "";
+
+            for(const lvlFormName in data){
+                const lvlFormId = data[lvlFormName];
+                const option = document.createElement('option');
+                option.value = lvlFormId;
+                option.text = lvlFormName;
+                lvlFormSelect.appendChild(option);
+            }
+            lvlFormSelect.dispatchEvent(new Event('change'))
+        })
+        .catch(error => console.error('Error fetching Area Knowledge:', error)) 
+
+    }
+
+    loadLvlForm();
+
 </script>

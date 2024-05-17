@@ -8,3 +8,6 @@
 
 <button type="submit">Registrar</button>
 </form>
+
+
+<!-- Registro de Area -->

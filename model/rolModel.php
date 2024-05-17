@@ -40,7 +40,7 @@ class RolModel
         $role_id = $row["id_auto_rol"];
         $roles_data[$role_name] = $role_id;        
       }
-}
+    }
 
   $this->conn = null;
 

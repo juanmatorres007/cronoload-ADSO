@@ -68,7 +68,7 @@ class UserModel{
         return $rta;
     }
 
-    public function rArea($Nombre, $Fecha, $Estado){
+    public function registerArea($Nombre, $Fecha, $Estado){
         $sql = $this -> conn -> prepare("INSERT INTO knowledge_area(area_name_know, date_register_know, state_know) VALUES(?,?,?)");
         $sql -> bindParam(1,$Nombre);
         $sql -> bindParam(2,$Fecha);
@@ -76,8 +76,49 @@ class UserModel{
         $sql -> execute();
         $rta = $sql ->rowCount();
         return $rta;
-
     }
+    //Registro de Area
+
+    public function getKnowArea(){
+
+        $knowArea_query = "SELECT id_auto_know, area_name_know FROM knowledge_area";
+        $knowArea_result = $this->conn->query($knowArea_query);
+    
+        $knowArea_data = array();
+    
+        if ($knowArea_result) {
+          while($row = $knowArea_result->fetch(PDO::FETCH_ASSOC)) {
+            $knowArea_name = $row["area_name_know"];
+            $knowArea_id = $row["id_auto_know"];
+            $knowArea_data[$knowArea_name] = $knowArea_id;        
+          }
+        }
+    
+      $this->conn = null;
+    
+      return $knowArea_data;
+      }
+
+      public function getLvlForm(){
+
+        $lvlForm_query = "SELECT id_auto_flvl, name_flvl FROM formation_lvl";
+        $lvlForm_result = $this->conn->query($lvlForm_query);
+    
+        $lvlForm_data = array();
+    
+        if ($lvlForm_result) {
+          while($row = $lvlForm_result->fetch(PDO::FETCH_ASSOC)) {
+            $lvlForm_name = $row["name_flvl"];
+            $lvlForm_id = $row["id_auto_flvl"];
+            $lvlForm_data[$lvlForm_name] = $lvlForm_id;        
+          }
+        }
+    
+      $this->conn = null;
+    
+      return $lvlForm_data;
+      }
+
     public function reGPro($name, $number, $estado, $var_fecha, $id_area){
         $sql =$this->conn -> prepare("INSERT INTO project(name_proj, number_proj, state_proj, register_date_proj, id_knowledge_area_proj)
         VALUES(?,?,?,?,?)");
