@@ -1,8 +1,8 @@
 <?php
-include "../controller/consultaController.php";
+include "../controller/userController.php";
 
-extract($_REQUEST);
-$idproyect = $_REQUEST['x'];
+$consultFile = new UserController();
+$file = $consultFile->getKnowFile();
 
-$consulficha = new ConsultaController;
-$consulficha ->consultaficha($idproyect);
+header('Content-Type: application/json');
+echo json_encode($file);
