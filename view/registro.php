@@ -1,12 +1,12 @@
 <style>
-    input[type=text] {
-        padding: 10px;
-        width: 250px;
+    input[type=text], input[type=number], input[type=date]{
+        padding: 8px;
+        width: 240px;
     }
 
     select {
-        padding: 10px;
-        width: 250px;
+        padding: 8px;
+        width: 240px;
     }
 </style>
 
@@ -34,17 +34,25 @@
 
         </select><br><br>
 
+        <div id="optionsForAprentice" style="display: none;">
+            <label><strong>Ficha: </strong></label>
+            <select name="file_user" id="fileSelect">
+
+            </select><br><br>
+        </div>
+
         <div id="optionsForInstructor" style="display: none;">
             <div id="tipoContratoDiv">
+
                 <label><strong>Tipo de contrato: </strong></label>
-                <select id="tipoContratoSelect" name="tcontrato">
-                    <option value="1">Planta</option>
-                    <option value="2">Contratista</option>
+                <select name="tcontrato" id="ContractTypeSelect">
+                    
                 </select>
             </div><br>
 
             <label><strong>Fecha inicial de contrato: </strong></label>
             <input type="date" id="fechaInicio" name="FI"><br><br>
+
             <label><strong>Fecha de finalización de contrato: </strong></label>
             <input type="date" id="fechaFin" name="FF"><br><br>
 
@@ -56,13 +64,24 @@
             <label><strong>Nivel formativo: </strong></label>
             <select name="id_formation_lvl_user" id="lvlFormSelect">
 
-            </select>
+            </select><br><br>
         </div>
         <button type="submit">Registrar</button>
     </form>
 </div>
 
 <script>
+    document.getElementById("rolSelect").addEventListener("change", function() {
+        var rol = this.options[this.selectedIndex].text;
+        var optionsForInstructorDiv = document.getElementById("optionsForAprentice");
+
+        if (rol === "Aprendiz") {
+            optionsForInstructorDiv.style.display = "block";
+        } else {
+            optionsForInstructorDiv.style.display = "none";
+        }
+    });
+
     document.getElementById("rolSelect").addEventListener("change", function() {
         var rol = this.options[this.selectedIndex].text;
         var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
@@ -96,6 +115,52 @@
     }
 
     loadRoles();
+
+    function loadFile(){
+        fetch("../routes/consultaFicha.php")
+        .then(response => response.json())
+        .then(data => {
+            const fileSelect = document.getElementById('fileSelect')
+            fileSelect.innerHTML = '';
+
+            for(const fileId in data){
+                if(data.hasOwnProperty(fileId)){
+                    const fileName = data[fileId];
+                    const option = document.createElement('option');
+                    option.value = fileName;
+                    option.text = fileId;
+                    fileSelect.appendChild(option);
+                }
+            }
+            fileSelect.dispatchEvent(new Event('change'));
+        })
+        .catch(error => console.error('Error fetching files', error))
+    }
+
+    loadFile();
+
+    function loadContractType(){
+        fetch("../routes/contractType.php")
+        .then(response => response.json())
+        .then(data =>{
+            const contractTypeSelect = document.getElementById('ContractTypeSelect');
+            contractTypeSelect.innerHTML = '';
+
+            for(const contractName in data){
+                if (data.hasOwnProperty(contractName)){
+                    const contractId = data[contractName];
+                    const option = document.createElement('option');
+                    option.value = contractId;
+                    option.text = contractName;
+                    contractTypeSelect.appendChild(option);
+                }
+            }
+            contractTypeSelect.dispatchEvent(new Event('change'));
+        })
+        .catch(error => console.error('Error fetching Contract type', error));
+    }
+
+    loadContractType();
 
     function loadKnow(){
         fetch('../routes/areaReg.php')
