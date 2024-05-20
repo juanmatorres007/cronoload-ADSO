@@ -1,0 +1,18 @@
+.circu{
+    padding: 25px;
+    background: #ccc;
+    border-radius: 50px;
+  }
+  
+  #grupoRadio label:hover{
+    cursor: pointer;
+  }
+  
+  #grupoRadio input[type="radio"]:checked + label {
+    border: 3px solid #ccc !important;  
+  }
+  
+  
+  .activado input[type=radio]:checked + label {
+    border: 3px solid #555 !important;  
+  }
