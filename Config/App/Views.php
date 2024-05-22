@@ -5,9 +5,9 @@ class Views{
     {
         $controlador = get_class($controlador);
         if ($controlador == "Home") {
-            $vista = "Views/".$vista.".php";
+            $vista = "view/".$vista.".php";
         }else{
-            $vista = "Views/".$controlador."/".$vista.".php";
+            $vista = "view/".$controlador."/".$vista.".php";
         }
         require $vista;
     }

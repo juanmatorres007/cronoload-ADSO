@@ -19,7 +19,7 @@ if (!empty($array[2])) {
     }
 }
 require_once 'Config/App/Autoload.php';
-$dirControllers = "Controllers/" . $controller . ".php";
+$dirControllers = "Controller/" . $controller . ".php";
 if (file_exists($dirControllers)) {
     require_once $dirControllers;
     $controller = new $controller();
