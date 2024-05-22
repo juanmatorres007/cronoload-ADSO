@@ -18,9 +18,9 @@ class UserController{
       return $rolReg;
    }
 
-   public function registerVinculation($contract_type, $star_date, $end_date, $userInfo){
-      $regisvcl = new UserModel();
-      $rta =  $regisvcl->registerVinculation($contract_type, $star_date, $end_date, $userInfo);
+   public function registerVinculation($start_date, $end_date, $contract_type, $userInfo){
+      $regisVinculation = new UserModel();
+      $rta =  $regisVinculation->registerVinculation($start_date, $end_date, $contract_type, $userInfo);
       return $rta;
    }
 
@@ -30,9 +30,9 @@ class UserController{
       return $regisArea;
    }
 
-   public function registerFile($file, $userInfo){
+   public function registerFile($userInfo, $file){
       $userModel = new UserModel();
-      $registerFile = $userModel->registerFile($file, $userInfo);
+      $registerFile = $userModel->registerFile($userInfo, $file);
       return $registerFile;
    }
 

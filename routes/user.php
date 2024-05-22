@@ -11,7 +11,7 @@ $know = $_REQUEST['id_know_user'];
 $file = $_REQUEST['file_user'];
 $form_lvl = $_REQUEST['id_formation_lvl_user'];
 $contract_type= $_REQUEST['tcontrato'];
-$star_date = $_REQUEST['FI'];
+$start_date = $_REQUEST['FI'];
 $end_date = $_REQUEST['FF'];
 $rol = $_REQUEST['rol'];
 
@@ -19,13 +19,11 @@ $userController = new UserController();
 $userInfo = $userController->validarRegistro($name, $lastname, $type_id, $number_id, $know, $form_lvl);
     if($userInfo > 0) {
         $rolRegistered = $userController->registerRolUser($rol,$userInfo);
-        echo "Registro exitoso hasta el rol";
             if ($rolRegistered > 0) {
-                $registerVinculation = $userController->registerVinculation($contract_type, $star_date, $end_date, $userInfo);
-                echo "Registro exitoso hasta la vinculacion";
+                $registerVinculation = $userController->registerVinculation($start_date, $end_date, $contract_type, $userInfo);
                     if($registerVinculation > 0) {
-                        $registerFile = $userController->registerFile($file, $userInfo);
-                        echo "Registro exitoso hasta la ficha";
+                        echo $file;
+                        $registerFile = $userController->registerFile($userInfo, $file);
                     }
             }
     }

@@ -32,21 +32,24 @@ class UserModel
     return $varid;
   }
 
-  public function registerRolUser($rol, $userInfo)
-  {
+  public function registerRolUser($rol, $userInfo){
 
     $sql = $this->conn->prepare("INSERT INTO relation_rol_user(id_rol_relaru, id_user_relaru) VALUES (?,?)");
 
     $sql->bindParam(1, $rol);
     $sql->bindParam(2, $userInfo);
+    $sql->execute();
+    $rolFull = $sql->rowCount();
+    return $rolFull;
   }
 
-  public function registerVinculation($contract_type, $star_date, $end_date, $userInfo)
+  public function registerVinculation($start_date, $end_date, $contract_type, $userInfo)
   {
-    $sql = $this->conn->prepare("INSERT INTO vinculation(start_date_vin, end_date_vin, id_contractType_vin id_user_vin) VALUES(?,?,?,?)");
-    $sql->bindParam(1, $star_date);
+    $sql = $this->conn->prepare("INSERT INTO vinculation(start_date_vin, end_date_vin, id_contractType_vin, id_user_vin) VALUES (?,?,?,?)");
+
+    $sql->bindParam(1, $start_date);
     $sql->bindParam(2, $end_date);
-    $sql->bindParam(3, $userInfo);
+    $sql->bindParam(3, $contract_type);
     $sql->bindParam(4, $userInfo);
     $sql->execute();
     $rta = $sql->rowCount();
@@ -64,12 +67,12 @@ class UserModel
     return $rta;
   }
 
-  public function registerFile($file, $userInfo)
+  public function registerFile($userInfo, $file)
   {
 
-    $sql = $this->conn->prepare("INSERT INTO relarion_user_file(id_user_reluf, id_file_reluf) VALUES (?,?)");
-    $sql->bindParam(1, $file);
-    $sql->bindParam(2, $userInfo);
+    $sql = $this->conn->prepare("INSERT INTO relation_user_file(id_user_reluf, id_file_reluf) VALUES (?,?)");
+    $sql->bindParam(1, $userInfo);
+    $sql->bindParam(2, $file);
     $sql->execute();
     $rta = $sql->rowCount();
 

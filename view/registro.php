@@ -1,12 +1,47 @@
 <style>
-    input[type=text], input[type=number], input[type=date]{
+    input[type=text], input[type=number], input[type=date], input[type=email], select {
         padding: 8px;
         width: 240px;
+        margin-bottom: 10px;
     }
 
     select {
-        padding: 8px;
         width: 240px;
+    }
+
+    .registerContent {
+        display: flex;
+        /* flex-direction: column; */
+        /* align-items: center; */
+    }
+
+    .form-columns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .form-columns-2{
+        flex-direction: column;
+        display: flex;
+        margin-left: 95%;
+        margin-top: -115%;
+    }
+
+    .form-row {
+        margin-bottom: 10px;
+    }
+
+    .form-row label {
+        margin-right: 10px;
+        
+    }
+
+    @media only screen and (max-width: 600px) {
+        .form-columns-2 {
+            flex-direction: column;
+        }
     }
 </style>
 
@@ -29,42 +64,56 @@
         <label><strong>Número de identidad: </strong></label>
         <input type="number" name="number_id_user" placeholder="Ingrese Numero de Identidad"><br><br>
 
+        <label><strong>Número de celular: </strong></label>
+        <input type="number" name="phone_user" placeholder="Ingrese Numero de Celular"><br><br>
+
+        <label><strong>Correo Electronico: </strong></label>
+        <input type="email" name="email_user" placeholder="Ingrese su Correo Electronico"><br><br>
+
         <label><strong>Rol: </strong></label>
         <select name="rol" id="rolSelect">
 
         </select><br><br>
 
-        <div id="optionsForAprentice" style="display: none;">
-            <label><strong>Ficha: </strong></label>
-            <select name="file_user" id="fileSelect">
+        <div id="optionsForAprentice" class="form-columns" style="display: none;">
+            <div class="form-row">
+                <label><strong>Ficha: </strong></label>
+                <select name="file_user" id="fileSelect">
 
-            </select><br><br>
+                </select>
+            </div>
         </div>
 
-        <div id="optionsForInstructor" style="display: none;">
-            <div id="tipoContratoDiv">
+        <div id="optionsForInstructor" class="form-columns-2" style="display: none;">
+            <div class="form-row">
+                <div id="tipoContratoDiv">
+                    <label><strong>Tipo de contrato: </strong></label>
+                    <select name="tcontrato" id="ContractTypeSelect">
+                    </select>
+                </div>
+            </div>
 
-                <label><strong>Tipo de contrato: </strong></label>
-                <select name="tcontrato" id="ContractTypeSelect">
-                    
+            <div class="form-row">
+                <label><strong>Fecha inicial de contrato: </strong></label>
+                <input type="date" id="fechaInicio" name="FI">
+            </div>
+
+            <div class="form-row">
+                <label><strong>Fecha de finalización de contrato: </strong></label>
+                <input type="date" id="fechaFin" name="FF">
+            </div>
+
+            <div class="form-row">
+                <label><strong>Area de conocimiento: </strong></label>
+                <select name="id_know_user" id="knowSelect">
                 </select>
-            </div><br>
-
-            <label><strong>Fecha inicial de contrato: </strong></label>
-            <input type="date" id="fechaInicio" name="FI"><br><br>
-
-            <label><strong>Fecha de finalización de contrato: </strong></label>
-            <input type="date" id="fechaFin" name="FF"><br><br>
-
-            <label><strong>Area de conocimiento: </strong></label>
-            <select name="id_know_user" id="knowSelect">
-
-            </select><br><br>
+            </div>
             
-            <label><strong>Nivel formativo: </strong></label>
-            <select name="id_formation_lvl_user" id="lvlFormSelect">
-
-            </select><br><br>
+            <div class="form-row">
+                <label><strong>Nivel formativo: </strong></label>
+                <select name="id_formation_lvl_user" id="lvlFormSelect">
+                </select>
+            </div>
         </div>
         <button type="submit">Registrar</button>
     </form>
@@ -73,22 +122,17 @@
 <script>
     document.getElementById("rolSelect").addEventListener("change", function() {
         var rol = this.options[this.selectedIndex].text;
-        var optionsForInstructorDiv = document.getElementById("optionsForAprentice");
-
-        if (rol === "Aprendiz") {
-            optionsForInstructorDiv.style.display = "block";
-        } else {
-            optionsForInstructorDiv.style.display = "none";
-        }
-    });
-
-    document.getElementById("rolSelect").addEventListener("change", function() {
-        var rol = this.options[this.selectedIndex].text;
+        var optionsForAprenticeDiv = document.getElementById("optionsForAprentice");
         var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
 
-        if (rol === "Instructor" || rol === "Coordinador") {
-            optionsForInstructorDiv.style.display = "block";
+        if (rol === "Aprendiz") {
+            optionsForAprenticeDiv.style.display = "flex";
+            optionsForInstructorDiv.style.display = "none";
+        } else if (rol === "Instructor" || rol === "Coordinador") {
+            optionsForAprenticeDiv.style.display = "none";
+            optionsForInstructorDiv.style.display = "flex";
         } else {
+            optionsForAprenticeDiv.style.display = "none";
             optionsForInstructorDiv.style.display = "none";
         }
     });
