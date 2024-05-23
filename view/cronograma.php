@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bootstrap demo</title>
   <link rel="stylesheet" href="../Assets/css/">
-  <link href="<?php echo base_url ?>Assets/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?php echo base_url ?>Assets/css/main.css" rel="stylesheet">
+  <link href="<?php echo base_url ?>css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo base_url ?>css/main.css" rel="stylesheet">
 </head>
 
 <body>
@@ -54,12 +54,12 @@
 
     </div>
   </div>
-  <script src="<?php echo base_url ?>Assets/js/bootstrap.bundle.min.js"></script>
-  <script src="<?php echo base_url ?>Assets/js/main.js"> </script>
-  <script src="<?php echo base_url ?>Assets/js/moment.js"> </script>
-  <script src="<?php echo base_url ?>Assets/js/sweetalert2@11.js"> </script>
-  <script src="<?php echo base_url ?>Assets/js/es.js"> </script>
-  <script src="<?php echo base_url ?>Assets/js/app.js"> </script>
+  <script src="<?php echo base_url ?>js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo base_url ?>js/main.js"> </script>
+  <script src="<?php echo base_url ?>js/moment.js"> </script>
+  <script src="<?php echo base_url ?>js/sweetalert2@11.js"> </script>
+  <script src="<?php echo base_url ?>js/es.js"> </script>
+  <script src="<?php echo base_url ?>js/app.js"> </script>
 
 </body>
 
