@@ -1,8 +1,8 @@
 <?php
-const base_url = "http://localhost/eventos/";
+const base_url = "http://localhost/cronoload/";
 const host = "localhost";
 const user = "root";
 const pass = "";
-const db = "agendas";
+const db = "programador2";
 const charset = "charset=utf8";
 ?>
