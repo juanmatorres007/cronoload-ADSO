@@ -6,9 +6,9 @@ include_once "../model/rolModel.php";
 
 class UserController{
 
-   public function validarRegistro($name, $lastname, $type_id, $number_id, $know, $form_lvl){
+   public function validarRegistro($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero){
       $userModel = new UserModel();
-      $userReg = $userModel->registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl);
+      $userReg = $userModel->registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero);
       return $userReg;
    }
 
@@ -48,6 +48,12 @@ class UserController{
       return $registerContact;
    }
 
+   // public function registerGenero($genero){
+   //    $userModel = new UserModel();
+   //    $registerGenero = $userModel->registerGenero($genero);
+   //    return $registerGenero;
+   // }
+
    public function getKnowArea(){
       $userModel = new UserModel();
       $knowArea = $userModel->getKnowArea();
@@ -85,10 +91,17 @@ class UserController{
 
     public function getMunicipioByDeptId($deptId){
       $userModel = new UserModel();
-      $municipios = $userModel->getMunicipioByDeptId($deptId);
+      $municipio = $userModel->getMunicipioByDeptId($deptId);
 
-      return $municipios;
+      return $municipio;
     }
+
+    public function getGenero(){
+      $userModel = new UserModel(); 
+      $genero = $userModel->getGenero();
+      return $genero;
+    }
+
 
    public function registroproyect($idarea){
       include "../view/regProyecto.php";
@@ -103,4 +116,6 @@ class UserController{
    public function registroFicha($idproyect){
       include "../view/reg_ficha.php";
    }
+
+   
 }

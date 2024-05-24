@@ -64,8 +64,9 @@
         <label><strong>Número de identidad: </strong></label>
         <input type="number" name="number_id_user" placeholder="Ingrese Numero de Identidad"><br><br>
 
-        <label><strong>Número de celular: </strong></label>
-        <input type="number" name="phone_user" placeholder="Ingrese Numero de Celular"><br><br>
+        <label><strong>Genero: </strong></label>
+        <select name="genero_user" id="generoSelect">
+        </select><br><br>
 
         <label><strong>Correo Electronico: </strong></label>
         <input type="email" name="email_user" placeholder="Ingrese su Correo Electronico"><br><br>
@@ -173,6 +174,29 @@
 
     loadRoles();
 
+    function loadGenero() {
+        fetch("../routes/genero.php")
+            .then(response => response.json())
+            .then(data => {
+                const generoSelect = document.getElementById('generoSelect')
+                generoSelect.innerHTML = '';
+
+                for (const generoId in data) {
+                    if (data.hasOwnProperty(generoId)) {
+                        const generoName = data[generoId];
+                        const option = document.createElement('option');
+                        option.value = generoName;
+                        option.text = generoId;
+                        generoSelect.appendChild(option);
+                    }
+                }
+                generoSelect.dispatchEvent(new Event('change'));
+            })
+            .catch(error => console.error('Error fetching files', error))
+    }
+
+    loadGenero();
+
     function loadFile() {
         fetch("../routes/consultaFicha.php")
             .then(response => response.json())
@@ -229,7 +253,7 @@
                 for (const areaName in data) {
                     if (data.hasOwnProperty(areaName)) {
                         const areaId = data[areaName];
-                        const option = document.createElement('option')
+                        const option = document.createElement('option');
                         option.value = areaId
                         option.text = areaName;
                         areaSelect.appendChild(option);
@@ -279,14 +303,16 @@
 
                 for (const deptName in data) {
                     if (data.hasOwnProperty(deptName)) {
-                        const deptId = data[deptName].id;
-                        const option = document.createElement('option')
+                        const deptId = data[deptName];
+                        const option = document.createElement('option');
                         option.value = deptId;
                         option.text = deptName;
                         deptSelect.appendChild(option);
                     }
                 }
                 // deptSelect.dispatchEvent(new Event('change'))
+
+                console.log('Departamentos cargados correctamente', data)
             })
             .catch(error => console.error('Error fetching Departament:', error))
     }
@@ -302,18 +328,16 @@
         deptSelect.addEventListener('change', function() {
             const deptId = this.value;
 
-            console.log('valor de deptId', deptId);
-
-            if (deptId !== '') {
-                fetch(`../routes/municipio.php?deptId=${deptId}`)
+            if (deptId != '') {
+                fetch(`../routes/municipio.php?deptId=` + deptId)
                     .then(response => response.json())
                     .then(data => {
                         munSelect.innerHTML = ' ';
 
-                        for (const munName in data) {
-                            if (data.hasOwnProperty(munName)) {
-                                const munId = data[munName].id;
-                                const option = document.createElement('option')
+                        for (const munId in data) {
+                            if (data.hasOwnProperty(munId)) {
+                                const munName = data[munId].municipio;
+                                const option = document.createElement('option');
                                 option.value = munId;
                                 option.text = munName;
                                 munSelect.appendChild(option);

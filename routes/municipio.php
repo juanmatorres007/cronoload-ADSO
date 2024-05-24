@@ -2,9 +2,11 @@
 
 include "../controller/userController.php";
 
-if (isset($_GET["deptId"])) {
+extract($_REQUEST);
 
-  $deptId = $_GET["deptId"];
+if ($_REQUEST["deptId"] > 0) {
+
+  $deptId = $_REQUEST["deptId"];
 
   $userController = new UserController();
   $municipios = $userController->getMunicipioByDeptId($deptId);

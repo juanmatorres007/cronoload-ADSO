@@ -14,17 +14,18 @@ class UserModel
     $this->conn = conectaDb();
   }
 
-  public function registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl)
+  public function registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero)
   {
-    $sql = $this->conn->prepare("INSERT INTO user(name_user, lastname_user, type_id_user, number_id_user, id_know_user, id_formation_lvl_user)
-        VALUES (?,?,?,?,?,?)");
+    $sql = $this->conn->prepare("INSERT INTO user(name_user, lastname_user, type_id_user, number_id_user, id_gen_user, id_know_user, id_formation_lvl_user)
+        VALUES (?,?,?,?,?,?,?)");
 
     $sql->bindParam(1, $name);
     $sql->bindParam(2, $lastname);
     $sql->bindParam(3, $type_id);
     $sql->bindParam(4, $number_id);
-    $sql->bindParam(5, $know);
-    $sql->bindParam(6, $form_lvl);
+    $sql->bindParam(5, $genero);
+    $sql->bindParam(6, $know);
+    $sql->bindParam(7, $form_lvl);
     $sql->execute();
 
     $rta = $sql->rowCount();
@@ -99,6 +100,14 @@ class UserModel
     $registerContact = $sql->rowCount();
     return $registerContact;
   }
+
+  // public function registerGenero($genero){
+  //   $sql = $this->conn->prepare("INSERT INTO user(id_gen_user, phone_con, id_user_con) VALUES (?,?,?)");
+  //   $sql->bindParam(1, $email_user);
+  //   $sql->bindParam(2, $phone_user);
+  //   $sql->bindParam(3, $userInfo);
+  //   $sql->execute();
+  // }
 
   public function getKnowArea(){
 
@@ -205,7 +214,7 @@ class UserModel
     $municipio_query = "SELECT id_municipio, municipio FROM municipios WHERE departamento_id = :deptId";
     $stmt = $this->conn->prepare($municipio_query);
 
-    $stmt->bindParam(':deptId', $deptId, PDO::PARAM_INT);
+    $stmt->bindParam(':deptId', $deptId);
 
     if($stmt->execute()){
       return $stmt->fetchALL(PDO::FETCH_ASSOC);
@@ -213,6 +222,25 @@ class UserModel
       $errorInfo = $stmt->errorInfo();
       return array('error' => 'Error encontrando los municipios' . $errorInfo[2]);
     }
+  }
+
+  public function getGenero(){
+    $genero_query = "SELECT id_genero_auto, name_gen FROM genero";
+    $genero_result = $this->conn->query($genero_query);
+
+    $genero_data = array();
+
+    if ($genero_result) {
+      while ($row = $genero_result->fetch(PDO::FETCH_ASSOC)) {
+        $genero_name = $row["name_gen"];
+        $genero_id = $row["id_genero_auto"];
+        $genero_data[$genero_name] = $genero_id;
+      }
+    }
+
+    $this->conn = null;
+
+    return $genero_data;
   }
 
   public function registerProyect($name, $number, $estado, $var_fecha, $id_area)
