@@ -7,6 +7,8 @@ $name = $_REQUEST['name_user'];
 $lastname = $_REQUEST['lastname_user'];
 $type_id = $_REQUEST['type_id_user'];
 $number_id = $_REQUEST['number_id_user'];
+$phone_user = $_REQUEST['phone_user'];
+$email_user = $_REQUEST['email_user'];
 $know = $_REQUEST['id_know_user'];
 $file = $_REQUEST['file_user'];
 $form_lvl = $_REQUEST['id_formation_lvl_user'];
@@ -24,6 +26,10 @@ $userInfo = $userController->validarRegistro($name, $lastname, $type_id, $number
                     if($registerVinculation > 0) {
                         echo $file;
                         $registerFile = $userController->registerFile($userInfo, $file);
+                        if($registerFile > 0){
+                            echo "Registro exitoso hasta los contactos";
+                            $registerContacts = $userController->registerContact($email_user, $phone_user, $userInfo);
+                        }
                     }
             }
     }

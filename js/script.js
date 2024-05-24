@@ -6,16 +6,16 @@ window.addEventListener("focus", () => {
   document.title = docTitle;
 });
 
-document.getElementById("rolSelect").addEventListener("change", function() {
-  var rol = this.options[this.selectedIndex].text;
-  var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
+// document.getElementById("rolSelect").addEventListener("change", function() {
+//   var rol = this.options[this.selectedIndex].text;
+//   var optionsForInstructorDiv = document.getElementById("optionsForInstructor");
 
-  if (rol === "Instructor" || rol === "Coordinador") {
-      optionsForInstructorDiv.style.display = "block";
-  } else {
-      optionsForInstructorDiv.style.display = "none";
-  }
-});
+//   if (rol === "Instructor" || rol === "Coordinador") {
+//       optionsForInstructorDiv.style.display = "block";
+//   } else {
+//       optionsForInstructorDiv.style.display = "none";
+//   }
+// });
 
 // Función para cargar los roles y mostrar campos según el rol seleccionado
 function loadRolesAndFields() {

@@ -42,6 +42,12 @@ class UserController{
       return $registerContract;
    }
 
+   public function registerContact($email_user, $phone_user, $userInfo){
+      $userModel = new UserModel();
+      $registerContact = $userModel->registerContact($email_user, $phone_user, $userInfo);
+      return $registerContact;
+   }
+
    public function getKnowArea(){
       $userModel = new UserModel();
       $knowArea = $userModel->getKnowArea();
@@ -68,6 +74,13 @@ class UserController{
       $contractType = $userModel->getContractType();
 
       return $contractType;
+    }
+
+    public function getDept(){
+      $userModel = new UserModel();
+      $departament = $userModel->getDept();
+
+      return $departament;
     }
 
    public function registroproyect($idarea){

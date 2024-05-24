@@ -89,6 +89,17 @@ class UserModel
     return $id_contract;
   }
 
+  public function registerContact($email_user, $phone_user, $userInfo){
+    $sql = $this->conn->prepare("INSERT INTO contact(email_con, phone_con, id_user_con) VALUES (?,?,?)");
+    $sql->bindParam(1, $email_user);
+    $sql->bindParam(2, $phone_user);
+    $sql->bindParam(3, $userInfo);
+    $sql->execute();
+
+    $registerContact = $sql->rowCount();
+    return $registerContact;
+  }
+
   public function getKnowArea(){
 
     $knowArea_query = "SELECT id_auto_know, area_name_know FROM knowledge_area";
@@ -150,8 +161,7 @@ class UserModel
     return $lvlForm_data;
   }
 
-  public function getContractType()
-  {
+  public function getContractType(){
 
     $contractType_query = "SELECT id_auto_cont, name_cont FROM contracts";
     $contractType_result = $this->conn->query($contractType_query);
@@ -170,6 +180,46 @@ class UserModel
 
     return $contractType_data;
   }
+
+  public function getDept(){
+
+    $departament_query = "SELECT id_departamento, departamento FROM departamentos";
+    $departament_result = $this->conn->query($departament_query);
+
+    $departament_data = array();
+
+    if($departament_result){
+      while ($row = $departament_result->fetch(PDO::FETCH_ASSOC)){
+        $departament_name = $row["departamento"];
+        $departament_id = $row["id_departamento"];
+
+        $municipios_query = "SELECT id_municipio, municipio FROM municipios WHERE id_departamento = :departament_id";
+        $municipios_stmt = $this->conn->prepare($municipios_query);
+        $municipios_stmt->bindValue(':departament_id', $departament_id, PDO::PARAM_INT);
+        $municipios_stmt->execute();
+        $municipios_data = array();
+        while($municipios_row = $municipios_stmt->fetch(PDO::FETCH_ASSOC)){
+          $municipios_name = $municipios_row['municipio'];
+          $municipios_id = $municipios_row['id_municipio'];
+          $municipios_data[$municipios_name] = $municipios_id;
+        }
+
+        $departament_data[$departament_name] = array(
+          'id' => $departament_id,
+          'municipios' => $municipios_data
+        );
+      }
+    }
+
+    $this->conn = null;
+
+    return $departament_data;
+  }
+
+  // public function getMun(){
+
+  //   $municipios_query = "SELECT "
+  // }
 
   public function registerProyect($name, $number, $estado, $var_fecha, $id_area)
   {
