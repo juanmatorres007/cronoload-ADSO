@@ -210,7 +210,8 @@ class UserModel
     if($stmt->execute()){
       return $stmt->fetchALL(PDO::FETCH_ASSOC);
     }else{
-      return array('error' => 'Error encontrando los municipios');
+      $errorInfo = $stmt->errorInfo();
+      return array('error' => 'Error encontrando los municipios' . $errorInfo[2]);
     }
   }
 

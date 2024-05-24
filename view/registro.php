@@ -272,6 +272,11 @@
                 const deptSelect = document.getElementById('deptSelect');
                 deptSelect.innerHTML = '';
 
+                const emptyOption = document.createElement('option');
+                emptyOption.value = '';
+                emptyOption.text = "Seleccione un Departamento";
+                deptSelect.appendChild(emptyOption);
+
                 for (const deptName in data) {
                     if (data.hasOwnProperty(deptName)) {
                         const deptId = data[deptName].id;
@@ -296,23 +301,30 @@
 
         deptSelect.addEventListener('change', function() {
             const deptId = this.value;
-            fetch(`../routes/municipio.php?deptId=${deptId}`)
-                .then(response => response.json())
-                .then(data => {
-                    munSelect.innerHTML = ' ';
 
-                    for (const munName in data) {
-                        if (data.hasOwnProperty(munName)) {
-                            const munId = data[munName].id;
-                            const option = document.createElement('option')
-                            option.value = munId;
-                            option.text = munName;
-                            munSelect.appendChild(option);
+            console.log('valor de deptId', deptId);
+
+            if (deptId !== '') {
+                fetch(`../routes/municipio.php?deptId=${deptId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        munSelect.innerHTML = ' ';
+
+                        for (const munName in data) {
+                            if (data.hasOwnProperty(munName)) {
+                                const munId = data[munName].id;
+                                const option = document.createElement('option')
+                                option.value = munId;
+                                option.text = munName;
+                                munSelect.appendChild(option);
+                            }
                         }
-                    }
-                    munSelect.dispatchEvent(new Event('change'))
-                })
-                .catch(error => console.error('Error fetching Area Knowledge:', error))
+                        munSelect.dispatchEvent(new Event('change'))
+                    })
+                    .catch(error => console.error('Error fetching Area Knowledge:', error))
+            } else {
+                munSelect.innerHTML = '';
+            }
         });
     }
 
