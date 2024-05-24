@@ -182,44 +182,37 @@ class UserModel
   }
 
   public function getDept(){
-
     $departament_query = "SELECT id_departamento, departamento FROM departamentos";
     $departament_result = $this->conn->query($departament_query);
 
     $departament_data = array();
 
-    if($departament_result){
-      while ($row = $departament_result->fetch(PDO::FETCH_ASSOC)){
+    if ($departament_result) {
+      while ($row = $departament_result->fetch(PDO::FETCH_ASSOC)) {
         $departament_name = $row["departamento"];
         $departament_id = $row["id_departamento"];
-
-        $municipios_query = "SELECT id_municipio, municipio FROM municipios WHERE id_departamento = :departament_id";
-        $municipios_stmt = $this->conn->prepare($municipios_query);
-        $municipios_stmt->bindValue(':departament_id', $departament_id, PDO::PARAM_INT);
-        $municipios_stmt->execute();
-        $municipios_data = array();
-        while($municipios_row = $municipios_stmt->fetch(PDO::FETCH_ASSOC)){
-          $municipios_name = $municipios_row['municipio'];
-          $municipios_id = $municipios_row['id_municipio'];
-          $municipios_data[$municipios_name] = $municipios_id;
-        }
-
-        $departament_data[$departament_name] = array(
-          'id' => $departament_id,
-          'municipios' => $municipios_data
-        );
+        $departament_data[$departament_name] = $departament_id;
       }
     }
 
     $this->conn = null;
 
     return $departament_data;
+
   }
 
-  // public function getMun(){
+  public function getMunicipioByDeptId($deptId){
+    $municipio_query = "SELECT id_municipio, municipio FROM municipios WHERE departamento_id = :deptId";
+    $stmt = $this->conn->prepare($municipio_query);
 
-  //   $municipios_query = "SELECT "
-  // }
+    $stmt->bindParam(':deptId', $deptId, PDO::PARAM_INT);
+
+    if($stmt->execute()){
+      return $stmt->fetchALL(PDO::FETCH_ASSOC);
+    }else{
+      return array('error' => 'Error encontrando los municipios');
+    }
+  }
 
   public function registerProyect($name, $number, $estado, $var_fecha, $id_area)
   {

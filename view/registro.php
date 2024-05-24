@@ -73,9 +73,9 @@
         <label><strong>Número de celular: </strong></label>
         <input type="number" name="phone_user" placeholder="Ingrese Numero de Celular"><br><br>
 
-            <label><strong>Departamento de Recidencia: </strong></label>
-            <select name="id_dept_user" id="DeptSelect">
-            </select>
+        <label><strong>Departamento de Recidencia: </strong></label>
+        <select name="id_dept_user" id="deptSelect">
+        </select>
 
         <div class="form-row">
             <label><strong>Municipio de Recidencia: </strong></label>
@@ -265,66 +265,56 @@
 
     loadLvlForm();
 
-    function loadDeptAndMun(){
-        fetch("../routes/address.php")
-        .then(response => response.json())
-        .then(data => {
-            const deptSelect = document.getElementById('DeptSelect')
-            const munSelect = document.getElementById('munSelect')
+    function loadDept() {
+        fetch('../routes/address.php')
+            .then(response => response.json())
+            .then(data => {
+                const deptSelect = document.getElementById('deptSelect');
+                deptSelect.innerHTML = '';
 
-            deptSelect.innerHTML = "";
-            munSelect.innerHTML = "";
-
-            for(const deptName in data){
-                if(data.hasOwnProperty(deptName)){
-                    const deptInfo = data[deptName];
-                    const deptSelectId = deptInfo.id;
-                    const munList = deptInfo.municipios
-
-                    const deptOption = document.createElement('option');
-                    deptOption.value = deptSelectId;
-                    deptOption.text = deptName;
-                    deptSelect.appendChild(deptOption);
-
-                    for(const munName in munList){
-                        if(munList.hasOwnProperty(munName)){
-                            const munSelectId = munList[munName];
-                            const munOption = document.createElement('option');
-                            munOption.value = munSelectId;
-                            munOption.text = munName;
-                            munSelect.appendChild(munOption);
-                        }
+                for (const deptName in data) {
+                    if (data.hasOwnProperty(deptName)) {
+                        const deptId = data[deptName].id;
+                        const option = document.createElement('option')
+                        option.value = deptId;
+                        option.text = deptName;
+                        deptSelect.appendChild(option);
                     }
                 }
-            }
-            deptSelect.dispatchEvent(new Event('change'))
-            munSelect.dispatchEvent(new Event('change'));
-        })
-        .catch(error => console.error('Error fetching departament:', error));
+                // deptSelect.dispatchEvent(new Event('change'))
+            })
+            .catch(error => console.error('Error fetching Departament:', error))
     }
 
-    loadDeptAndMun();
+    loadDept();
 
-    // function loadMun(){
-    //     fecth("../routes/address.php")
-    //     .then(response => response.json())
-    //     then(data => {
-    //         const munSelect = documento.getElementById('munSelect')
-    //         munSelect.innerHTML = "";
 
-    //         for(const munName in data){
-    //             if(data.hasOwnProperty(munName)){
-    //                 const munSelectId = data[munName];
-    //                 const option = document.createElement('option')
-    //                 option.value = munSelectId;
-    //                 option.text = munName;
-    //                 munSelect.appendChild(option)
-    //             }
-    //         }
-    //         munSelect.dispatchEvent(new Event('change'))
-    //     })
-    //     .catch(erro => console.error('Error fecthing municipio:', error))
-    // }
+    function loadMun() {
 
-    // loadMun();
+        const deptSelect = document.getElementById('deptSelect');
+        const munSelect = document.getElementById('munSelect');
+
+        deptSelect.addEventListener('change', function() {
+            const deptId = this.value;
+            fetch(`../routes/municipio.php?deptId=${deptId}`)
+                .then(response => response.json())
+                .then(data => {
+                    munSelect.innerHTML = ' ';
+
+                    for (const munName in data) {
+                        if (data.hasOwnProperty(munName)) {
+                            const munId = data[munName].id;
+                            const option = document.createElement('option')
+                            option.value = munId;
+                            option.text = munName;
+                            munSelect.appendChild(option);
+                        }
+                    }
+                    munSelect.dispatchEvent(new Event('change'))
+                })
+                .catch(error => console.error('Error fetching Area Knowledge:', error))
+        });
+    }
+
+    loadMun();
 </script>

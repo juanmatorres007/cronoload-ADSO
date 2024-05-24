@@ -83,6 +83,13 @@ class UserController{
       return $departament;
     }
 
+    public function getMunicipioByDeptId($deptId){
+      $userModel = new UserModel();
+      $municipios = $userModel->getMunicipioByDeptId($deptId);
+
+      return $municipios;
+    }
+
    public function registroproyect($idarea){
       include "../view/regProyecto.php";
    }
