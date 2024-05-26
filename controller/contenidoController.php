@@ -24,6 +24,6 @@ class ContenidoController{
         }
 
           public function view6(){
-            include "../view/Calendar.php";
+            include "../cronograma.php";
           }
 }

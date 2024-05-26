@@ -14,17 +14,18 @@ class UserModel
     $this->conn = conectaDb();
   }
 
-  public function registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl)
+  public function registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero)
   {
-    $sql = $this->conn->prepare("INSERT INTO user(name_user, lastname_user, type_id_user, number_id_user, id_know_user, id_formation_lvl_user)
-        VALUES (?,?,?,?,?,?)");
+    $sql = $this->conn->prepare("INSERT INTO user(name_user, lastname_user, type_id_user, number_id_user, id_gen_user, id_know_user, id_formation_lvl_user)
+        VALUES (?,?,?,?,?,?,?)");
 
     $sql->bindParam(1, $name);
     $sql->bindParam(2, $lastname);
     $sql->bindParam(3, $type_id);
     $sql->bindParam(4, $number_id);
-    $sql->bindParam(5, $know);
-    $sql->bindParam(6, $form_lvl);
+    $sql->bindParam(5, $genero);
+    $sql->bindParam(6, $know);
+    $sql->bindParam(7, $form_lvl);
     $sql->execute();
 
     $rta = $sql->rowCount();
@@ -32,21 +33,24 @@ class UserModel
     return $varid;
   }
 
-  public function registerRolUser($rol, $userInfo)
-  {
+  public function registerRolUser($rol, $userInfo){
 
     $sql = $this->conn->prepare("INSERT INTO relation_rol_user(id_rol_relaru, id_user_relaru) VALUES (?,?)");
 
     $sql->bindParam(1, $rol);
     $sql->bindParam(2, $userInfo);
+    $sql->execute();
+    $rolFull = $sql->rowCount();
+    return $rolFull;
   }
 
-  public function registerVinculation($contract_type, $star_date, $end_date, $userInfo)
+  public function registerVinculation($start_date, $end_date, $contract_type, $userInfo)
   {
-    $sql = $this->conn->prepare("INSERT INTO vinculation(start_date_vin, end_date_vin, id_contractType_vin id_user_vin) VALUES(?,?,?,?)");
-    $sql->bindParam(1, $star_date);
+    $sql = $this->conn->prepare("INSERT INTO vinculation(start_date_vin, end_date_vin, id_contractType_vin, id_user_vin) VALUES (?,?,?,?)");
+
+    $sql->bindParam(1, $start_date);
     $sql->bindParam(2, $end_date);
-    $sql->bindParam(3, $userInfo);
+    $sql->bindParam(3, $contract_type);
     $sql->bindParam(4, $userInfo);
     $sql->execute();
     $rta = $sql->rowCount();
@@ -64,12 +68,12 @@ class UserModel
     return $rta;
   }
 
-  public function registerFile($file, $userInfo)
+  public function registerFile($userInfo, $file)
   {
 
-    $sql = $this->conn->prepare("INSERT INTO relarion_user_file(id_user_reluf, id_file_reluf) VALUES (?,?)");
-    $sql->bindParam(1, $file);
-    $sql->bindParam(2, $userInfo);
+    $sql = $this->conn->prepare("INSERT INTO relation_user_file(id_user_reluf, id_file_reluf) VALUES (?,?)");
+    $sql->bindParam(1, $userInfo);
+    $sql->bindParam(2, $file);
     $sql->execute();
     $rta = $sql->rowCount();
 
@@ -85,6 +89,25 @@ class UserModel
     $id_contract = $this->conn->lastInsertId();
     return $id_contract;
   }
+
+  public function registerContact($email_user, $phone_user, $userInfo){
+    $sql = $this->conn->prepare("INSERT INTO contact(email_con, phone_con, id_user_con) VALUES (?,?,?)");
+    $sql->bindParam(1, $email_user);
+    $sql->bindParam(2, $phone_user);
+    $sql->bindParam(3, $userInfo);
+    $sql->execute();
+
+    $registerContact = $sql->rowCount();
+    return $registerContact;
+  }
+
+  // public function registerGenero($genero){
+  //   $sql = $this->conn->prepare("INSERT INTO user(id_gen_user, phone_con, id_user_con) VALUES (?,?,?)");
+  //   $sql->bindParam(1, $email_user);
+  //   $sql->bindParam(2, $phone_user);
+  //   $sql->bindParam(3, $userInfo);
+  //   $sql->execute();
+  // }
 
   public function getKnowArea(){
 
@@ -147,8 +170,7 @@ class UserModel
     return $lvlForm_data;
   }
 
-  public function getContractType()
-  {
+  public function getContractType(){
 
     $contractType_query = "SELECT id_auto_cont, name_cont FROM contracts";
     $contractType_result = $this->conn->query($contractType_query);
@@ -166,6 +188,59 @@ class UserModel
     $this->conn = null;
 
     return $contractType_data;
+  }
+
+  public function getDept(){
+    $departament_query = "SELECT id_departamento, departamento FROM departamentos";
+    $departament_result = $this->conn->query($departament_query);
+
+    $departament_data = array();
+
+    if ($departament_result) {
+      while ($row = $departament_result->fetch(PDO::FETCH_ASSOC)) {
+        $departament_name = $row["departamento"];
+        $departament_id = $row["id_departamento"];
+        $departament_data[$departament_name] = $departament_id;
+      }
+    }
+
+    $this->conn = null;
+
+    return $departament_data;
+
+  }
+
+  public function getMunicipioByDeptId($deptId){
+    $municipio_query = "SELECT id_municipio, municipio FROM municipios WHERE departamento_id = :deptId";
+    $stmt = $this->conn->prepare($municipio_query);
+
+    $stmt->bindParam(':deptId', $deptId);
+
+    if($stmt->execute()){
+      return $stmt->fetchALL(PDO::FETCH_ASSOC);
+    }else{
+      $errorInfo = $stmt->errorInfo();
+      return array('error' => 'Error encontrando los municipios' . $errorInfo[2]);
+    }
+  }
+
+  public function getGenero(){
+    $genero_query = "SELECT id_genero_auto, name_gen FROM genero";
+    $genero_result = $this->conn->query($genero_query);
+
+    $genero_data = array();
+
+    if ($genero_result) {
+      while ($row = $genero_result->fetch(PDO::FETCH_ASSOC)) {
+        $genero_name = $row["name_gen"];
+        $genero_id = $row["id_genero_auto"];
+        $genero_data[$genero_name] = $genero_id;
+      }
+    }
+
+    $this->conn = null;
+
+    return $genero_data;
   }
 
   public function registerProyect($name, $number, $estado, $var_fecha, $id_area)

@@ -23,7 +23,6 @@ if(isset($_GET['dato'])) {
     http_response_code(400);
     echo "Error: Vista desconocida.";
   }
-
 } else {
   // Si no se recibió la variable vista, mostrar la vista por defecto
   $view = new ContenidoController();
