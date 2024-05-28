@@ -39,7 +39,7 @@
 </style>
 
 <div class="registerContent">
-    <form id="registrationForm" action="../routes/user.php" method="POST">
+    <form id="registrationForm" action="../routes/user.php?action=register" method="POST">
         <h2>Formulario de Registro</h2>
 
         <label><strong>Nombre: </strong></label>

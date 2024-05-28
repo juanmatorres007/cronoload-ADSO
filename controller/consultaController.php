@@ -27,4 +27,25 @@ class ConsultaController
     echo $idproyect;
     include "../view/consultarFichas.php";
   }
+
+  public function getUserDocumentType($type_id){
+    $consultaModel = new ConsultaModel();
+    $getUserDocumentType = $consultaModel->getUserDocumentType($type_id);
+
+    return $getUserDocumentType;
+  }
+
+  public function getUserGenero($genero_id){
+    $consultaModel = new ConsultaModel();
+    $getUserGenero = $consultaModel->getUserGenero($genero_id);
+
+    return $getUserGenero;
+  }
+
+  public function getUserPhone($phone_id){
+    $consultaModel = new ConsultaModel();
+    $getUserPhone = $consultaModel->getUserPhone($phone_id);
+
+    return $getUserPhone;
+  }
 }

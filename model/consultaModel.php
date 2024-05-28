@@ -40,4 +40,44 @@ class ConsultaModel{
         return $idproyect;
     }
 
+    public function getUserDocumentType($type_id){
+        $documentType_query = "SELECT t.name_idType FROM type_id t INNER JOIN user u ON t.id_idType_auto = u.type_id_user WHERE u.type_id_user = :type_id";
+        $stmt = $this->conn->prepare($documentType_query);
+        $stmt->bindParam(':type_id', $type_id);
+    
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el tipo de documento: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserGenero($genero_id){
+        $genero_query = "SELECT g.name_gen FROM genero g INNER JOIN user u ON g.id_genero_auto = :genero_id WHERE u.id_gen_user = :genero_id";
+        $stmt = $this->conn->prepare($genero_query);
+        $stmt->bindParam(':genero_id', $genero_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserPhone($phone_id){
+        $phone_query = "SELECT c.phone_con FROM contact c INNER JOIN user u ON g.id_genero_auto = :genero_id WHERE u.id_gen_user = :genero_id";
+        $stmt = $this->conn->prepare($phone_query);
+        $stmt->bindParam(':genero_id', $phone_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+    
+
 }

@@ -273,6 +273,7 @@ class UserModel
     return $typeId_data;
   }
 
+
   public function registerProyect($name, $number, $estado, $var_fecha, $id_area)
   {
     $sql = $this->conn->prepare("INSERT INTO project(name_proj, number_proj, state_proj, register_date_proj, id_knowledge_area_proj)
