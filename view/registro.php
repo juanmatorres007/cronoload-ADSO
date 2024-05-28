@@ -5,7 +5,7 @@
     input[type=email],
     select {
         padding: 8px;
-        width: 240px;
+        width: 255px;
         margin-bottom: 10px;
     }
 
@@ -31,13 +31,6 @@
         margin-top: -115%;
     }
 
-    /* .form-row {
-    }
-
-    .form-row label {
-        margin-right: 10px;
-    } */
-
     @media only screen and (max-width: 600px) {
         .form-columns-2 {
             flex-direction: column;
@@ -56,9 +49,7 @@
         <input type="text" name="lastname_user" placeholder="Ingrese su Apellido"><br><br>
 
         <label><strong>Tipo de documento: </strong></label>
-        <select name="type_id_user">
-            <option value="1">CC</option>
-            <option value="2">TI</option>
+        <select name="type_id_user" id="typeIdSelect">
         </select><br><br>
 
         <label><strong>Número de identidad: </strong></label>
@@ -310,8 +301,6 @@
                         deptSelect.appendChild(option);
                     }
                 }
-                // deptSelect.dispatchEvent(new Event('change'))
-
                 console.log('Departamentos cargados correctamente', data)
             })
             .catch(error => console.error('Error fetching Departament:', error))
@@ -353,4 +342,27 @@
     }
 
     loadMun();
+
+    function loadTypeId() {
+        fetch('../routes/typeId.php')
+            .then(response => response.json())
+            .then(data => {
+                const typeIdSelect = document.getElementById('typeIdSelect');                
+                typeIdSelect.innerHTML = "";
+
+                for (const typeIdName in data){
+                    const typeId = data[typeIdName];
+                    const option = document.createElement('option');
+                    option.value = typeId;
+                    option.text = typeIdName;
+                    typeIdSelect.appendChild(option);
+                }
+                typeIdSelect.dispatchEvent(new Event('change'))
+            })
+            .catch(error => console.error('Error fetching Ident type', error))
+
+    }
+
+    loadTypeId();
+
 </script>

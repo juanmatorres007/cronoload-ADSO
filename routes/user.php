@@ -28,9 +28,12 @@ $userInfo = $userController->validarRegistro($name, $lastname, $type_id, $number
                         $registerFile = $userController->registerFile($userInfo, $file);
                         if($registerFile > 0){
                             $registerContacts = $userController->registerContact($email_user, $phone_user, $userInfo);
-                            // if($registerContacts > 0){
-                            //     $registerGenero = $userController->registerGenero($genero);
-                            // }
+                            if($registerContacts > 0){
+                                $registerAccess = $userController->registerAccess($number_id, $userInfo);
+                                if($registerAccess > 0){
+                                    echo "Registro finalizado hasta el acceso";
+                                }
+                            }
                         }
                     }
             }

@@ -48,6 +48,13 @@ class UserController{
       return $registerContact;
    }
 
+   public function registerAccess($number_id, $userInfo){
+      $userModel = new UserModel();
+      $registerAccess = $userModel->registerAccess($number_id, $userInfo);
+
+      return $registerAccess;
+   }
+
    // public function registerGenero($genero){
    //    $userModel = new UserModel();
    //    $registerGenero = $userModel->registerGenero($genero);
@@ -102,6 +109,13 @@ class UserController{
       return $genero;
     }
 
+    public function getTypeId(){
+
+      $userModel = new UserModel();
+      $typeId = $userModel->getTypeId();
+
+      return $typeId;
+    }
 
    public function registroproyect($idarea){
       include "../view/regProyecto.php";

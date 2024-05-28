@@ -101,6 +101,17 @@ class UserModel
     return $registerContact;
   }
 
+  public function registerAccess($number_id, $userInfo){
+    $sql = $this->conn->prepare("INSERT INTO acceso(account_acc, password_acc, id_user_acc) VALUES (?,?,?)");
+    $sql->bindParam(1, $number_id);
+    $sql->bindParam(2, $number_id);
+    $sql->bindParam(3, $userInfo);
+    $sql->execute();
+
+    $registerAccess = $sql->rowCount();
+    return $registerAccess;
+  }
+
   // public function registerGenero($genero){
   //   $sql = $this->conn->prepare("INSERT INTO user(id_gen_user, phone_con, id_user_con) VALUES (?,?,?)");
   //   $sql->bindParam(1, $email_user);
@@ -241,6 +252,25 @@ class UserModel
     $this->conn = null;
 
     return $genero_data;
+  }
+
+  public function getTypeId(){
+    $typeId_query = "SELECT id_idType_auto, name_idType FROM type_id";
+    $typeId_result = $this->conn->query($typeId_query);
+
+    $typeId_data = array();
+
+    if ($typeId_result) {
+      while ($row = $typeId_result->fetch(PDO::FETCH_ASSOC)) {
+        $typeId_name = $row["name_idType"];
+        $typeId_id = $row["id_idType_auto"];
+        $typeId_data[$typeId_name] = $typeId_id;
+      }
+    }
+
+    $this->conn = null;
+
+    return $typeId_data;
   }
 
   public function registerProyect($name, $number, $estado, $var_fecha, $id_area)
