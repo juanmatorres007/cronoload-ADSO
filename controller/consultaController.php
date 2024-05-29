@@ -48,4 +48,18 @@ class ConsultaController
 
     return $getUserPhone;
   }
+
+  public function getUserEmail($email_id){
+    $consultaModel = new ConsultaModel();
+    $getUserEmail = $consultaModel->getUserEmail($email_id);
+
+    return $getUserEmail;
+  }
+
+  public function getUserFicha($ficha_id){
+    $consultaModel = new ConsultaModel();
+    $getUserFicha = $consultaModel->getUserFicha($ficha_id);
+
+    return $getUserFicha;
+  }
 }

@@ -42,8 +42,7 @@ if ($action === 'register') {
             }
         }
     }
+}elseif($action === 'update'){
+    $sessionDocument = $userController->getUserDocumentType($type_id);
 }
-// elseif($action === 'update'){
-//     $sessionDocument = $userController->getUserDocumentType($type_id);
-// }
 

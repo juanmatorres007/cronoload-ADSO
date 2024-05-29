@@ -67,9 +67,9 @@ class ConsultaModel{
     }
 
     public function getUserPhone($phone_id){
-        $phone_query = "SELECT c.phone_con FROM contact c INNER JOIN user u ON g.id_genero_auto = :genero_id WHERE u.id_gen_user = :genero_id";
+        $phone_query = "SELECT c.phone_con FROM contact c INNER JOIN user u ON c.id_user_con = u.id_auto_user WHERE u.id_auto_user = :phone_id";
         $stmt = $this->conn->prepare($phone_query);
-        $stmt->bindParam(':genero_id', $phone_id);
+        $stmt->bindParam(':phone_id', $phone_id);
         
         if($stmt->execute()){
             return $stmt->fetchColumn();
@@ -78,6 +78,31 @@ class ConsultaModel{
             return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
         }
     }
-    
+
+    public function getUserEmail($email_id){
+        $email_query = "SELECT c.email_con FROM contact c INNER JOIN user u ON c.id_user_con = u.id_auto_user WHERE u.id_auto_user = :email_id";
+        $stmt = $this->conn->prepare($email_query);
+        $stmt->bindParam(':email_id', $email_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserFicha($ficha_id){
+        $ficha_query = "SELECT number_file FROM ficha, relation_user_file WHERE id_user_reluf  = :ficha_id AND id_auto_fil = id_file_reluf";
+        $stmt = $this->conn->prepare($ficha_query);
+        $stmt->bindParam(':ficha_id', $ficha_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
 
 }
