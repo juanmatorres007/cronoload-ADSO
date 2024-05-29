@@ -6,9 +6,9 @@ include_once "../model/rolModel.php";
 
 class UserController{
 
-   public function validarRegistro($name, $lastname, $type_id, $number_id, $know, $form_lvl){
+   public function validarRegistro($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero){
       $userModel = new UserModel();
-      $userReg = $userModel->registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl);
+      $userReg = $userModel->registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero);
       return $userReg;
    }
 
@@ -18,9 +18,9 @@ class UserController{
       return $rolReg;
    }
 
-   public function registerVinculation($contract_type, $star_date, $end_date, $userInfo){
-      $regisvcl = new UserModel();
-      $rta =  $regisvcl->registerVinculation($contract_type, $star_date, $end_date, $userInfo);
+   public function registerVinculation($start_date, $end_date, $contract_type, $userInfo){
+      $regisVinculation = new UserModel();
+      $rta =  $regisVinculation->registerVinculation($start_date, $end_date, $contract_type, $userInfo);
       return $rta;
    }
 
@@ -30,9 +30,9 @@ class UserController{
       return $regisArea;
    }
 
-   public function registerFile($file, $userInfo){
+   public function registerFile($userInfo, $file){
       $userModel = new UserModel();
-      $registerFile = $userModel->registerFile($file, $userInfo);
+      $registerFile = $userModel->registerFile($userInfo, $file);
       return $registerFile;
    }
 
@@ -41,6 +41,25 @@ class UserController{
       $registerContract = $userModel->registerContract($contract_name);
       return $registerContract;
    }
+
+   public function registerContact($email_user, $phone_user, $userInfo){
+      $userModel = new UserModel();
+      $registerContact = $userModel->registerContact($email_user, $phone_user, $userInfo);
+      return $registerContact;
+   }
+
+   public function registerAccess($number_id, $userInfo){
+      $userModel = new UserModel();
+      $registerAccess = $userModel->registerAccess($number_id, $userInfo);
+
+      return $registerAccess;
+   }
+
+   // public function registerGenero($genero){
+   //    $userModel = new UserModel();
+   //    $registerGenero = $userModel->registerGenero($genero);
+   //    return $registerGenero;
+   // }
 
    public function getKnowArea(){
       $userModel = new UserModel();
@@ -70,6 +89,34 @@ class UserController{
       return $contractType;
     }
 
+    public function getDept(){
+      $userModel = new UserModel();
+      $departament = $userModel->getDept();
+
+      return $departament;
+    }
+
+    public function getMunicipioByDeptId($deptId){
+      $userModel = new UserModel();
+      $municipio = $userModel->getMunicipioByDeptId($deptId);
+
+      return $municipio;
+    }
+
+    public function getGenero(){
+      $userModel = new UserModel(); 
+      $genero = $userModel->getGenero();
+      return $genero;
+    }
+
+    public function getTypeId(){
+
+      $userModel = new UserModel();
+      $typeId = $userModel->getTypeId();
+
+      return $typeId;
+    }
+
    public function registroproyect($idarea){
       include "../view/regProyecto.php";
    }
@@ -83,4 +130,6 @@ class UserController{
    public function registroFicha($idproyect){
       include "../view/reg_ficha.php";
    }
+
+   
 }
