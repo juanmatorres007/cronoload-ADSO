@@ -45,6 +45,12 @@
       <label for=""><strong>DEPARTAMENTO: </strong></label>
       <input type="" name="departamento_id" id="departamento" placeholder=""><br><br>
 
+      <label for=""><strong>MUNICIPIO: </strong></label>
+      <input type="" name="municipio_id" id="municipio" placeholder=""><br><br>
+
+      <label for=""><strong>DIRECCIÓN: </strong></label>
+      <input type="" name="direccion_id" id="direccion" placeholder=""><br><br>
+
       <label for=""><strong>FICHA: </strong></label>
       <input type="number" name="ficha_id" id="ficha" placeholder=""><br><br>
 
@@ -132,6 +138,32 @@
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("departamento").setAttribute("placeholder", xhr.responseText);
+      }
+    };
+    xhr.send();
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var id_auto_mun = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "getData.php?municipio_id=" + id_auto_mun, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        document.getElementById("municipio").setAttribute("placeholder", xhr.responseText);
+      }
+    };
+    xhr.send();
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var id_auto_dir = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "getData.php?direccion_id=" + id_auto_dir, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        document.getElementById("direccion").setAttribute("placeholder", xhr.responseText);
       }
     };
     xhr.send();

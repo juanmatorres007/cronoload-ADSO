@@ -54,9 +54,9 @@ class UserController{
 
       return $registerAccess;
    }
-   public function registerAddress($address){
+   public function registerAddress($departament, $city, $address, $userInfo){
       $userModel = new UserModel();
-      $registerAddress = $userModel->registerAddress($address);
+      $registerAddress = $userModel->registerAddress($departament, $city, $address, $userInfo);
 
       return $registerAddress;
     }
@@ -136,6 +136,5 @@ class UserController{
    public function registroFicha($idproyect){
       include "../view/reg_ficha.php";
    }
-
    
 }

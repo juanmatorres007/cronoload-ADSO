@@ -43,6 +43,18 @@ if (isset($_GET['type_id'])) {
     $getUserDepartamento = $consultaController->getUserDepartamento($departamento_id);
 
     echo $getUserDepartamento;
-}else {
+}elseif(isset($_GET['municipio_id'])){
+    $municipio_id = $_GET['municipio_id'];
+
+    $getUserMunicipio = $consultaController->getUserMunicipio($municipio_id);
+
+    echo $getUserMunicipio;
+}elseif(isset($_GET['direccion_id'])) {
+    $direccion_id = $_GET['direccion_id'];
+
+    $getUserDireccion = $consultaController->getUserDireccion($direccion_id);
+
+    echo $getUserDireccion;
+}else{
     echo "Error: No se proporcionó el ID del tipo de documento.";
 }

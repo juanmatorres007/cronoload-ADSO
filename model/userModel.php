@@ -112,12 +112,17 @@ class UserModel
     return $registerAccess;
   }
 
-  public function registerAddress($address){
-    $sql = $this->conn->prepare("INSERT INTO address_u(department_add, municipality_add, address_add, id_user_add)");
-    $sql->bimParam(1,);
-    $sql->bimParam(2,);
-    $sql->bimParam(3,);
-    $sql->bimParam(4,);
+  public function registerAddress($departament, $city, $address, $userInfo){
+    $sql = $this->conn->prepare("INSERT INTO address_u(department_add , municipality_add, address_add, id_user_add) VALUES (?,?,?,?)");
+    $sql->bindParam(1, $departament);
+    $sql->bindParam(2, $city);
+    $sql->bindParam(3, $address);
+    $sql->bindParam(4, $userInfo);
+    
+    $sql->execute();
+
+    $registerAddress = $sql->rowCount();
+    return $registerAddress;
   }
 
   // public function registerGenero($genero){
