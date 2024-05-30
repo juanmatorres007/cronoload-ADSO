@@ -62,4 +62,12 @@ class ConsultaController
 
     return $getUserFicha;
   }
+
+  public function getUserDepartamento($departamento_id){
+    $consultaModel = new ConsultaModel();
+    $getUserDepartamento = $consultaModel->getUserDepartamento($departamento_id);
+
+    return $getUserDepartamento;
+  }
+
 }

@@ -54,6 +54,12 @@ class UserController{
 
       return $registerAccess;
    }
+   public function registerAddress($address){
+      $userModel = new UserModel();
+      $registerAddress = $userModel->registerAddress($address);
+
+      return $registerAddress;
+    }
 
    // public function registerGenero($genero){
    //    $userModel = new UserModel();

@@ -105,4 +105,17 @@ class ConsultaModel{
         }
     }
 
+    public function getUserDepartamento($departamento_id){
+        $departamento_query = "SELECT number_file FROM ficha, relation_user_file WHERE id_user_reluf  = :ficha_id AND id_auto_fil = id_file_reluf";
+        $stmt = $this->conn->prepare($departamento_query);
+        $stmt->bindParam(':departamento_id', $departamento_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
 }

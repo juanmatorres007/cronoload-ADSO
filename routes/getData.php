@@ -37,6 +37,12 @@ if (isset($_GET['type_id'])) {
     $getUserFicha = $consultaController->getUserFicha($ficha_id);
 
     echo $getUserFicha;
+}elseif(isset($_GET['departamento_id'])){
+    $departamento_id = $_GET['departamento_id'];
+
+    $getUserDepartamento = $consultaController->getUserDepartamento($departamento_id);
+
+    echo $getUserDepartamento;
 }else {
     echo "Error: No se proporcionó el ID del tipo de documento.";
 }

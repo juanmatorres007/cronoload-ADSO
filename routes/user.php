@@ -19,6 +19,7 @@ $start_date = $_REQUEST['FI'];
 $end_date = $_REQUEST['FF'];
 $rol = $_REQUEST['rol'];
 $genero = $_REQUEST['genero_user'];
+$address = $_REQUEST['address_user'];
 
 $userController = new UserController();
 
@@ -34,7 +35,9 @@ if ($action === 'register') {
                     $registerContacts = $userController->registerContact($email_user, $phone_user, $userInfo);
                     if ($registerContacts > 0) {
                         $registerAccess = $userController->registerAccess($number_id, $userInfo);
-                        if ($registerAccess > 0) {
+                        if($registerAccess > 0) {
+                            $registerAddress = $userController->registerAddress($address);
+                        }if ($registerAddress > 0){
                             echo "Registro finalizado hasta el acceso";
                         }
                     }
@@ -42,7 +45,10 @@ if ($action === 'register') {
             }
         }
     }
-}elseif($action === 'update'){
-    $sessionDocument = $userController->getUserDocumentType($type_id);
 }
+
+
+// elseif($action === 'update'){
+//     $sessionDocument = $userController->getUserDocumentType($type_id);
+// }
 

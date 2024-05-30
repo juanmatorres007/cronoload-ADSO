@@ -67,13 +67,16 @@
 
         <label><strong>Departamento de Recidencia: </strong></label>
         <select name="id_dept_user" id="deptSelect">
-        </select>
+        </select><br>
 
         <div class="form-row">
             <label><strong>Municipio de Recidencia: </strong></label>
             <select name="id_mun_user" id="munSelect">
             </select>
-        </div>
+        </div><br>
+
+        <label><strong>Dirección: </strong></label>
+        <input type="text" name="address_user" placeholder="Ingrese su dirección"><br><br>
 
         <label><strong>Rol: </strong></label>
         <select name="rol" id="rolSelect">
