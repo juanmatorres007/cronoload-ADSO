@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2024 a las 02:31:57
+-- Tiempo de generación: 30-05-2024 a las 02:44:10
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -39,9 +39,14 @@ CREATE TABLE `acceso` (
 --
 
 INSERT INTO `acceso` (`id_auto_acc`, `account_acc`, `password_acc`, `id_user_acc`) VALUES
-(4, 1138524258, '123', 3),
 (7, 1004260145, '321', 4),
-(9, 1004473715, '123', 17);
+(9, 1004473715, '123', 17),
+(12, 8293478392, 'husudhui', 56),
+(13, 238479, '238479', 57),
+(14, 15, '15', 58),
+(15, 14, '14', 59),
+(16, 1138524258, '1138524258', 53),
+(17, 1007110249, '1007110249', 60);
 
 -- --------------------------------------------------------
 
@@ -60,10 +65,10 @@ CREATE TABLE `activity` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `address`
+-- Estructura de tabla para la tabla `address_u`
 --
 
-CREATE TABLE `address` (
+CREATE TABLE `address_u` (
   `id_auto_add` int(11) NOT NULL,
   `department_add` int(11) NOT NULL,
   `municipality_add` int(11) NOT NULL,
@@ -95,7 +100,7 @@ CREATE TABLE `competition` (
 CREATE TABLE `contact` (
   `id_auto_con` int(11) NOT NULL,
   `email_con` varchar(60) NOT NULL,
-  `phone_con` int(11) NOT NULL,
+  `phone_con` bigint(12) NOT NULL,
   `id_user_con` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -104,7 +109,16 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id_auto_con`, `email_con`, `phone_con`, `id_user_con`) VALUES
-(1, 'kldjlfkl@gmail.com', 82847983, 49);
+(1, 'kldjlfkl@gmail.com', 82847983, 49),
+(2, 'samuel_loco@gmail.com', 2147483647, 51),
+(3, 'samesteban2005@gmail.com', 3003670090, 53),
+(4, 'dfsfg@df', 23434324, 54),
+(5, 'dhnsaj@udhi', 40723987, 55),
+(6, 'jsnkldks@jdjuj', 482937498, 56),
+(7, '3hdiuhk@dhuih', 2147483647, 57),
+(8, 'hdh@djnsi', 564544, 58),
+(9, 'dsjhjdn@dj', 38924798, 59),
+(10, 'torrescsmschojuan@gmail.com', 3183969954, 60);
 
 -- --------------------------------------------------------
 
@@ -226,6 +240,26 @@ CREATE TABLE `formation_lvl` (
 INSERT INTO `formation_lvl` (`id_auto_flvl`, `name_flvl`) VALUES
 (1, 'Software'),
 (3, 'Tecnologo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `genero`
+--
+
+CREATE TABLE `genero` (
+  `id_genero_auto` int(11) NOT NULL,
+  `name_gen` varchar(50) NOT NULL,
+  `estate_gen` tinyint(4) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `genero`
+--
+
+INSERT INTO `genero` (`id_genero_auto`, `name_gen`, `estate_gen`) VALUES
+(1, 'MASCULINO', 1),
+(2, 'FEMENINO', 1);
 
 -- --------------------------------------------------------
 
@@ -1513,7 +1547,16 @@ INSERT INTO `relation_rol_user` (`id_auto_relaru`, `id_rol_relaru`, `id_user_rel
 (7, 7, 46),
 (8, 7, 47),
 (9, 7, 48),
-(10, 7, 49);
+(10, 7, 49),
+(11, 1, 51),
+(12, 1, 53),
+(13, 1, 54),
+(14, 1, 55),
+(15, 1, 56),
+(16, 4, 57),
+(17, 1, 58),
+(18, 1, 59),
+(19, 1, 60);
 
 -- --------------------------------------------------------
 
@@ -1533,7 +1576,16 @@ CREATE TABLE `relation_user_file` (
 
 INSERT INTO `relation_user_file` (`id_auto_reluf`, `id_user_reluf`, `id_file_reluf`) VALUES
 (2, 48, 1),
-(3, 49, 1);
+(3, 49, 1),
+(4, 51, 1),
+(5, 53, 1),
+(6, 54, 1),
+(7, 55, 1),
+(8, 56, 1),
+(9, 57, 1),
+(10, 58, 1),
+(11, 59, 1),
+(12, 60, 1);
 
 -- --------------------------------------------------------
 
@@ -1589,6 +1641,27 @@ CREATE TABLE `time_tracking` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `type_id`
+--
+
+CREATE TABLE `type_id` (
+  `id_idType_auto` int(11) NOT NULL,
+  `name_idType` varchar(30) NOT NULL,
+  `state_idType` tinyint(4) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `type_id`
+--
+
+INSERT INTO `type_id` (`id_idType_auto`, `name_idType`, `state_idType`) VALUES
+(1, 'C.C', 1),
+(2, 'T.I', 1),
+(3, 'C.E', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `user`
 --
 
@@ -1596,8 +1669,9 @@ CREATE TABLE `user` (
   `id_auto_user` int(11) NOT NULL,
   `name_user` varchar(40) NOT NULL,
   `lastname_user` varchar(40) NOT NULL,
-  `type_id_user` tinyint(1) NOT NULL DEFAULT 1,
+  `type_id_user` int(11) NOT NULL,
   `number_id_user` int(11) NOT NULL,
+  `id_gen_user` int(11) DEFAULT NULL,
   `state_user` tinyint(1) DEFAULT 1,
   `id_type_contract_user` int(11) DEFAULT NULL,
   `id_know_user` int(11) DEFAULT NULL,
@@ -1608,41 +1682,15 @@ CREATE TABLE `user` (
 -- Volcado de datos para la tabla `user`
 --
 
-INSERT INTO `user` (`id_auto_user`, `name_user`, `lastname_user`, `type_id_user`, `number_id_user`, `state_user`, `id_type_contract_user`, `id_know_user`, `id_formation_lvl_user`) VALUES
-(3, 'Samuel Esteban', 'Salazar Trejos', 1, 1138524258, 1, NULL, NULL, NULL),
-(4, 'juan', 'pablo', 1, 1004260145, 1, NULL, NULL, NULL),
-(11, 'FDSFS', 'GFDG', 1, 3435346, 1, NULL, NULL, NULL),
-(12, 'FDDSFG', 'GDFG', 1, 35345, 1, NULL, NULL, NULL),
-(13, 'FDDSFG', 'GDFG', 1, 35345, 1, NULL, NULL, NULL),
-(14, 'fdg', 'fhfgh', 1, 43654, 1, NULL, 1, NULL),
-(17, 'Brayan ', 'Perdomo', 1, 1004473715, 1, NULL, NULL, NULL),
-(18, 'dafssd', 'fsdf', 1, 214235435, 1, NULL, NULL, NULL),
-(24, 'oidsfk', 'foeuf,', 1, 43540, 1, NULL, 1, NULL),
-(25, 'Juan Manuel', 'afef', 1, 345345356, 1, NULL, 1, 1),
-(26, 'joisadj', 'dawf', 1, 342534, 1, NULL, 1, 1),
-(27, 'prueba', 'sfdgrg', 1, 54654, 1, NULL, 1, 1),
-(28, 'Juan Manuel', 'bjdfsnfjk', 1, 41564556, 1, NULL, 1, 1),
-(29, 'prubea', 'wdija', 1, 465456, 1, NULL, 1, 1),
-(30, 'prfionao', 'kdfjoiwq', 1, 15315, 1, NULL, 1, 1),
-(31, 'Samuel Esteban', 'Salazar Trejos', 1, 515648423, 1, NULL, 1, 1),
-(32, 'Samuel Esteban', 'Salazar Trejos', 2, 2147483647, 1, NULL, 1, 1),
-(33, 'Samuel Esteban', 'Salazar Trejos', 2, 2147483647, 1, NULL, 1, 1),
-(34, 'Samuel Esteban', 'Salazar Trejos', 2, 2147483647, 1, NULL, 1, 1),
-(35, 'faf', 'efsfs', 1, 4354356, 1, NULL, 1, 1),
-(36, 'dsaf', 'dsfsf', 1, 34235345, 1, NULL, 2, 3),
-(37, 'adsf', 'sdfsd', 1, 432545, 1, NULL, 2, 3),
-(38, 'fset', 'rtgrdg', 1, 42354345, 1, NULL, 1, 1),
-(39, 'sdfsdfg', 'dgdfg', 1, 3534654, 1, NULL, 2, 3),
-(40, 'safsdf', 'sdgdf', 1, 354354, 1, NULL, 1, 3),
-(41, 'fdsg', 'dfgrtg', 1, 545636, 1, NULL, 2, 3),
-(42, 'aefweger', 'rgergtr', 1, 345346, 1, NULL, 1, 3),
-(43, 'juan', 'aygfydih', 2, 35345346, 1, NULL, 2, 3),
-(44, 'lucas', 'dasdfwfr', 1, 353546, 1, NULL, 2, 1),
-(45, 'sdafd', 'fgdg', 2, 524536, 1, NULL, 2, 3),
-(46, 'fdsfigyes', 'iudsgahiu', 1, 34972846, 1, NULL, 2, 3),
-(47, 'iuagsfuy', 'ihifhiuh', 1, 45454, 1, NULL, 2, 3),
-(48, 'udfiuhuid', 'ijdfosjoifj', 1, 56544564, 1, NULL, 2, 3),
-(49, 'jifjaojfp', 'jfoshuhfuioe', 1, 42908329, 1, NULL, 2, 3);
+INSERT INTO `user` (`id_auto_user`, `name_user`, `lastname_user`, `type_id_user`, `number_id_user`, `id_gen_user`, `state_user`, `id_type_contract_user`, `id_know_user`, `id_formation_lvl_user`) VALUES
+(53, 'Samuel Esteban', 'Salazar Trejos', 1, 1138524258, 1, 1, NULL, 1, 1),
+(54, 'dsafd', 'fsdf', 1, 23432452, 1, 1, NULL, 1, 1),
+(55, 'igsafuyh', 'iudshuih', 1, 4289789, 1, 1, NULL, 1, 1),
+(56, 'husudhui', 'ujhduihuih', 1, 2147483647, 1, 1, NULL, 1, 1),
+(57, 'hijdoisaj', 'hdiushui', 1, 238479, 1, 1, NULL, 2, 3),
+(58, 'nfhidi', 'hfiuhui', 1, 15, 1, 1, NULL, 1, 1),
+(59, 'dwsrfrnjn', 'dhuishi', 1, 14, 1, 1, NULL, 1, 1),
+(60, 'Juan Manuel', 'Torres Camacho', 1, 1007110249, 1, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1667,7 +1715,16 @@ INSERT INTO `vinculation` (`id_auto_vin`, `start_date_vin`, `end_date_vin`, `id_
 (10, '4562-05-23', '5542-06-05', 1, 46),
 (11, '1124-12-02', '4554-05-20', 1, 47),
 (12, '5452-12-05', '0000-00-00', 1, 48),
-(13, '0000-00-00', '4455-06-04', 1, 49);
+(13, '0000-00-00', '4455-06-04', 1, 49),
+(14, '0000-00-00', '0000-00-00', 1, 51),
+(15, '0000-00-00', '0000-00-00', 1, 53),
+(16, '0000-00-00', '0000-00-00', 1, 54),
+(17, '0000-00-00', '0000-00-00', 1, 55),
+(18, '0000-00-00', '0000-00-00', 1, 56),
+(19, '2024-05-15', '2024-05-29', 1, 57),
+(20, '0000-00-00', '0000-00-00', 1, 58),
+(21, '0000-00-00', '0000-00-00', 1, 59),
+(22, '0000-00-00', '0000-00-00', 1, 60);
 
 --
 -- Índices para tablas volcadas
@@ -1688,9 +1745,9 @@ ALTER TABLE `activity`
   ADD KEY `id_auto_pha_acti` (`id_pha_acti`);
 
 --
--- Indices de la tabla `address`
+-- Indices de la tabla `address_u`
 --
-ALTER TABLE `address`
+ALTER TABLE `address_u`
   ADD PRIMARY KEY (`id_auto_add`),
   ADD KEY `id_user_add` (`id_user_add`),
   ADD KEY `department_add` (`department_add`),
@@ -1741,6 +1798,12 @@ ALTER TABLE `ficha`
 --
 ALTER TABLE `formation_lvl`
   ADD PRIMARY KEY (`id_auto_flvl`);
+
+--
+-- Indices de la tabla `genero`
+--
+ALTER TABLE `genero`
+  ADD PRIMARY KEY (`id_genero_auto`);
 
 --
 -- Indices de la tabla `img`
@@ -1828,13 +1891,21 @@ ALTER TABLE `time_tracking`
   ADD KEY `id_user_time` (`id_user_time`);
 
 --
+-- Indices de la tabla `type_id`
+--
+ALTER TABLE `type_id`
+  ADD PRIMARY KEY (`id_idType_auto`);
+
+--
 -- Indices de la tabla `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_auto_user`),
   ADD KEY `id_know_user` (`id_know_user`),
   ADD KEY `id_formation_lvl_user` (`id_formation_lvl_user`),
-  ADD KEY `Type_contract_user` (`id_type_contract_user`);
+  ADD KEY `Type_contract_user` (`id_type_contract_user`),
+  ADD KEY `id_gen_user` (`id_gen_user`),
+  ADD KEY `type_id_user` (`type_id_user`);
 
 --
 -- Indices de la tabla `vinculation`
@@ -1852,7 +1923,7 @@ ALTER TABLE `vinculation`
 -- AUTO_INCREMENT de la tabla `acceso`
 --
 ALTER TABLE `acceso`
-  MODIFY `id_auto_acc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_auto_acc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `activity`
@@ -1861,9 +1932,9 @@ ALTER TABLE `activity`
   MODIFY `id_auto_acti` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `address`
+-- AUTO_INCREMENT de la tabla `address_u`
 --
-ALTER TABLE `address`
+ALTER TABLE `address_u`
   MODIFY `id_auto_add` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -1876,7 +1947,7 @@ ALTER TABLE `competition`
 -- AUTO_INCREMENT de la tabla `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id_auto_con` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_auto_con` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `contracts`
@@ -1907,6 +1978,12 @@ ALTER TABLE `ficha`
 --
 ALTER TABLE `formation_lvl`
   MODIFY `id_auto_flvl` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `genero`
+--
+ALTER TABLE `genero`
+  MODIFY `id_genero_auto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `img`
@@ -1954,13 +2031,13 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT de la tabla `relation_rol_user`
 --
 ALTER TABLE `relation_rol_user`
-  MODIFY `id_auto_relaru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_auto_relaru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `relation_user_file`
 --
 ALTER TABLE `relation_user_file`
-  MODIFY `id_auto_reluf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_auto_reluf` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `result`
@@ -1981,16 +2058,22 @@ ALTER TABLE `time_tracking`
   MODIFY `id_auto_time` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `type_id`
+--
+ALTER TABLE `type_id`
+  MODIFY `id_idType_auto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_auto_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id_auto_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT de la tabla `vinculation`
 --
 ALTER TABLE `vinculation`
-  MODIFY `id_auto_vin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_auto_vin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Restricciones para tablas volcadas
@@ -2009,12 +2092,12 @@ ALTER TABLE `activity`
   ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_pha_acti`) REFERENCES `phase` (`id_auto_pha`);
 
 --
--- Filtros para la tabla `address`
+-- Filtros para la tabla `address_u`
 --
-ALTER TABLE `address`
-  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`id_user_add`) REFERENCES `user` (`id_auto_user`),
-  ADD CONSTRAINT `address_ibfk_2` FOREIGN KEY (`municipality_add`) REFERENCES `municipios` (`id_municipio`),
-  ADD CONSTRAINT `address_ibfk_3` FOREIGN KEY (`department_add`) REFERENCES `departamentos` (`id_departamento`);
+ALTER TABLE `address_u`
+  ADD CONSTRAINT `address_u_ibfk_1` FOREIGN KEY (`id_user_add`) REFERENCES `user` (`id_auto_user`),
+  ADD CONSTRAINT `address_u_ibfk_2` FOREIGN KEY (`municipality_add`) REFERENCES `municipios` (`id_municipio`),
+  ADD CONSTRAINT `address_u_ibfk_3` FOREIGN KEY (`department_add`) REFERENCES `departamentos` (`id_departamento`);
 
 --
 -- Filtros para la tabla `competition`
@@ -2102,7 +2185,9 @@ ALTER TABLE `time_tracking`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_know_user`) REFERENCES `knowledge_area` (`id_auto_know`),
-  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_formation_lvl_user`) REFERENCES `formation_lvl` (`id_auto_flvl`);
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`id_formation_lvl_user`) REFERENCES `formation_lvl` (`id_auto_flvl`),
+  ADD CONSTRAINT `user_ibfk_3` FOREIGN KEY (`id_gen_user`) REFERENCES `genero` (`id_genero_auto`),
+  ADD CONSTRAINT `user_ibfk_4` FOREIGN KEY (`type_id_user`) REFERENCES `type_id` (`id_idType_auto`);
 
 --
 -- Filtros para la tabla `vinculation`

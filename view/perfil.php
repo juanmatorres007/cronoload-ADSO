@@ -41,6 +41,9 @@
 
       <label for=""><strong>CORREO ELECTRONICO: </strong></label>
       <input type="email" name="email_id" id="email" placeholder=""><br><br>
+      
+      <label for=""><strong>DEPARTAMENTO: </strong></label>
+      <input type="" name="departamento_id" id="departamento" placeholder=""><br><br>
 
       <label for=""><strong>FICHA: </strong></label>
       <input type="number" name="ficha_id" id="ficha" placeholder=""><br><br>
@@ -120,4 +123,18 @@
     };
     xhr.send();
   });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var id_auto_dept = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "getData.php?departamento_id=" + id_auto_dept, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        document.getElementById("departamento").setAttribute("placeholder", xhr.responseText);
+      }
+    };
+    xhr.send();
+  });
+  
 </script>
