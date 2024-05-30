@@ -131,5 +131,10 @@ class UserController{
       include "../view/reg_ficha.php";
    }
 
-   
+   public function getUserDocumentType($type_id, $phone_user, $email_user, $genero){
+      $x = new UserModel();
+      $actu = $x -> updateUser($type_id,$phone_user, $email_user, $genero);
+      echo"actualizacion exitosa";
+
+   }
 }
