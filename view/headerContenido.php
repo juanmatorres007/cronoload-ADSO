@@ -1,4 +1,5 @@
 <?php
+include "../routes/ifRol.php";
   session_start();
 ?>
 <!DOCTYPE html>
@@ -25,7 +26,7 @@
             <?php
               if (isset($_SESSION['usuario'])) {
                 // Imprimir el nombre de usuario
-                echo $_SESSION['usuario']['name_user']," ",$_SESSION['usuario']['lastname_user'];
+                echo $_SESSION['usuario']['']['name_user']," ",$_SESSION['usuario']['lastname_user'];
               } else {
                // Si la sesión no está iniciada, redirigir al inicio de sesión
                header("Location: ../index.php");
