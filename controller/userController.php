@@ -60,13 +60,7 @@ class UserController{
 
       return $registerAddress;
     }
-
-   // public function registerGenero($genero){
-   //    $userModel = new UserModel();
-   //    $registerGenero = $userModel->registerGenero($genero);
-   //    return $registerGenero;
-   // }
-
+    
    public function getKnowArea(){
       $userModel = new UserModel();
       $knowArea = $userModel->getKnowArea();
