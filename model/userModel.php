@@ -116,7 +116,7 @@ class UserModel
     $sql = $this->conn->prepare("INSERT INTO address_u(department_add, municipality_add, address_add, id_user_add)");
     $sql->bimParam(1,);
     $sql->bimParam(2,);
-    $sql->bimParam(3,);
+    $sql->bimParam(3,$address);
     $sql->bimParam(4,);
   }
 
