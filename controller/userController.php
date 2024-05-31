@@ -54,19 +54,13 @@ class UserController{
 
       return $registerAccess;
    }
-   public function registerAddress($address){
+   public function registerAddress($departament, $city, $address, $userInfo){
       $userModel = new UserModel();
-      $registerAddress = $userModel->registerAddress($address);
+      $registerAddress = $userModel->registerAddress($departament, $city, $address, $userInfo);
 
       return $registerAddress;
     }
-
-   // public function registerGenero($genero){
-   //    $userModel = new UserModel();
-   //    $registerGenero = $userModel->registerGenero($genero);
-   //    return $registerGenero;
-   // }
-
+    
    public function getKnowArea(){
       $userModel = new UserModel();
       $knowArea = $userModel->getKnowArea();
@@ -136,11 +130,5 @@ class UserController{
    public function registroFicha($idproyect){
       include "../view/reg_ficha.php";
    }
-
-   public function getUserDocumentType($type_id, $phone_user, $email_user, $genero){
-      $x = new UserModel();
-      $actu = $x -> updateUser($type_id,$phone_user, $email_user, $genero);
-      echo"actualizacion exitosa";
-
-   }
+   
 }

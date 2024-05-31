@@ -112,29 +112,25 @@ class UserModel
     return $registerAccess;
   }
 
-  public function registerAddress($address){
-    $sql = $this->conn->prepare("INSERT INTO address_u(department_add, municipality_add, address_add, id_user_add)");
-    $sql->bimParam(1,);
-    $sql->bimParam(2,);
-    $sql->bimParam(3,$address);
-    $sql->bimParam(4,);
+  public function registerAddress($departament, $city, $address, $userInfo){
+    $sql = $this->conn->prepare("INSERT INTO address_u(department_add, municipality_add, address_add, id_user_add) VALUES (?,?,?,?)");
+    $sql->bindParam(1, $departament);
+    $sql->bindParam(2, $city);
+    $sql->bindParam(3, $address);
+    $sql->bindParam(4, $userInfo);
+    $sql->execute();
+
+    $registerAddress = $sql->rowCount();
+    return $registerAddress;
   }
-
-  // public function registerGenero($genero){
-  //   $sql = $this->conn->prepare("INSERT INTO user(id_gen_user, phone_con, id_user_con) VALUES (?,?,?)");
-  //   $sql->bindParam(1, $email_user);
-  //   $sql->bindParam(2, $phone_user);
-  //   $sql->bindParam(3, $userInfo);
-  //   $sql->execute();
-  // }
-
+  
   public function getKnowArea(){
-
+    
     $knowArea_query = "SELECT id_auto_know, area_name_know FROM knowledge_area";
     $knowArea_result = $this->conn->query($knowArea_query);
-
+    
     $knowArea_data = array();
-
+    
     if ($knowArea_result) {
       while ($row = $knowArea_result->fetch(PDO::FETCH_ASSOC)) {
         $knowArea_name = $row["area_name_know"];

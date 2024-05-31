@@ -106,9 +106,35 @@ class ConsultaModel{
     }
 
     public function getUserDepartamento($departamento_id){
-        $departamento_query = "SELECT number_file FROM ficha, relation_user_file WHERE id_user_reluf  = :ficha_id AND id_auto_fil = id_file_reluf";
+        $departamento_query = "SELECT departamento FROM departamentos, address_u WHERE id_user_add  = :departamento_id AND id_departamento = department_add";
         $stmt = $this->conn->prepare($departamento_query);
         $stmt->bindParam(':departamento_id', $departamento_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserMunicipio($municipio_id){
+        $municipio_query = "SELECT municipio FROM municipios, address_u WHERE id_user_add  = :municipio_id AND id_municipio = municipality_add";
+        $stmt = $this->conn->prepare($municipio_query);
+        $stmt->bindParam(':municipio_id', $municipio_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+    
+    public function getUserDireccion($direccion_id){
+        $direccion_query = "SELECT address_add FROM address_u WHERE id_user_add  = :direccion_id";
+        $stmt = $this->conn->prepare($direccion_query);
+        $stmt->bindParam(':direccion_id', $direccion_id);
         
         if($stmt->execute()){
             return $stmt->fetchColumn();

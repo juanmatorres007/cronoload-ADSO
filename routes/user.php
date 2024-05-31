@@ -20,6 +20,8 @@ $end_date = $_REQUEST['FF'];
 $rol = $_REQUEST['rol'];
 $genero = $_REQUEST['genero_user'];
 $address = $_REQUEST['address_user'];
+$city = $_REQUEST['id_mun_user'];
+$departament = $_REQUEST['id_dept_user'];
 
 $userController = new UserController();
 
@@ -36,9 +38,9 @@ if ($action === 'register') {
                     if ($registerContacts > 0) {
                         $registerAccess = $userController->registerAccess($number_id, $userInfo);
                         if($registerAccess > 0) {
-                            $registerAddress = $userController->registerAddress($address);
+                            $registerAddress = $userController->registerAddress($departament, $city, $address, $userInfo);
                         }if ($registerAddress > 0){
-                            echo "Registro finalizado hasta el acceso";
+                            // echo "Registro finalizado hasta el acceso";
                         }
                     }
                 }

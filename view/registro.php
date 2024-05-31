@@ -145,6 +145,8 @@
         }
     });
 
+    //Hace que el formulario muestre diferentes campos dependiendo del rol del usuario
+
     function loadRoles() {
         fetch('../routes/Rol.php')
             .then(response => response.json())
@@ -167,6 +169,8 @@
     }
 
     loadRoles();
+
+    //Carga de forma dinamica los roles en el campo de rolSelect
 
     function loadGenero() {
         fetch("../routes/genero.php")
@@ -191,6 +195,9 @@
 
     loadGenero();
 
+        //Carga de forma dinamica los generos en el campo de generoSelect
+
+
     function loadFile() {
         fetch("../routes/consultaFicha.php")
             .then(response => response.json())
@@ -214,6 +221,8 @@
 
     loadFile();
 
+        //Carga de forma dinamica las fichas en el campo de fileSelect
+
     function loadContractType() {
         fetch("../routes/contractType.php")
             .then(response => response.json())
@@ -236,6 +245,8 @@
     }
 
     loadContractType();
+
+        //Carga de forma dinamica los tipos de contratos en el campo de ContractTypeSelect
 
     function loadKnow() {
         fetch('../routes/areaReg.php')
@@ -261,6 +272,8 @@
 
     loadKnow();
 
+        //Carga de forma dinamica las areas de conocimiento en el campo de knowSelect
+
     function loadLvlForm() {
         fetch('../routes/lvlForm.php')
             .then(response => response.json())
@@ -282,6 +295,8 @@
     }
 
     loadLvlForm();
+
+        //Carga de forma dinamica los niveles formativos en el campo de lvlFormSelect
 
     function loadDept() {
         fetch('../routes/address.php')
@@ -311,6 +326,7 @@
 
     loadDept();
 
+        //Carga de forma dinamica los departamentos en el campo de deptSelect
 
     function loadMun() {
 
@@ -346,6 +362,8 @@
 
     loadMun();
 
+        //Carga de forma dinamica los municipios dependiendo del departamento en el campo de munSelect
+
     function loadTypeId() {
         fetch('../routes/typeId.php')
             .then(response => response.json())
@@ -367,5 +385,7 @@
     }
 
     loadTypeId();
+
+        //Carga de forma dinamica los tipos de documento en el campo de typeIdSelect
 
 </script>

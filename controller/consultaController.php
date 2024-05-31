@@ -70,4 +70,17 @@ class ConsultaController
     return $getUserDepartamento;
   }
 
+  public function getUserMunicipio($municipio_id){
+    $consultaModel = new ConsultaModel();
+    $getUserMunicipio = $consultaModel->getUserMunicipio($municipio_id);
+
+    return $getUserMunicipio;
+  }
+    
+  public function getUserDireccion($direccion_id){
+    $consultaModel = new ConsultaModel();
+    $GetUserDireccion = $consultaModel->getUserDireccion($direccion_id);
+
+    return $GetUserDireccion;
+  }
 }
