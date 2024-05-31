@@ -5,7 +5,7 @@
     input[type=email],
     select {
         padding: 8px;
-        width: 240px;
+        width: 255px;
         margin-bottom: 10px;
     }
 
@@ -31,13 +31,6 @@
         margin-top: -115%;
     }
 
-    /* .form-row {
-    }
-
-    .form-row label {
-        margin-right: 10px;
-    } */
-
     @media only screen and (max-width: 600px) {
         .form-columns-2 {
             flex-direction: column;
@@ -46,7 +39,7 @@
 </style>
 
 <div class="registerContent">
-    <form id="registrationForm" action="../routes/user.php" method="POST">
+    <form id="registrationForm" action="../routes/user.php?action=register" method="POST">
         <h2>Formulario de Registro</h2>
 
         <label><strong>Nombre: </strong></label>
@@ -56,9 +49,7 @@
         <input type="text" name="lastname_user" placeholder="Ingrese su Apellido"><br><br>
 
         <label><strong>Tipo de documento: </strong></label>
-        <select name="type_id_user">
-            <option value="1">CC</option>
-            <option value="2">TI</option>
+        <select name="type_id_user" id="typeIdSelect">
         </select><br><br>
 
         <label><strong>Número de identidad: </strong></label>
@@ -76,13 +67,16 @@
 
         <label><strong>Departamento de Recidencia: </strong></label>
         <select name="id_dept_user" id="deptSelect">
-        </select>
+        </select><br>
 
         <div class="form-row">
             <label><strong>Municipio de Recidencia: </strong></label>
             <select name="id_mun_user" id="munSelect">
             </select>
-        </div>
+        </div><br>
+
+        <label><strong>Dirección: </strong></label>
+        <input type="text" name="address_user" placeholder="Ingrese su dirección"><br><br>
 
         <label><strong>Rol: </strong></label>
         <select name="rol" id="rolSelect">
@@ -151,6 +145,8 @@
         }
     });
 
+    //Hace que el formulario muestre diferentes campos dependiendo del rol del usuario
+
     function loadRoles() {
         fetch('../routes/Rol.php')
             .then(response => response.json())
@@ -173,6 +169,8 @@
     }
 
     loadRoles();
+
+    //Carga de forma dinamica los roles en el campo de rolSelect
 
     function loadGenero() {
         fetch("../routes/genero.php")
@@ -197,6 +195,9 @@
 
     loadGenero();
 
+        //Carga de forma dinamica los generos en el campo de generoSelect
+
+
     function loadFile() {
         fetch("../routes/consultaFicha.php")
             .then(response => response.json())
@@ -220,6 +221,8 @@
 
     loadFile();
 
+        //Carga de forma dinamica las fichas en el campo de fileSelect
+
     function loadContractType() {
         fetch("../routes/contractType.php")
             .then(response => response.json())
@@ -242,6 +245,8 @@
     }
 
     loadContractType();
+
+        //Carga de forma dinamica los tipos de contratos en el campo de ContractTypeSelect
 
     function loadKnow() {
         fetch('../routes/areaReg.php')
@@ -267,6 +272,8 @@
 
     loadKnow();
 
+        //Carga de forma dinamica las areas de conocimiento en el campo de knowSelect
+
     function loadLvlForm() {
         fetch('../routes/lvlForm.php')
             .then(response => response.json())
@@ -289,6 +296,8 @@
 
     loadLvlForm();
 
+        //Carga de forma dinamica los niveles formativos en el campo de lvlFormSelect
+
     function loadDept() {
         fetch('../routes/address.php')
             .then(response => response.json())
@@ -310,8 +319,6 @@
                         deptSelect.appendChild(option);
                     }
                 }
-                // deptSelect.dispatchEvent(new Event('change'))
-
                 console.log('Departamentos cargados correctamente', data)
             })
             .catch(error => console.error('Error fetching Departament:', error))
@@ -319,6 +326,7 @@
 
     loadDept();
 
+        //Carga de forma dinamica los departamentos en el campo de deptSelect
 
     function loadMun() {
 
@@ -353,4 +361,31 @@
     }
 
     loadMun();
+
+        //Carga de forma dinamica los municipios dependiendo del departamento en el campo de munSelect
+
+    function loadTypeId() {
+        fetch('../routes/typeId.php')
+            .then(response => response.json())
+            .then(data => {
+                const typeIdSelect = document.getElementById('typeIdSelect');                
+                typeIdSelect.innerHTML = "";
+
+                for (const typeIdName in data){
+                    const typeId = data[typeIdName];
+                    const option = document.createElement('option');
+                    option.value = typeId;
+                    option.text = typeIdName;
+                    typeIdSelect.appendChild(option);
+                }
+                typeIdSelect.dispatchEvent(new Event('change'))
+            })
+            .catch(error => console.error('Error fetching Ident type', error))
+
+    }
+
+    loadTypeId();
+
+        //Carga de forma dinamica los tipos de documento en el campo de typeIdSelect
+
 </script>

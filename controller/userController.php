@@ -48,12 +48,19 @@ class UserController{
       return $registerContact;
    }
 
-   // public function registerGenero($genero){
-   //    $userModel = new UserModel();
-   //    $registerGenero = $userModel->registerGenero($genero);
-   //    return $registerGenero;
-   // }
+   public function registerAccess($number_id, $userInfo){
+      $userModel = new UserModel();
+      $registerAccess = $userModel->registerAccess($number_id, $userInfo);
 
+      return $registerAccess;
+   }
+   public function registerAddress($departament, $city, $address, $userInfo){
+      $userModel = new UserModel();
+      $registerAddress = $userModel->registerAddress($departament, $city, $address, $userInfo);
+
+      return $registerAddress;
+    }
+    
    public function getKnowArea(){
       $userModel = new UserModel();
       $knowArea = $userModel->getKnowArea();
@@ -102,6 +109,13 @@ class UserController{
       return $genero;
     }
 
+    public function getTypeId(){
+
+      $userModel = new UserModel();
+      $typeId = $userModel->getTypeId();
+
+      return $typeId;
+    }
 
    public function registroproyect($idarea){
       include "../view/regProyecto.php";
@@ -116,6 +130,5 @@ class UserController{
    public function registroFicha($idproyect){
       include "../view/reg_ficha.php";
    }
-
    
 }

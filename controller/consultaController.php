@@ -27,4 +27,60 @@ class ConsultaController
     echo $idproyect;
     include "../view/consultarFichas.php";
   }
+
+  public function getUserDocumentType($type_id){
+    $consultaModel = new ConsultaModel();
+    $getUserDocumentType = $consultaModel->getUserDocumentType($type_id);
+
+    return $getUserDocumentType;
+  }
+
+  public function getUserGenero($genero_id){
+    $consultaModel = new ConsultaModel();
+    $getUserGenero = $consultaModel->getUserGenero($genero_id);
+
+    return $getUserGenero;
+  }
+
+  public function getUserPhone($phone_id){
+    $consultaModel = new ConsultaModel();
+    $getUserPhone = $consultaModel->getUserPhone($phone_id);
+
+    return $getUserPhone;
+  }
+
+  public function getUserEmail($email_id){
+    $consultaModel = new ConsultaModel();
+    $getUserEmail = $consultaModel->getUserEmail($email_id);
+
+    return $getUserEmail;
+  }
+
+  public function getUserFicha($ficha_id){
+    $consultaModel = new ConsultaModel();
+    $getUserFicha = $consultaModel->getUserFicha($ficha_id);
+
+    return $getUserFicha;
+  }
+
+  public function getUserDepartamento($departamento_id){
+    $consultaModel = new ConsultaModel();
+    $getUserDepartamento = $consultaModel->getUserDepartamento($departamento_id);
+
+    return $getUserDepartamento;
+  }
+
+  public function getUserMunicipio($municipio_id){
+    $consultaModel = new ConsultaModel();
+    $getUserMunicipio = $consultaModel->getUserMunicipio($municipio_id);
+
+    return $getUserMunicipio;
+  }
+    
+  public function getUserDireccion($direccion_id){
+    $consultaModel = new ConsultaModel();
+    $GetUserDireccion = $consultaModel->getUserDireccion($direccion_id);
+
+    return $GetUserDireccion;
+  }
 }
