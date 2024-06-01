@@ -130,5 +130,15 @@ class UserController{
    public function registroFicha($idproyect){
       include "../view/registroUser.php/reg_ficha.php";
    }
+<<<<<<< HEAD
    
+=======
+
+   public function getUserDocumentType($type_id, $phone_user, $email_user, $genero){
+      $x = new UserModel();
+      $actu = $x -> updateUser($type_id,$phone_user, $email_user, $genero);
+      echo"actualizacion exitosa";
+
+   }
+>>>>>>> 37e4fa34f776be6294a94ab00886c61e0a343d6d
 }

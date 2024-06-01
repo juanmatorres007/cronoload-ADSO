@@ -291,4 +291,14 @@ class UserModel
     $rta = $sql->rowCount();
     return $rta;
   }
+  public function updateUser($type_id, $phone_user, $email_user, $genero){
+    $sql = $this ->conn -> prepare("UPDATE user SET phone_user=?, email_user=? where id_auto_user=? ");
+    $sql -> bindParam(1,$phone_user);
+    $sql -> bindParam(2,$email_user);
+    $sql -> bindParam(3,$type_id);
+    $sql -> execute();
+    $rta = $sql -> rowCount();
+    return $rta;
+
+  }
 }
