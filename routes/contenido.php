@@ -31,4 +31,7 @@ if(isset($_GET['dato'])) {
   $view->view2();
   $view->view3();
 
+  echo $getSessionRol;
+
+
 }

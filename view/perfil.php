@@ -54,6 +54,9 @@
       <label for=""><strong>FICHA: </strong></label>
       <input type="number" name="ficha_id" id="ficha" placeholder=""><br><br>
 
+      <label for=""><strong>ROL: </strong></label>
+      <input type="text" name="rol_user" placeholder="<?php echo $_SESSION['getSessionRol'] ?>"><br><br>
+
       <input name="btn" type="submit" class="btn btn-outline-dark" value="Actualizar">
     </form>
 
