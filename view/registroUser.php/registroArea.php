@@ -1,4 +1,4 @@
-<form action="../routes/areaReg.php">
+<form action="routes/selectUser.php/areaReg.php">
 <h2>Formulario para registro de area de formación</h2>
 
 <label>Nombre de area</label>

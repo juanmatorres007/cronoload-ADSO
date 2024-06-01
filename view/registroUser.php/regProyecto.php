@@ -1,5 +1,5 @@
 <h1>REGISTRO DE PROYECTO FORMATIVO</h1>
-<form action="../routes/proyectoRegistro.php" method="POST">
+<form action="../routes/registrouser.php/proyectoRegistro.php" method="POST">
 
 <input type="hidden" name="IdArea" value="<?php echo $idarea; ?>">
 <label>Nombre de proyecto</label>

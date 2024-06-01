@@ -148,7 +148,7 @@
     //Hace que el formulario muestre diferentes campos dependiendo del rol del usuario
 
     function loadRoles() {
-        fetch('../routes/Rol.php')
+        fetch('../routes/registrouser.php/Rol.php')
             .then(response => response.json())
             .then(data => {
                 const roleSelect = document.getElementById('rolSelect');
@@ -173,7 +173,7 @@
     //Carga de forma dinamica los roles en el campo de rolSelect
 
     function loadGenero() {
-        fetch("../routes/genero.php")
+        fetch("routes/registrouser.php/genero.php")
             .then(response => response.json())
             .then(data => {
                 const generoSelect = document.getElementById('generoSelect')
@@ -199,7 +199,7 @@
 
 
     function loadFile() {
-        fetch("../routes/consultaFicha.php")
+        fetch("../routes/consultasuser.php/consultaFicha.php")
             .then(response => response.json())
             .then(data => {
                 const fileSelect = document.getElementById('fileSelect')
@@ -224,7 +224,7 @@
         //Carga de forma dinamica las fichas en el campo de fileSelect
 
     function loadContractType() {
-        fetch("../routes/contractType.php")
+        fetch("routes/selectUser.php/contractType.php")
             .then(response => response.json())
             .then(data => {
                 const contractTypeSelect = document.getElementById('ContractTypeSelect');
@@ -249,7 +249,7 @@
         //Carga de forma dinamica los tipos de contratos en el campo de ContractTypeSelect
 
     function loadKnow() {
-        fetch('../routes/areaReg.php')
+        fetch('../routes/registrouser.php/areaReg.php')
             .then(response => response.json())
             .then(data => {
                 const areaSelect = document.getElementById('knowSelect');

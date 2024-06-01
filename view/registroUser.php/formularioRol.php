@@ -21,7 +21,7 @@
   </style>
 
   <h1><strong>FORMULARIO DE CREACION DE ROLES</strong></h1>
-  <form action="../routes/Rol.php" method="POST">
+  <form action="../routes/registrouser.php/Rol.php'" method="POST">
     <label for="name_rol">Nombre de rol</label><br>
     <input type="text" placeholder="Nombre de rol" name="name_rol" id="name_rol"><br><br>
     <label>Estado de rol</label><br>

@@ -11,7 +11,7 @@
 
 <div class="perfilContent">
   <div>
-    <form action="../routes/user.php?action=update">
+    <form action="../routes/registrouser.php/user.php">
       <label class="label" for=""><strong>FOTO DE PERFIL: </strong>
         <div class="contenedor">
           <div class="foto_perfil">
@@ -22,7 +22,7 @@
       <br><br><br>
 
       <label for=""><strong>NOMBRES: </strong></label>
-      <input type="text" name="name" placeholder="<?php echo $_SESSION['usuario']['name_user'] ?>"><br><br>
+      <input type="text" name="name_user" placeholder="<?php echo $_SESSION['usuario']['name_user'] ?>"><br><br>
 
       <label for=""><strong>APELLIDOS: </strong></label>
       <input type="text" name="lastname" placeholder="<?php echo $_SESSION['usuario']['lastname_user'] ?>"><br><br>

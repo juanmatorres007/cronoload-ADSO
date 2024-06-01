@@ -9,7 +9,7 @@ class ConsultaController
     $consultar = new ConsultaModel();
     $rta = $consultar->ConsultAr();
 
-    include "../view/consultaArea.php";
+    include "../view/consutaUser.php/consultaArea.php";
   }
 
   public function  consultarProyect($idarea)
@@ -17,7 +17,7 @@ class ConsultaController
     $consultarProyecto = new ConsultaModel();
     $rta = $consultarProyecto->consulproyect($idarea);
 
-    include "../view/consultaProyecto.php";
+    include "../view/consutaUser.php/consultaProyecto.php";
   }
 
   public function consultaficha($idproyect)
@@ -25,7 +25,7 @@ class ConsultaController
     $consultarFicha = new ConsultaModel();
     $rta = $consultarFicha->consultarFichaModel($idproyect);
     echo $idproyect;
-    include "../view/consultarFichas.php";
+    include "../view/consutaUser.php/consultarFichas.php";
   }
 
   public function getUserDocumentType($type_id){
