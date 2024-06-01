@@ -1,6 +1,5 @@
 <?php
-
-include_once "../controller/consultaController.php";
+include_once "../../controller/consultaController.php";
 $consultaController = new consultaController();
 
 if (isset($_GET['type_id'])) {

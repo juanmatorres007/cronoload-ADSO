@@ -1,6 +1,6 @@
 <?php
 
-include "../controller/userController.php";
+include "../../controller/userController.php";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $userController = new UserController();

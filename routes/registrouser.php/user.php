@@ -1,5 +1,5 @@
 <?php
-include_once "../controller/userController.php";
+include_once "../../controller/userController.php";
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 

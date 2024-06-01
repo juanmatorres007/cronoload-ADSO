@@ -1,7 +1,7 @@
 <?php
 
-include_once '../conexion/conexion.php';
-include_once "../model/rolModel.php";
+include_once '../../conexion/conexion.php';
+include_once "../../model/rolModel.php";
 
 
 class RolController{

@@ -1,5 +1,5 @@
 <?php
-include "../controller/userController.php";
+include "../../controller/userController.php";
 
 extract($_REQUEST);
 

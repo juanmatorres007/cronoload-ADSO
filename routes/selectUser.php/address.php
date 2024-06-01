@@ -1,6 +1,6 @@
 <?php
 
-include "../controller/userController.php";
+include "../../controller/userController.php";
 
 $userController = new UserController();
 $departamentos = $userController->getDept();

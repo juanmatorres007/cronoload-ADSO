@@ -1,8 +1,8 @@
 <?php
-include "../conexion/conexion.php";
-include "../model/UserModel.php";
-include_once "../controller/rolController.php";
-include_once "../model/rolModel.php";
+include "../../conexion/conexion.php";
+include "../../model/UserModel.php";
+include_once "../../controller/rolController.php";
+include_once "../../model/rolModel.php";
 
 class UserController{
 
@@ -130,9 +130,6 @@ class UserController{
    public function registroFicha($idproyect){
       include "../view/registroUser.php/reg_ficha.php";
    }
-<<<<<<< HEAD
-   
-=======
 
    public function getUserDocumentType($type_id, $phone_user, $email_user, $genero){
       $x = new UserModel();
@@ -140,5 +137,4 @@ class UserController{
       echo"actualizacion exitosa";
 
    }
->>>>>>> 37e4fa34f776be6294a94ab00886c61e0a343d6d
 }

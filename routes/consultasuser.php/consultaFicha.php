@@ -1,5 +1,5 @@
 <?php
-include "../controller/userController.php";
+include "../../controller/userController.php";
 
 $consultFile = new UserController();
 $file = $consultFile->getKnowFile();

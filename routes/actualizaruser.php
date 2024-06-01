@@ -5,7 +5,4 @@ extract($_REQUEST);
 $actuauser = new Actualizarcontoller;
 
 $actuauser -> Actualizaruser();
-
-
-
 ?>

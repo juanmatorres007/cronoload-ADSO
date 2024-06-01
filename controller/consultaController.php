@@ -1,6 +1,6 @@
 <?php
-include_once "../conexion/conexion.php";
-include_once "../model/consultaModel.php";
+include_once "../../conexion/conexion.php";
+include_once "../../model/consultaModel.php";
 
 class ConsultaController
 {
