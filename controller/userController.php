@@ -118,7 +118,7 @@ class UserController{
     }
 
    public function registroproyect($idarea){
-      include "../view/regProyecto.php";
+      include "../view/registroUser.php/regProyecto.php";
    }
 
    public function registerProyect($name, $number, $estado, $var_fecha, $id_area){
@@ -128,7 +128,7 @@ class UserController{
    }
 
    public function registroFicha($idproyect){
-      include "../view/reg_ficha.php";
+      include "../view/registroUser.php/reg_ficha.php";
    }
    
 }

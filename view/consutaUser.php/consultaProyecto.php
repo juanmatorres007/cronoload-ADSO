@@ -18,7 +18,7 @@
       <td><?php echo $row['name_proj']; ?></td>
       <td><?php echo $row['number_proj']; ?></td>
       <td><?php echo $row['register_date_proj']; ?></td>
-      <td><a href="../routes/consultaFicha.php?x=<?php echo $row['id_auto_proj']; ?>">Fichas</a></td>
+      <td><a href="../routes/consultasuser.php/consultaFicha.php?x=<?php echo $row['id_auto_proj']; ?>">Fichas</a></td>
     <?php
     $ct++;
   endforeach;
@@ -27,4 +27,4 @@
 
 </table>
 
-<a href="../routes/validarArea.php?x=<?php echo $idarea; ?>">Registrar nuevo proyecto</a>
+<a href="../routes/registrouser.php/validarArea.php?x=<?php echo $idarea; ?>">Registrar nuevo proyecto</a>

@@ -11,7 +11,7 @@
 
 <div class="perfilContent">
   <div>
-    <form action="../routes/user.php?action=update">
+    <form action="../routes/registrouser.php/user.php">
       <label class="label" for=""><strong>FOTO DE PERFIL: </strong>
         <div class="contenedor">
           <div class="foto_perfil">
