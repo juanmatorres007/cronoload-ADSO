@@ -1,5 +1,5 @@
 <?php    
-include_once "../controller/userController.php";
+include_once "../../controller/userController.php";
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
   $registro_area = new UserController();

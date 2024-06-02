@@ -1,6 +1,6 @@
 <?php
 
-include "../controller/imgController.php";
+include "../../controller/imgController.php";
 
 extract($_REQUEST);
 

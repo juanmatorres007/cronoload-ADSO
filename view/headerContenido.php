@@ -1,6 +1,8 @@
 <?php
 include "../routes/ifRol.php";
+if (session_status() === PHP_SESSION_NONE) {
   session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,20 +20,20 @@ include "../routes/ifRol.php";
 </head>
 
 <body>
+
   <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-secondary fixed-top">
     <div class="container-fluid">
       <div class="welcome">
         <div class="welcome2">
-          <h3>Bienvenido usuario:
+          <h3>Bienvenido                
+          <span id="rol_usuario"><?php echo $getSessionRol, ": "; ?></span>
             <?php
-              if (isset($_SESSION['usuario'])) {
-                // Imprimir el nombre de usuario
-                echo $_SESSION['usuario']['']['name_user']," ",$_SESSION['usuario']['lastname_user'];
-              } else {
-               // Si la sesión no está iniciada, redirigir al inicio de sesión
-               header("Location: ../index.php");
-               exit();
-              }
+            if (isset($_SESSION['usuario'])) {
+              echo $_SESSION['usuario']['name_user'], " ", $_SESSION['usuario']['lastname_user'];
+            } else {
+              header("Location: ../index.php");
+              exit();
+            }
             ?>
           </h3>
         </div>
@@ -43,5 +45,5 @@ include "../routes/ifRol.php";
       </div>
   </nav>
   <?php
-      include_once "../routes/contenido.php";
+  include_once "../routes/contenido.php";
   ?>

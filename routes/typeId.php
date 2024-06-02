@@ -1,6 +1,6 @@
 <?php
 
-include "../controller/userController.php";
+include "../../controller/userController.php";
 
 $userController = new userController();
 $typeId = $userController->getTypeId();

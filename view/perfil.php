@@ -54,6 +54,9 @@
       <label for=""><strong>FICHA: </strong></label>
       <input type="number" name="ficha_id" id="ficha" placeholder=""><br><br>
 
+      <label for=""><strong>ROL: </strong></label>
+      <input type="text" name="rol_user" placeholder="<?php echo $_SESSION['getSessionRol'] ?>"><br><br>
+
       <input name="btn" type="submit" class="btn btn-outline-dark" value="Actualizar">
     </form>
 
@@ -69,7 +72,7 @@
     var type_id_user = <?php echo $_SESSION['usuario']['type_id_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "getData.php?type_id=" + type_id_user, true);
+    xhr.open("GET", "../routes/consultasuser.php/getData.php?type_id=" + type_id_user, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("tipo_documento").setAttribute("placeholder", xhr.responseText);
@@ -82,7 +85,7 @@
     var id_gen_user = <?php echo $_SESSION['usuario']['id_gen_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "getData.php?genero_id=" + id_gen_user, true);
+    xhr.open("GET", "../routes/consultasuser.php/getData.php?genero_id=" + id_gen_user, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("genero").setAttribute("placeholder", xhr.responseText);
@@ -95,7 +98,7 @@
     var id_auto_conPhone = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "getData.php?phone_id=" + id_auto_conPhone, true);
+    xhr.open("GET", "../routes/consultasuser.php/getData.php?phone_id=" + id_auto_conPhone, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("phone").setAttribute("placeholder", xhr.responseText);
@@ -108,7 +111,7 @@
     var id_auto_conEmail = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "getData.php?email_id=" + id_auto_conEmail, true);
+    xhr.open("GET", "../routes/consultasuser.php/getData.php?email_id=" + id_auto_conEmail, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("email").setAttribute("placeholder", xhr.responseText);
@@ -121,7 +124,7 @@
     var id_auto_file = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "getData.php?ficha_id=" + id_auto_file, true);
+    xhr.open("GET", "../routes/consultasuser.php/getData.php?ficha_id=" + id_auto_file, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("ficha").setAttribute("placeholder", xhr.responseText);
@@ -134,7 +137,7 @@
     var id_auto_dept = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "getData.php?departamento_id=" + id_auto_dept, true);
+    xhr.open("GET", "../routes/consultasuser.php/getData.php?departamento_id=" + id_auto_dept, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("departamento").setAttribute("placeholder", xhr.responseText);
@@ -147,7 +150,7 @@
     var id_auto_mun = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "getData.php?municipio_id=" + id_auto_mun, true);
+    xhr.open("GET", "../routes/consultasuser.php/getData.php?municipio_id=" + id_auto_mun, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("municipio").setAttribute("placeholder", xhr.responseText);
@@ -160,7 +163,7 @@
     var id_auto_dir = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "getData.php?direccion_id=" + id_auto_dir, true);
+    xhr.open("GET", "../routes/consultasuser.php/getData.php?direccion_id=" + id_auto_dir, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("direccion").setAttribute("placeholder", xhr.responseText);
