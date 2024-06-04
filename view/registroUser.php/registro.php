@@ -6,11 +6,8 @@
     select {
         padding: 8px;
         width: 255px;
+        height: 38px;
         margin-bottom: 10px;
-    }
-
-    select {
-        width: 240px;
     }
 
     .registerContent {
@@ -39,7 +36,7 @@
 </style>
 
 <div class="registerContent">
-    <form id="registrationForm" action="../routes/user.php?action=register" method="POST">
+    <form id="registrationForm" action="../routes/registrouser.php/user.php?action=register" method="POST">
         <h2>Formulario de Registro</h2>
 
         <label><strong>Nombre: </strong></label>
@@ -59,6 +56,11 @@
         <select name="genero_user" id="generoSelect">
         </select><br><br>
 
+        <div class="form-row">
+            <label><strong>Fecha de nacimiento: </strong></label>
+            <input type="date" id="birth_id" name="birth">
+        </div><br>
+
         <label><strong>Correo Electronico: </strong></label>
         <input type="email" name="email_user" placeholder="Ingrese su Correo Electronico"><br><br>
 
@@ -67,7 +69,7 @@
 
         <label><strong>Departamento de Recidencia: </strong></label>
         <select name="id_dept_user" id="deptSelect">
-        </select><br>
+        </select><br><br>
 
         <div class="form-row">
             <label><strong>Municipio de Recidencia: </strong></label>
@@ -80,14 +82,12 @@
 
         <label><strong>Rol: </strong></label>
         <select name="rol" id="rolSelect">
-
         </select><br><br>
 
         <div id="optionsForAprentice" class="form-columns" style="display: none;">
             <div class="form-row">
                 <label><strong>Ficha: </strong></label>
                 <select name="file_user" id="fileSelect">
-
                 </select>
             </div>
         </div>
@@ -103,12 +103,12 @@
 
             <div class="form-row">
                 <label><strong>Fecha inicial de contrato: </strong></label>
-                <input type="date" id="fechaInicio" name="FI">
+                <input type="date" id="fechaInicio" name="startDate">
             </div>
 
             <div class="form-row">
                 <label><strong>Fecha de finalización de contrato: </strong></label>
-                <input type="date" id="fechaFin" name="FF">
+                <input type="date" id="fechaFin" name="endDate">
             </div>
 
             <div class="form-row">
@@ -199,7 +199,7 @@
 
 
     function loadFile() {
-        fetch("../routes/consultaFicha.php")
+        fetch("../routes/consultasuser.php/consultaFicha.php")
             .then(response => response.json())
             .then(data => {
                 const fileSelect = document.getElementById('fileSelect')
@@ -310,15 +310,12 @@
                 emptyOption.text = "Seleccione un Departamento";
                 deptSelect.appendChild(emptyOption);
 
-                for (const deptName in data) {
-                    if (data.hasOwnProperty(deptName)) {
-                        const deptId = data[deptName];
-                        const option = document.createElement('option');
-                        option.value = deptId;
-                        option.text = deptName;
-                        deptSelect.appendChild(option);
-                    }
-                }
+            data.forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept.id_departamento; 
+                option.text = dept.departamento; 
+                deptSelect.appendChild(option);
+            });
                 console.log('Departamentos cargados correctamente', data)
             })
             .catch(error => console.error('Error fetching Departament:', error))
@@ -328,39 +325,38 @@
 
         //Carga de forma dinamica los departamentos en el campo de deptSelect
 
-    function loadMun() {
+        function loadMun() {
+    const deptSelect = document.getElementById('deptSelect');
+    const munSelect = document.getElementById('munSelect');
 
-        const deptSelect = document.getElementById('deptSelect');
-        const munSelect = document.getElementById('munSelect');
+    deptSelect.addEventListener('change', function() {
+        const deptId = this.value;
 
-        deptSelect.addEventListener('change', function() {
-            const deptId = this.value;
+        if (deptId !== '') {
+            fetch(`../routes/selectUser.php/municipio.php?deptId=` + deptId)
+                .then(response => response.json())
+                .then(data => {
+                    munSelect.innerHTML = '';
 
-            if (deptId != '') {
-                fetch(`../routes/selectUser.php/municipio.php?deptId=` + deptId)
-                    .then(response => response.json())
-                    .then(data => {
-                        munSelect.innerHTML = ' ';
-
-                        for (const munId in data) {
-                            if (data.hasOwnProperty(munId)) {
-                                const munName = data[munId].municipio;
-                                const option = document.createElement('option');
-                                option.value = munId;
-                                option.text = munName;
-                                munSelect.appendChild(option);
-                            }
+                    for (const munId in data) {
+                        if (data.hasOwnProperty(munId)) {
+                            const munName = data[munId].municipio;
+                            const option = document.createElement('option');
+                            option.value = munId;
+                            option.text = munName;
+                            munSelect.appendChild(option);
                         }
-                        munSelect.dispatchEvent(new Event('change'))
-                    })
-                    .catch(error => console.error('Error fetching Area Knowledge:', error))
-            } else {
-                munSelect.innerHTML = '';
-            }
-        });
-    }
+                    }
+                    munSelect.dispatchEvent(new Event('change'));
+                })
+                .catch(error => console.error('Error fetching Area Knowledge:', error));
+        } else {
+            munSelect.innerHTML = '';
+        }
+    });
+}
 
-    loadMun();
+loadMun();
 
         //Carga de forma dinamica los municipios dependiendo del departamento en el campo de munSelect
 

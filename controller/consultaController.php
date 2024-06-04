@@ -79,8 +79,58 @@ class ConsultaController
     
   public function getUserDireccion($direccion_id){
     $consultaModel = new ConsultaModel();
-    $GetUserDireccion = $consultaModel->getUserDireccion($direccion_id);
+    $getUserDireccion = $consultaModel->getUserDireccion($direccion_id);
 
-    return $GetUserDireccion;
+    return $getUserDireccion;
   }
+
+  public function getUserContrato($contrato_id){
+    $consultaModel = new ConsultaModel();
+    $getUserContrato = $consultaModel->getUserContrato($contrato_id);
+
+    return $getUserContrato;
+  }
+
+  public function getUserStartContrato($startContrato_id){
+    $consultaModel = new ConsultaModel();
+    $getUserStartContrato = $consultaModel->getUserStartContrato($startContrato_id);
+
+    return $getUserStartContrato;
+  }
+
+  public function getUserEndContrato($endContrato_id){
+    $consultaModel = new ConsultaModel();
+    $getUserEndContrato = $consultaModel->getUserEndContrato($endContrato_id);
+
+    return $getUserEndContrato;
+  }
+
+  public function getUserKnow($know_id){
+    $consultaModel = new ConsultaModel();
+    $getUserKnow = $consultaModel->getUserKnow($know_id);
+
+    return $getUserKnow;
+  }
+
+  public function getUserLvl($lvl_id){
+    $consultaModel = new ConsultaModel();
+    $getUserLvl = $consultaModel->getUserLvl($lvl_id);
+
+    return $getUserLvl;
+  }
+
+  public function getUserPhoto($photo_id){
+    $consultaModel = new ConsultaModel();
+    $getUserPhoto = $consultaModel->getUserPhoto($photo_id);
+
+    return $getUserPhoto;
+  }
+
+  public function getAllDataUser($rol){
+    $consultaModel = new ConsultaModel();
+    $getAllDataUser = $consultaModel->getAllDataUser($rol);
+
+    return $getAllDataUser;
+  }
+
 }

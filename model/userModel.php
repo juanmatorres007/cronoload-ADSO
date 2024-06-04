@@ -14,51 +14,51 @@ class UserModel
     $this->conn = conectaDb();
   }
 
-  public function registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero)
-  {
-    $sql = $this->conn->prepare("INSERT INTO user(name_user, lastname_user, type_id_user, number_id_user, id_gen_user, id_know_user, id_formation_lvl_user)
-        VALUES (?,?,?,?,?,?,?)");
+  public function registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero, $birth){
+    $sql = $this->conn->prepare("INSERT INTO user(name_user, lastname_user, type_id_user, number_id_user, birth_user,
+    id_gen_user, id_know_user, id_formation_lvl_user) VALUES (?,?,?,?,?,?,?,?)");
 
     $sql->bindParam(1, $name);
     $sql->bindParam(2, $lastname);
     $sql->bindParam(3, $type_id);
     $sql->bindParam(4, $number_id);
-    $sql->bindParam(5, $genero);
-    $sql->bindParam(6, $know);
-    $sql->bindParam(7, $form_lvl);
+    $sql->bindParam(5, $birth);
+    $sql->bindParam(6, $genero);
+    $sql->bindParam(7, $know);
+    $sql->bindParam(8, $form_lvl);
     $sql->execute();
 
     $rta = $sql->rowCount();
-    $varid = $this->conn->lastInsertId();
-    return $varid;
+    $varId = $this->conn->lastInsertId();
+    return $varId;
   }
 
-  public function registerRolUser($rol, $userInfo){
+  public function registerRolUser($rol, $registerUser){
 
     $sql = $this->conn->prepare("INSERT INTO relation_rol_user(id_rol_relaru, id_user_relaru) VALUES (?,?)");
 
     $sql->bindParam(1, $rol);
-    $sql->bindParam(2, $userInfo);
+    $sql->bindParam(2, $registerUser);
     $sql->execute();
     $rolFull = $sql->rowCount();
     return $rolFull;
   }
 
-  public function registerVinculation($start_date, $end_date, $contract_type, $userInfo)
-  {
+  public function registerVinculation($start_date, $end_date, $contract_type, $registerUser){
+
     $sql = $this->conn->prepare("INSERT INTO vinculation(start_date_vin, end_date_vin, id_contractType_vin, id_user_vin) VALUES (?,?,?,?)");
 
     $sql->bindParam(1, $start_date);
     $sql->bindParam(2, $end_date);
     $sql->bindParam(3, $contract_type);
-    $sql->bindParam(4, $userInfo);
+    $sql->bindParam(4, $registerUser);
     $sql->execute();
     $rta = $sql->rowCount();
     return $rta;
   }
 
-  public function registerArea($Nombre, $Fecha, $Estado)
-  {
+  public function registerArea($Nombre, $Fecha, $Estado){
+
     $sql = $this->conn->prepare("INSERT INTO knowledge_area(area_name_know, date_register_know, state_know) VALUES(?,?,?)");
     $sql->bindParam(1, $Nombre);
     $sql->bindParam(2, $Fecha);
@@ -68,11 +68,10 @@ class UserModel
     return $rta;
   }
 
-  public function registerFile($userInfo, $file)
-  {
+  public function registerFile($registerUser, $file){
 
     $sql = $this->conn->prepare("INSERT INTO relation_user_file(id_user_reluf, id_file_reluf) VALUES (?,?)");
-    $sql->bindParam(1, $userInfo);
+    $sql->bindParam(1, $registerUser);
     $sql->bindParam(2, $file);
     $sql->execute();
     $rta = $sql->rowCount();
@@ -90,34 +89,34 @@ class UserModel
     return $id_contract;
   }
 
-  public function registerContact($email_user, $phone_user, $userInfo){
+  public function registerContact($email_user, $phone_user, $registerUser){
     $sql = $this->conn->prepare("INSERT INTO contact(email_con, phone_con, id_user_con) VALUES (?,?,?)");
     $sql->bindParam(1, $email_user);
     $sql->bindParam(2, $phone_user);
-    $sql->bindParam(3, $userInfo);
+    $sql->bindParam(3, $registerUser);
     $sql->execute();
 
     $registerContact = $sql->rowCount();
     return $registerContact;
   }
 
-  public function registerAccess($number_id, $userInfo){
+  public function registerAccess($number_id, $registerUser){
     $sql = $this->conn->prepare("INSERT INTO acceso(account_acc, password_acc, id_user_acc) VALUES (?,?,?)");
     $sql->bindParam(1, $number_id);
     $sql->bindParam(2, $number_id);
-    $sql->bindParam(3, $userInfo);
+    $sql->bindParam(3, $registerUser);
     $sql->execute();
 
     $registerAccess = $sql->rowCount();
     return $registerAccess;
   }
 
-  public function registerAddress($departament, $city, $address, $userInfo){
+  public function registerAddress($departament, $city, $address, $registerUser){
     $sql = $this->conn->prepare("INSERT INTO address_u(department_add, municipality_add, address_add, id_user_add) VALUES (?,?,?,?)");
     $sql->bindParam(1, $departament);
     $sql->bindParam(2, $city);
     $sql->bindParam(3, $address);
-    $sql->bindParam(4, $userInfo);
+    $sql->bindParam(4, $registerUser);
     $sql->execute();
 
     $registerAddress = $sql->rowCount();
@@ -213,9 +212,7 @@ class UserModel
 
     if ($departament_result) {
       while ($row = $departament_result->fetch(PDO::FETCH_ASSOC)) {
-        $departament_name = $row["departamento"];
-        $departament_id = $row["id_departamento"];
-        $departament_data[$departament_name] = $departament_id;
+        $departament_data[] = $row;
       }
     }
 
@@ -291,14 +288,40 @@ class UserModel
     $rta = $sql->rowCount();
     return $rta;
   }
-  public function updateUser($type_id, $phone_user, $email_user, $genero){
-    $sql = $this ->conn -> prepare("UPDATE user SET phone_user=?, email_user=? where id_auto_user=? ");
-    $sql -> bindParam(1,$phone_user);
-    $sql -> bindParam(2,$email_user);
-    $sql -> bindParam(3,$type_id);
-    $sql -> execute();
-    $rta = $sql -> rowCount();
-    return $rta;
 
+  // public function updateUser($type_id, $phone_user, $email_user, $genero){
+  //   $sql = $this ->conn -> prepare("UPDATE user SET phone_user=?, email_user=? where id_auto_user=? ");
+  //   $sql -> bindParam(1,$phone_user);
+  //   $sql -> bindParam(2,$email_user);
+  //   $sql -> bindParam(3,$type_id);
+  //   $sql -> execute();
+  //   $rta = $sql -> rowCount();
+
+  //   return $rta;
+  // }
+
+  public function updateUserPhoto($imagen, $id_user){
+    $sql = $this->conn->prepare("UPDATE user SET photo_user=? where id_auto_user=?");
+    $sql->bindValue(1, $imagen);
+    $sql->bindParam(2, $id_user);
+    $sql->execute();
+    $updateUserPhoto = $sql->rowCount();
+
+    return $updateUserPhoto;
+  }
+
+  public function updateUser($id_user, $name, $lastname, $number_id, $birth){
+    $sql = $this->conn->prepare("UPDATE user SET name_user=?, lastname_user=?, number_id_user=?, birth_user=?
+    WHERE id_auto_user=?");
+    $sql->bindParam(1, $name);
+    $sql->bindParam(2, $lastname);
+    $sql->bindParam(3, $number_id);
+    $sql->bindParam(4, $birth);
+    $sql->bindParam(5, $id_user);
+    $sql->execute();
+
+    $updateUser = $sql->rowCount();
+
+    return $updateUser;
   }
 }

@@ -12,5 +12,3 @@ $id_usuario = $_SESSION['usuario']['id_auto_user'];
   $getSessionRol = $ifRolController->getSessionRol($id_usuario);
 
   $_SESSION['getSessionRol'] = $getSessionRol;
-  
-  return $getSessionRol;
