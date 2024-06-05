@@ -1,16 +1,4 @@
-<!doctype html>
-<html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
-  <link rel="stylesheet" href="../Assets/css/">
-  <link href="<?php echo base_url ?>css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?php echo base_url ?>css/main.css" rel="stylesheet">
-</head>
-
-<body>
   <div class="container">
     <div id="calendar"></div>
   </div>
@@ -54,13 +42,3 @@
 
     </div>
   </div>
-  <script src="<?php echo base_url ?>js/bootstrap.bundle.min.js"></script>
-  <script src="<?php echo base_url ?>js/main.js"> </script>
-  <script src="<?php echo base_url ?>js/moment.js"> </script>
-  <script src="<?php echo base_url ?>js/sweetalert2@11.js"> </script>
-  <script src="<?php echo base_url ?>js/es.js"> </script>
-  <script src="<?php echo base_url ?>js/app.js"> </script>
-
-</body>
-
-</html>

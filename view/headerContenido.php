@@ -1,6 +1,6 @@
 <?php
 include "../routes/ifRol.php";
-  session_start();
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,6 +12,9 @@ include "../routes/ifRol.php";
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="../css/styles.css">
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/calendar.css">
   <script src="../js/script.js"></script>
   <script src="main.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -24,15 +27,15 @@ include "../routes/ifRol.php";
         <div class="welcome2">
           <h3>Bienvenido usuario:
             <?php
-              if (isset($_SESSION['usuario'])) {
-                // Imprimir el nombre de usuario
-                echo $_SESSION['usuario']['']['name_user']," ",$_SESSION['usuario']['lastname_user'];
-              } else {
-               // Si la sesión no está iniciada, redirigir al inicio de sesión
-               header("Location: ../index.php");
-               exit();
-              }
-            ?>
+            if (isset($_SESSION['usuario'])) {
+              // Imprimir el nombre de usuario
+             echo $_SESSION['usuario']['name_user'], " ", $_SESSION['usuario']['lastname_user'];
+            } else {
+             //Si la sesión no está iniciada, redirigir al inicio de sesión
+             header("Location:../index.php");
+              exit();
+            }
+           ?>
           </h3>
         </div>
       </div>
@@ -42,6 +45,18 @@ include "../routes/ifRol.php";
         </div>
       </div>
   </nav>
+
+
   <?php
-      include_once "../routes/contenido.php";
+  include "cronograma.php";
   ?>
+
+  <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="../js/main.js"> </script>
+  <script src="../js/moment.js"> </script>
+  <script src="../js/sweetalert2@11.js"> </script>
+  <script src="../js/es.js"> </script>
+  <script src="../js/app.js"> </script>
+</body>
+
+</html>
