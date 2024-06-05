@@ -106,12 +106,12 @@ class ConsultaModel{
     }
 
     public function getUserDepartamento($departamento_id){
-        $departamento_query = "SELECT departamento FROM departamentos, address_u WHERE id_user_add  = :departamento_id AND id_departamento = department_add";
+        $departamento_query = "SELECT id_departamento, departamento FROM departamentos INNER JOIN address_u ON departamentos.id_departamento = address_u.department_add WHERE address_u.id_user_add = :departamento_id";
         $stmt = $this->conn->prepare($departamento_query);
         $stmt->bindParam(':departamento_id', $departamento_id);
         
         if($stmt->execute()){
-            return $stmt->fetchColumn();
+            return $stmt->fetchALL(PDO::FETCH_ASSOC);
         } else {
             $errorInfo = $stmt->errorInfo();
             return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
@@ -119,12 +119,12 @@ class ConsultaModel{
     }
 
     public function getUserMunicipio($municipio_id){
-        $municipio_query = "SELECT municipio FROM municipios, address_u WHERE id_user_add  = :municipio_id AND id_municipio = municipality_add";
+        $municipio_query = "SELECT id_municipio, municipio FROM municipios INNER JOIN address_u ON municipios.id_municipio  = address_u.municipality_add WHERE address_u.id_user_add = :municipio_id";
         $stmt = $this->conn->prepare($municipio_query);
         $stmt->bindParam(':municipio_id', $municipio_id);
         
         if($stmt->execute()){
-            return $stmt->fetchColumn();
+            return $stmt->fetchALL(PDO::FETCH_ASSOC);
         } else {
             $errorInfo = $stmt->errorInfo();
             return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
@@ -140,6 +140,98 @@ class ConsultaModel{
             return $stmt->fetchColumn();
         } else {
             $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserContrato($contrato_id){
+        $contrato_query = "SELECT name_cont FROM contracts, vinculation WHERE id_auto_cont = id_contractType_vin AND id_user_vin = :contrato_id";
+        $stmt = $this->conn->prepare($contrato_query);
+        $stmt->bindParam(':contrato_id', $contrato_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserStartContrato($startContrato_id){
+        $startContrato_query = "SELECT start_date_vin FROM vinculation WHERE id_user_vin = :startContrato_id";
+        $stmt = $this->conn->prepare($startContrato_query);
+        $stmt->bindParam(':startContrato_id', $startContrato_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserEndContrato($endContrato_id){
+        $endContrato_query = "SELECT end_date_vin FROM vinculation WHERE id_user_vin = :endContrato_id";
+        $stmt = $this->conn->prepare($endContrato_query);
+        $stmt->bindParam(':endContrato_id', $endContrato_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserKnow($know_id){
+        $know_query = "SELECT area_name_know FROM knowledge_area, user WHERE id_auto_know = id_know_user AND id_auto_user = :know_id";
+        $stmt = $this->conn->prepare($know_query);
+        $stmt->bindParam(':know_id', $know_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserLvl($lvl_id){
+        $lvl_query = "SELECT name_flvl FROM formation_lvl, user WHERE id_auto_flvl = id_formation_lvl_user AND id_auto_user = :lvl_id";
+        $stmt = $this->conn->prepare($lvl_query);
+        $stmt->bindParam(':lvl_id', $lvl_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getUserPhoto($photo_id){
+        $photo_query = "SELECT photo_user FROM user WHERE id_auto_user = :photo_id";
+        $stmt = $this->conn->prepare($photo_query);
+        $stmt->bindParam(':photo_id', $photo_id);
+        
+        if($stmt->execute()){
+            return $stmt->fetchColumn();
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
+        }
+    }
+
+    public function getAllDataUser($rol){
+        // $user_query = "SELECT * FROM user, relation_rol_user WHERE id_rol_relaru = :rol ";
+        $user_query = "SELECT user.* FROM user INNER JOIN relation_rol_user ON user.id_auto_user = relation_rol_user.id_user_relaru WHERE relation_rol_user.id_rol_relaru = :rol";
+        $sql = $this->conn->prepare($user_query);
+        $sql->bindParam(':rol', $rol);
+
+        if($sql->execute()){
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $errorInfo = $sql->errorInfo();
             return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
         }
     }

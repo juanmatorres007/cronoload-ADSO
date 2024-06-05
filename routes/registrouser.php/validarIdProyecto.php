@@ -1,5 +1,5 @@
 <?php
-include_once "../controller/userController.php";
+include_once "../../controller/userController.php";
 
 extract($_REQUEST);
 $idproyect = $_REQUEST['x'];

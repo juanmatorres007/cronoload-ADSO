@@ -130,6 +130,20 @@
     padding-top: 8%;
 }
 
+/* ------------------VISTA DE CONSULTAS------------------ */
+
+.usersContent{
+    padding-left: 15%;
+    padding-top: 8%;
+}
+
+.table-const{
+        padding-right: 15%;
+}
+
+/* ------------------------------------------------------ */
+
+
 .label {
     position: relative;
 }

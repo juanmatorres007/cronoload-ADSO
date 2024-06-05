@@ -1,6 +1,6 @@
 <?php
 
-include "../controller/rolController.php";
+include "../../controller/rolController.php";
 
 $rolController = new RolController();
 $roles = $rolController->getRoles();

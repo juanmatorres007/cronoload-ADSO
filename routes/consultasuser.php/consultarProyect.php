@@ -1,5 +1,5 @@
 <?php
-include "../controller/consultaController.php";
+include "../../controller/consultaController.php";
 
 extract($_REQUEST);
 $idarea = $_REQUEST['x'];

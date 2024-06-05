@@ -1,6 +1,12 @@
 <?php
 include "../routes/ifRol.php";
+<<<<<<< HEAD
 session_start();
+=======
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+>>>>>>> 4bdc9845ecbe3ee5a41f909c33bf67f6396d71d7
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,13 +27,16 @@ session_start();
 </head>
 
 <body>
+
   <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-secondary fixed-top">
     <div class="container-fluid">
       <div class="welcome">
         <div class="welcome2">
-          <h3>Bienvenido usuario:
+          <h3>Bienvenido                
+          <span id="rol_usuario"><?php echo $getSessionRol, ": "; ?></span>
             <?php
             if (isset($_SESSION['usuario'])) {
+<<<<<<< HEAD
               // Imprimir el nombre de usuario
              echo $_SESSION['usuario']['name_user'], " ", $_SESSION['usuario']['lastname_user'];
             } else {
@@ -36,6 +45,14 @@ session_start();
               exit();
             }
            ?>
+=======
+              echo $_SESSION['usuario']['name_user'], " ", $_SESSION['usuario']['lastname_user'];
+            } else {
+              header("Location: ../index.php");
+              exit();
+            }
+            ?>
+>>>>>>> 4bdc9845ecbe3ee5a41f909c33bf67f6396d71d7
           </h3>
         </div>
       </div>
@@ -48,6 +65,7 @@ session_start();
 
 
   <?php
+<<<<<<< HEAD
   include "cronograma.php";
   ?>
 
@@ -60,3 +78,7 @@ session_start();
 </body>
 
 </html>
+=======
+  include_once "../routes/contenido.php";
+  ?>
+>>>>>>> 4bdc9845ecbe3ee5a41f909c33bf67f6396d71d7

@@ -19,7 +19,11 @@ if(isset($_GET['dato'])) {
     $view->view1();
     $view->view2();
     $view->view6();
-  }else {
+  } elseif ($miVariable == "const"){
+    $view->view1();
+    $view->view2();
+    $view->view7();
+  } else {
     http_response_code(400);
     echo "Error: Vista desconocida.";
   }
@@ -30,5 +34,7 @@ if(isset($_GET['dato'])) {
   $view->view1(); 
   $view->view2();
   $view->view3();
+
+  echo $getSessionRol;
 
 }
