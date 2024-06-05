@@ -11,23 +11,15 @@ class ContenidoController{
       include "../view/sideBar.php";
     }
 
-      public function view3(){
-        include '../view/mainContent.php';
-      }
-
-        public function view4(){
+        public function view3(){
           include "../view/registroUser.php/perfil.php";
         }
 
-          public function view5(){
+          public function view4(){
             include "../view/registroUser.php/registro.php";
           }
 
-            public function view6(){
-              include "../cronograma.php";
-            }
-
-              public function view7(){
+              public function view5(){
                 include "../view/prueba.php";
               }
 }

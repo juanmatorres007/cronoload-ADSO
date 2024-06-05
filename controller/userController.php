@@ -127,16 +127,19 @@ class UserController{
       echo "Registro exitoso";
    }
 
-   public function registroFicha($idproyect){
-      include "../view/reg_ficha.php";
+   public function registerFicha($id_proyect, $numero_ficha, $estado, $f_ini, $f_fin){
+      $userModel = new UserModel();
+      $registerFicha = $userModel->registerFicha($id_proyect, $numero_ficha, $estado, $f_ini, $f_fin);
+
+      return $registerFicha;
    }
 
-   public function getUserDocumentType($type_id, $phone_user, $email_user, $genero){
-      $x = new UserModel();
-      $actu = $x -> updateUser($type_id,$phone_user, $email_user, $genero);
-      echo"actualizacion exitosa";
+   // public function getUserDocumentType($type_id, $phone_user, $email_user, $genero){
+   //    $x = new UserModel();
+   //    $actu = $x -> updateUser($type_id, $phone_user, $email_user, $genero);
+   //    echo"actualizacion exitosa";
 
-   }
+   // }
 
    public function updateUserPhoto($imagen, $id_user){
       $userModel = new UserModel();

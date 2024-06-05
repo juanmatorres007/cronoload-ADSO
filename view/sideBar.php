@@ -17,9 +17,6 @@
 
     <div class="cont-menu" id="miSidebar">
       <nav>
-        <!-- <a id="calendar" href="#"><strong>
-            <h5>Calendario</h5>
-          </strong></a> -->
         <a id="usuario" href="#"><strong>
             <h5>Usuario</h5>
           </strong></a>
@@ -41,9 +38,6 @@
 
     <div class="cont-menu" id="miSidebar">
       <nav>
-        <!-- <a id="calendar" href="#"><strong>
-            <h5>Calendario</h5>
-          </strong></a> -->
         <a id="usuario" href="#"><strong>
             <h5>Usuario</h5>
           </strong></a>
@@ -71,9 +65,6 @@
 
     <div class="cont-menu" id="miSidebar">
       <nav>
-        <!-- <a id="calendar" href="#"><strong>
-            <h5>Calendario</h5>
-          </strong></a> -->
         <a id="usuario" href="#"><strong>
             <h5>Usuario</h5>
           </strong></a>
@@ -101,9 +92,6 @@
 
     <div class="cont-menu" id="miSidebar">
       <nav>
-        <!-- <a id="calendar" href="#"><strong>
-            <h5>Calendario</h5>
-          </strong></a> -->
         <a id="usuario" href="#"><strong>
             <h5>Usuario</h5>
           </strong></a>
@@ -136,11 +124,6 @@
       var vista = "registro";
       window.location.href = "../routes/contenido.php?dato=" + vista;
     });
-
-    // document.getElementById("calendar").addEventListener("click", function() {
-    //   var vista = "calendar";
-    //   window.location.href = "../routes/contenido.php?dato=" + vista;
-    // })
 
     document.getElementById("const").addEventListener("click", function() {
       var vista = "const";

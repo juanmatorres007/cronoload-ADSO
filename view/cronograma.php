@@ -19,15 +19,15 @@
 
             </select>
             <label for="start">Instructor</label><br><br>
-            <select name="ins" id="">
+            <select name="ins" id="instructorSelect">
 
             </select>
             <label for="start">Area de Formacion</label><br><br>
             <select name="area" id="">
 
-            </select>
+            <!-- </select>
             <label for="start">Ficha Tecnica</label><br><br>
-            <select name="ficha" id="">
+            <select name="ficha" id=""> -->
 
             </select>
             <label for="">Resultado de Aprendizaje</label>
@@ -42,3 +42,32 @@
 
     </div>
   </div>
+
+  <script>
+
+
+
+
+function loadInstructor() {
+        fetch("../routes/consultasuser.php/getCalendar.php?instructor=")
+            .then(response => response.json())
+            .then(data => {
+                const instructorSelect = document.getElementById('instructorSelect')
+                instructorSelect.innerHTML = '';
+
+                for (const instructorId in data) {
+                    if (data.hasOwnProperty(instructorId)) {
+                        const instructorName = data[instructorId];
+                        const option = document.createElement('option');
+                        option.value = instructorName;
+                        option.text = generoId;
+                        instructorSelect.appendChild(option);
+                    }
+                }
+                instructorSelect.dispatchEvent(new Event('change'));
+            })
+            .catch(error => console.error('Error fetching files', error))
+    }
+
+    loadInstructor();
+  </script>

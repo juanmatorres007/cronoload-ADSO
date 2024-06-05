@@ -1,12 +1,8 @@
 <?php
 include "../routes/ifRol.php";
-<<<<<<< HEAD
-session_start();
-=======
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
->>>>>>> 4bdc9845ecbe3ee5a41f909c33bf67f6396d71d7
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,23 +32,12 @@ if (session_status() === PHP_SESSION_NONE) {
           <span id="rol_usuario"><?php echo $getSessionRol, ": "; ?></span>
             <?php
             if (isset($_SESSION['usuario'])) {
-<<<<<<< HEAD
-              // Imprimir el nombre de usuario
              echo $_SESSION['usuario']['name_user'], " ", $_SESSION['usuario']['lastname_user'];
             } else {
-             //Si la sesión no está iniciada, redirigir al inicio de sesión
              header("Location:../index.php");
               exit();
             }
            ?>
-=======
-              echo $_SESSION['usuario']['name_user'], " ", $_SESSION['usuario']['lastname_user'];
-            } else {
-              header("Location: ../index.php");
-              exit();
-            }
-            ?>
->>>>>>> 4bdc9845ecbe3ee5a41f909c33bf67f6396d71d7
           </h3>
         </div>
       </div>
@@ -65,8 +50,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
   <?php
-<<<<<<< HEAD
-  include "cronograma.php";
+  include_once "../routes/contenido.php";
+
+  if(isset($_GET['dato']) != "usuario" && isset($_GET['dato']) != "registro" && isset($_GET['dato']) != "const"){
+    include_once "cronograma.php";
+  }
   ?>
 
   <script src="../js/bootstrap.bundle.min.js"></script>
@@ -78,7 +66,3 @@ if (session_status() === PHP_SESSION_NONE) {
 </body>
 
 </html>
-=======
-  include_once "../routes/contenido.php";
-  ?>
->>>>>>> 4bdc9845ecbe3ee5a41f909c33bf67f6396d71d7

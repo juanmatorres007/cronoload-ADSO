@@ -1,6 +1,6 @@
 <h2>Formulario de regfistro de Ficha</h2>
 
-<form action="../routes/registrarFicha.php" method="POST">
+<form action="../../routes/registrouser.php/registrarFicha.php" method="POST">
 
 <input type="hidden" name="IdProyect" value="<?php echo $idproyect?>">
 
@@ -13,7 +13,7 @@
 <input type="date" name="f_inicio"><br><br>
 
 <label for="">Fecha de finalizacion: </label>
-<input type="date" name="f_fin">
+<input type="date" name="f_fin"><br><br>
 
 <button type="submit">Guardar</button>
 

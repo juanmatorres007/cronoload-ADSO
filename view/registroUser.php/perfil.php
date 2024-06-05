@@ -272,7 +272,6 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error('Error fetching files', error));
     });
 
-    //SIN TERMINAR!!  
 //-------------------------------------------------------------//
 
  // Función para cargar las opciones del municipio del usuario
@@ -320,10 +319,8 @@ document.addEventListener("DOMContentLoaded", function() {
     cargarMunicipiosUsuario();
 });
 
-
-
-
-
+    //SIN TERMINAR!!  
+    
 
   //-------------------------------------------------------------//
 

@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     initialView: 'dayGridMonth',
     locale: 'es',
     headerToolbar: {
-      left: 'prev, next, today',
+      left: 'prev,next,today',
       center: 'title',
-      right: 'dayGridMonth, timeGridWeek, listWeek'
+      right: 'dayGridMonth,timeGridWeek,listWeek'
     },
     dateClick: function (info) {
-      //console.log(info);
+      // console.log("prueba ", info);
       document.getElementById('start').value = info.dateStr;
       document.getElementById('titulo').textContent = 'Registro de instructor';
       myModal.show();
@@ -18,3 +18,4 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   calendar.render();
 });
+

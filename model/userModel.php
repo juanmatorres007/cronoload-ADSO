@@ -275,8 +275,7 @@ class UserModel
   }
 
 
-  public function registerProyect($name, $number, $estado, $var_fecha, $id_area)
-  {
+  public function registerProyect($name, $number, $estado, $var_fecha, $id_area){
     $sql = $this->conn->prepare("INSERT INTO project(name_proj, number_proj, state_proj, register_date_proj, id_knowledge_area_proj)
         VALUES(?,?,?,?,?)");
     $sql->bindParam(1, $name);
@@ -287,6 +286,24 @@ class UserModel
     $sql->execute();
     $rta = $sql->rowCount();
     return $rta;
+  }
+
+  public function registerFicha($id_proyect, $numero_ficha, $estado, $f_ini, $f_fin){
+    $sql = $this->conn->prepare("INSERT INTO ficha(number_file, state_file, start_date_file, end_date_file, id_proj_file ) VALUES (?,?,?,?,?)");
+    $sql->bindParam(1, $numero_ficha);
+    $sql->bindParam(2, $estado);
+    $sql->bindParam(3, $f_ini);
+    $sql->bindParam(4, $f_fin);
+    $sql->bindParam(5, $id_proyect);
+
+      if($sql->execute()){
+        $sql2 = $this->conn->prepare("INSERT INTO events(ficha_event) VALUES (?)");
+        $sql2->bindParam(1, $numero_ficha);
+        $sql2->execute();
+          
+        $registerFicha = $sql->rowCount();
+        return $registerFicha;
+      }
   }
 
   // public function updateUser($type_id, $phone_user, $email_user, $genero){
