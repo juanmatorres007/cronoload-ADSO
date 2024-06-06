@@ -59,49 +59,78 @@ document.getElementById('consultaSelect').addEventListener('change', function() 
 });
 
 function updateTable(data) {
-    // Obtener el cuerpo de la tabla
+    // Obtener el cuerpo de la tabla y los encabezados de columna
     var tableBody = document.querySelector('.table-const tbody');
+    var tableHeader = document.querySelector('.table-const thead tr');
 
-    // Limpiar el contenido actual de la tabla
+    // Limpiar el contenido actual de la tabla y los encabezados de columna
     tableBody.innerHTML = '';
+    tableHeader.innerHTML = '';
+
+    // Obtener el valor seleccionado en el menú desplegable
+    var selectedValue = document.getElementById('consultaSelect').value;
+
+    // Definir los nombres de las columnas y las celdas correspondientes
+    var columnNames = [];
+    var cellFunctions = [];
+
+    // Definir las columnas y celdas dependiendo del valor seleccionado
+    switch(selectedValue) {
+        case 'areaConocimiento':
+            columnNames = ['ID', 'Nombre', 'Fecha de Registro', 'Estado'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_know; },
+                function(rowData) { return rowData.area_name_know; },
+                function(rowData) { return rowData.date_register_know; },
+                function(rowData) { return rowData.state_know; }
+            ];
+            break;
+        case 'programa':
+            // Definir nombres de columna y celdas para la consulta de programa
+            columnNames = ['ID', 'Nombre', 'Fecha de Registro', 'Codigo', 'Version', 'Tipo de programa', 'Estado'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_prog; },
+                function(rowData) { return rowData.name_prog; },
+                function(rowData) { return rowData.date_register_prog; },
+                function(rowData) { return rowData.code_prog; },
+                function(rowData) { return rowData.version_prog; },
+                function(rowData) { return rowData.type_prog; },
+                function(rowData) { return rowData.state_prog; }
+            ];
+            break;
+        case 'ficha':
+            // Definir nombres de columna y celdas para la consulta de ficha
+            columnNames = ['ID', 'Numero', 'Estado', 'Fecha de registro', 'Fecha de finalización'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_fil; },
+                function(rowData) { return rowData.number_file; },
+                function(rowData) { return rowData.state_file; },
+                function(rowData) { return rowData.start_date_file; },
+                function(rowData) { return rowData.end_date_file; }
+            ];
+            break;
+        default:
+            // Si no se selecciona ninguna opción válida, no se agrega ninguna celda
+            break;
+    }
+
+    // Agregar los nombres de columna al encabezado de la tabla
+    columnNames.forEach(function(columnName) {
+        var th = document.createElement('th');
+        th.textContent = columnName;
+        tableHeader.appendChild(th);
+    });
 
     // Iterar sobre los datos recibidos y crear filas de tabla para cada objeto
     data.forEach(function(rowData) {
         // Crear una nueva fila de tabla
         var row = tableBody.insertRow();
 
-        // Verificar el valor seleccionado en el menú desplegable
-        var selectedValue = document.getElementById('consultaSelect').value;
-
-        // Agregar celdas a la fila dependiendo del valor seleccionado
-        switch(selectedValue) {
-            case 'areaConocimiento':
-                var idCell = row.insertCell(0);
-                idCell.textContent = rowData.id_auto_know;
-
-                var nameCell = row.insertCell(1);
-                nameCell.textContent = rowData.area_name_know;
-
-                var infoCell = row.insertCell(2);
-                infoCell.textContent = rowData.date_register_know;
-
-                var stateCell = row.insertCell(3);
-                stateCell.textContent = rowData.state_know;
-                break;
-            case 'programa':
-                var nameCell = row.insertCell(0);
-                nameCell.textContent = rowData.area_name_know;
-
-                var infoCell = row.insertCell(1);
-                infoCell.textContent = rowData.date_register_know;                
-                break;
-            case 'ficha':
-                // Agregar celdas específicas para la consulta de ficha
-                break;
-            default:
-                // Si no se selecciona ninguna opción válida, no se agrega ninguna celda
-                break;
-        }
+        // Agregar celdas a la fila según la función correspondiente
+        cellFunctions.forEach(function(cellFunction) {
+            var cell = row.insertCell();
+            cell.textContent = cellFunction(rowData);
+        });
     });
 }
 

@@ -119,6 +119,20 @@ class ConsultaController
     return $getKnowFile;
   }
 
+  public function getProgram(){
+    $consultaModel = new ConsultaModel();
+    $getProgram = $consultaModel->getProgram();
+
+    return $getProgram;
+  }
+
+  public function getFile(){
+    $consultaModel = new ConsultaModel();
+    $getFile = $consultaModel->getFile();
+
+    return $getFile;
+  }
+
 
   //-----------------CONSULTA GENERAL-------------------//
 

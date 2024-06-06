@@ -225,7 +225,48 @@ class ConsultaModel{
             }
             
             return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+
+    public function getProgram(){
+        $program = "SELECT * FROM program";
+        $stmt = $this->conn->prepare($program);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
             
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+    public function getFile(){
+        $file = "SELECT * FROM ficha";
+        $stmt = $this->conn->prepare($file);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
         } else {
             $errorInfo = $stmt->errorInfo();
             return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);

@@ -12,12 +12,12 @@ if(isset($_GET['consulta'])) {
         case 'areaConocimiento':
             $data = $consultaController->getKnowArea(); // Supongamos que esta función obtiene los archivos por área de conocimiento
             break;
-        // case 'programa':
-        //     $data = $consultaController->getProgramFile(); // Supongamos que esta función obtiene los archivos por programa
-        //     break;
-        // case 'ficha':
-        //     $data = $consultaController->getFileByFicha(); // Supongamos que esta función obtiene los archivos por ficha
-        //     break;
+        case 'programa':
+            $data = $consultaController->getProgram(); // Supongamos que esta función obtiene los archivos por programa
+            break;
+        case 'ficha':
+            $data = $consultaController->getFile(); // Supongamos que esta función obtiene los archivos por ficha
+            break;
         default:
             // Si el valor seleccionado no coincide con ninguna consulta conocida, devuelve un mensaje de error
             echo json_encode(array('error' => 'Consulta no válida'));
