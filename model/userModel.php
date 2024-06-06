@@ -297,8 +297,11 @@ class UserModel
     $sql->bindParam(5, $id_proyect);
 
       if($sql->execute()){
+
+        $ficha_id = $this->conn->lastInsertId();
+
         $sql2 = $this->conn->prepare("INSERT INTO events(ficha_event) VALUES (?)");
-        $sql2->bindParam(1, $numero_ficha);
+        $sql2->bindParam(1, $ficha_id);
         $sql2->execute();
           
         $registerFicha = $sql->rowCount();

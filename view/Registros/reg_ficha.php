@@ -1,6 +1,6 @@
 <h2>Formulario de regfistro de Ficha</h2>
 
-<form action="../../routes/registrouser.php/registrarFicha.php" method="POST">
+<form action="../../routes/registrouser/registrarFicha.php" method="POST">
 
 <input type="hidden" name="IdProyect" value="<?php echo $idproyect?>">
 

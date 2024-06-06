@@ -16,7 +16,7 @@
 
 <div class="perfilContent">
   <div>
-    <form action="../routes/registrouser.php/user.php?action=update" method="POST" enctype="multipart/form-data">
+    <form action="../routes/Registros/user.php?action=update" method="POST" enctype="multipart/form-data">
       <label class="label" for=""><strong>FOTO DE PERFIL: </strong>
         <div class="contenedor">
           <div class="foto_perfil">
@@ -118,7 +118,7 @@
     var type_id_user = <?php echo $_SESSION['usuario']['type_id_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?type_id=" + type_id_user, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?type_id=" + type_id_user, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("tipo_documento").value = xhr.responseText;
@@ -151,7 +151,7 @@
         }
     }
   }    
-    fetch("../routes/selectUser.php/genero.php")
+    fetch("../routes/selectUser/genero.php")
         .then(response => response.json())
         .then(data => {
             cargarOpcionesGenero(data);
@@ -165,7 +165,7 @@
     var id_auto_conPhone = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?phone_id=" + id_auto_conPhone, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?phone_id=" + id_auto_conPhone, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("phone").value = xhr.responseText;
@@ -180,7 +180,7 @@
     var id_auto_conEmail = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?email_id=" + id_auto_conEmail, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?email_id=" + id_auto_conEmail, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("email").value = xhr.responseText;
@@ -195,7 +195,7 @@
     var id_auto_file = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?ficha_id=" + id_auto_file, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?ficha_id=" + id_auto_file, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("ficha").value = xhr.responseText;
@@ -237,14 +237,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Se realiza una petición para obtener el departamento del usuario
-    fetch("../routes/consultasuser.php/getData.php?departamento_id=" + id_auto_dept)
+    fetch("../routes/Consultas/getData.php?departamento_id=" + id_auto_dept)
         .then(response => response.json())
         .then(data => {
             // Llama a la función para cargar las opciones del departamento del usuario
             cargarOpcionesDepartamentoUsuario(data[0]);
             console.log("Departamento default: ", data[0])
             // Luego, realiza una petición para obtener todos los departamentos disponibles
-            fetch("../routes/selectUser.php/address.php")
+            fetch("../routes/selectUser/address.php")
                 .then(response => response.json())
                 .then(data => {
                     // Llama a la función para cargar las opciones de los demás departamentos
@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var id_departamento_seleccionado = departamentoSelect.value;
 
         // Realizar una petición para obtener los municipios del departamento seleccionado
-        fetch("../routes/selectUser.php/municipio.php?deptId=" + id_departamento_seleccionado)
+        fetch("../routes/selectUser/municipio.php?deptId=" + id_departamento_seleccionado)
             .then(response => response.json())
             .then(data => {
                 console.log("Los municipios cargados son: ", data);
@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function cargarMunicipiosUsuario() {
         // Realizar una petición para obtener el municipio del usuario
         console.log("Usuario:", id_auto_dept)
-        fetch("../routes/consultasuser.php/getData.php?municipio_id=" + id_auto_dept)
+        fetch("../routes/Consultas/getData.php?municipio_id=" + id_auto_dept)
             .then(response => response.json())
             .then(data => {
                 console.log("El municipio del usuario es: ", data[0]);
@@ -328,7 +328,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var id_auto_dir = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?direccion_id=" + id_auto_dir, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?direccion_id=" + id_auto_dir, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("direccion").value = xhr.responseText;
@@ -343,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var id_auto_contract = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?contrato_id=" + id_auto_contract, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?contrato_id=" + id_auto_contract, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("contrato").value = xhr.responseText;
@@ -358,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var id_auto_startContract = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?startContrato_id=" + id_auto_startContract, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?startContrato_id=" + id_auto_startContract, true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var fechaTexto = xhr.responseText;
@@ -379,7 +379,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var id_auto_endContract = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?endContrato_id=" + id_auto_endContract, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?endContrato_id=" + id_auto_endContract, true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             var fechaTexto = xhr.responseText;
@@ -400,7 +400,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var id_auto_know = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?know_id=" + id_auto_know, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?know_id=" + id_auto_know, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("know").value = xhr.responseText;
@@ -415,7 +415,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var id_auto_lvl = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../routes/consultasuser.php/getData.php?lvl_id=" + id_auto_lvl, true);
+    xhr.open("GET", "../routes/Consultas/getData.php?lvl_id=" + id_auto_lvl, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         document.getElementById("lvl").value = xhr.responseText;

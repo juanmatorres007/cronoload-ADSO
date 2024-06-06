@@ -3,7 +3,7 @@
 
         <?php if($_SESSION['getSessionRol'] === "Administrador"){?>
 
-        <form action="../routes/consultasuser.php/consultaAllUser.php" method="POST">
+        <form action="../routes/Consultas/consultaAllUser.php" method="POST">
             <label for="rol">Rol que quiere consultar:</label>
                 <select name="rol" id="rolSelect">
                     <option value="1">Aprendices</option>
@@ -13,7 +13,7 @@
         </form><br>
         <?php }elseif($_SESSION['getSessionRol'] === "Coordinador"){?>
 
-            <form action="../routes/consultasuser.php/consultaAllUser.php" method="POST">
+            <form action="../routes/Consultas/consultaAllUser.php" method="POST">
             <label for="rol">Rol que quiere consultar:</label>
                 <select name="rol" id="rolSelect">
                     <option value="1">Aprendices</option>
@@ -66,7 +66,7 @@
     // Función para realizar la solicitud AJAX y actualizar la tabla con los datos devueltos
     function loadData(rol) {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../routes/consultasuser.php/consultaAllUser.php", true);
+        xhr.open("POST", "../routes/Consultas/consultaAllUser.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {

@@ -12,11 +12,11 @@ class ContenidoController{
     }
 
         public function view3(){
-          include "../view/registroUser.php/perfil.php";
+          include "../view/Registros/perfil.php";
         }
 
           public function view4(){
-            include "../view/registroUser.php/registro.php";
+            include "../view/Registros/registro.php";
           }
 
               public function view5(){

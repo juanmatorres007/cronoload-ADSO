@@ -16,7 +16,7 @@
       <td><?php echo $retados['area_name_know']; ?> </td>
       <td><?php echo $retados['date_register_know']; ?> </td>
       <td><?php echo $retados['state_know']; ?> </td>
-      <td><a href="../routes/consultarProyect.php?x=<?php echo $retados['id_auto_know']; ?>">Consultar proyectos</a></td>
+      <td><a href="../../routes/Consultas/consultarProyect.php?x=<?php echo $retados['id_auto_know']; ?>">Consultar proyectos</a></td>
     </tr>
 
   <?php

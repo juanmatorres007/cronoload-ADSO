@@ -49,7 +49,7 @@
 
 
 function loadInstructor() {
-        fetch("../routes/consultasuser.php/getCalendar.php?instructor=")
+        fetch("../routes/consultasuser/getCalendar.php?instructor=")
             .then(response => response.json())
             .then(data => {
                 const instructorSelect = document.getElementById('instructorSelect')

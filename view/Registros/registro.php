@@ -36,7 +36,7 @@
 </style>
 
 <div class="registerContent">
-    <form id="registrationForm" action="../routes/registrouser.php/user.php?action=register" method="POST">
+    <form id="registrationForm" action="../routes/Registros/user.php?action=register" method="POST">
         <h2>Formulario de Registro</h2>
 
         <label><strong>Nombre: </strong></label>
@@ -148,7 +148,7 @@
     //Hace que el formulario muestre diferentes campos dependiendo del rol del usuario
 
     function loadRoles() {
-        fetch('../routes/selectUser.php/Rol.php')
+        fetch('../routes/selectUser/Rol.php')
             .then(response => response.json())
             .then(data => {
                 const roleSelect = document.getElementById('rolSelect');
@@ -173,7 +173,7 @@
     //Carga de forma dinamica los roles en el campo de rolSelect
 
     function loadGenero() {
-        fetch("../routes/selectUser.php/genero.php")
+        fetch("../routes/selectUser/genero.php")
             .then(response => response.json())
             .then(data => {
                 const generoSelect = document.getElementById('generoSelect')
@@ -199,7 +199,7 @@
 
 
     function loadFile() {
-        fetch("../routes/consultasuser.php/consultaFicha.php")
+        fetch("../routes/consultasuser/consultaFicha.php")
             .then(response => response.json())
             .then(data => {
                 const fileSelect = document.getElementById('fileSelect')
@@ -224,7 +224,7 @@
         //Carga de forma dinamica las fichas en el campo de fileSelect
 
     function loadContractType() {
-        fetch("../routes/selectUser.php/contractType.php")
+        fetch("../routes/selectUser/contractType.php")
             .then(response => response.json())
             .then(data => {
                 const contractTypeSelect = document.getElementById('ContractTypeSelect');
@@ -249,7 +249,7 @@
         //Carga de forma dinamica los tipos de contratos en el campo de ContractTypeSelect
 
     function loadKnow() {
-        fetch('../routes/selectUser.php/areaReg.php')
+        fetch('../routes/selectUser/areaReg.php')
             .then(response => response.json())
             .then(data => {
                 const areaSelect = document.getElementById('knowSelect');
@@ -275,7 +275,7 @@
         //Carga de forma dinamica las areas de conocimiento en el campo de knowSelect
 
     function loadLvlForm() {
-        fetch('../routes/selectUser.php/lvlForm.php')
+        fetch('../routes/selectUser/lvlForm.php')
             .then(response => response.json())
             .then(data => {
                 const lvlFormSelect = document.getElementById('lvlFormSelect')
@@ -299,7 +299,7 @@
         //Carga de forma dinamica los niveles formativos en el campo de lvlFormSelect
 
     function loadDept() {
-        fetch('../routes/selectUser.php/address.php')
+        fetch('../routes/selectUser/address.php')
             .then(response => response.json())
             .then(data => {
                 const deptSelect = document.getElementById('deptSelect');
@@ -333,7 +333,7 @@
         const deptId = this.value;
 
         if (deptId !== '') {
-            fetch(`../routes/selectUser.php/municipio.php?deptId=` + deptId)
+            fetch(`../routes/selectUser/municipio.php?deptId=` + deptId)
                 .then(response => response.json())
                 .then(data => {
                     munSelect.innerHTML = '';
@@ -361,7 +361,7 @@ loadMun();
         //Carga de forma dinamica los municipios dependiendo del departamento en el campo de munSelect
 
     function loadTypeId() {
-        fetch('../routes/selectUser.php/typeId.php')
+        fetch('../routes/selectUser/typeId.php')
             .then(response => response.json())
             .then(data => {
                 const typeIdSelect = document.getElementById('typeIdSelect');                
