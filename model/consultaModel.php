@@ -14,32 +14,6 @@ class ConsultaModel{
         $this-> conn = conectaDb();
     }
 
-    public function ConsultAr(){
- 
-        $sql=$this->conn->prepare("SELECT * FROM knowledge_area");
-        $sql -> execute();
-        $consultaarea = $sql -> fetchAll(PDO::FETCH_ASSOC);
-        return  $consultaarea;
-    }
-
-    public function consulproyect($idarea) {
-
-        $sql = $this -> conn -> prepare("SELECT * FROM project WHERE id_knowledge_area_proj = $idarea");
-        $sql -> execute();
-        $consulta_proyecto = $sql -> fetchAll(PDO::FETCH_ASSOC);
-        return $consulta_proyecto;
-        return $idarea;
-    }
-
-    public function consultarFichaModel($idproyect) {
-
-        $sql = $this -> conn -> prepare("SELECT * FROM file WHERE id_proj_file  = $idproyect");
-        $sql -> execute();
-        $consulta_ficha = $sql -> fetchAll(PDO::FETCH_ASSOC);
-        return $consulta_ficha;
-        return $idproyect;
-    }
-
     public function getUserDocumentType($type_id){
         $documentType_query = "SELECT t.name_idType FROM type_id t INNER JOIN user u ON t.id_idType_auto = u.type_id_user WHERE u.type_id_user = :type_id";
         $stmt = $this->conn->prepare($documentType_query);
@@ -235,5 +209,30 @@ class ConsultaModel{
             return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
         }
     }
+
+    //----------------CONSULTA GENERAL-----------------//
+
+    public function getKnowArea(){
+        $knowArea = "SELECT * FROM knowledge_area";
+        $stmt = $this->conn->prepare($knowArea);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+            
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+    //----------------CONSULTA GENERAL-----------------//
+
 
 }

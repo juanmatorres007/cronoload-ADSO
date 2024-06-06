@@ -104,6 +104,9 @@
           <a id="const" href="#"><strong>
             <h5>Consulta</h5>
           </strong></a>
+          <a id="consulta_general" href="#"><strong>
+            <h5>Consulta General</h5>
+          </strong></a>
         <a id="back" href="../index.php"><strong>
             <h5>Salir</h5>
           </strong></a>
@@ -127,6 +130,11 @@
 
     document.getElementById("const").addEventListener("click", function() {
       var vista = "const";
+      window.location.href = "../routes/contenido.php?dato=" + vista;
+    })
+
+    document.getElementById("consulta_general").addEventListener("click", function() {
+      var vista = "consulta_general";
       window.location.href = "../routes/contenido.php?dato=" + vista;
     })
   </script>

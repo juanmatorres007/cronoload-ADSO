@@ -22,4 +22,8 @@ class ContenidoController{
               public function view5(){
                 include "../view/prueba.php";
               }
+
+                public function view6(){
+                  include "../view/Consultas/Consultas.php";
+                }
 }

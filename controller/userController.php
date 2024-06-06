@@ -117,10 +117,6 @@ class UserController{
       return $typeId;
     }
 
-   public function registroproyect($idarea){
-      include "../view/regProyecto.php";
-   }
-
    public function registerProyect($name, $number, $estado, $var_fecha, $id_area){
       $proyect = new UserModel();
       $rta = $proyect->registerProyect($name, $number, $estado, $var_fecha, $id_area);
@@ -138,7 +134,6 @@ class UserController{
    //    $x = new UserModel();
    //    $actu = $x -> updateUser($type_id, $phone_user, $email_user, $genero);
    //    echo"actualizacion exitosa";
-
    // }
 
    public function updateUserPhoto($imagen, $id_user){
