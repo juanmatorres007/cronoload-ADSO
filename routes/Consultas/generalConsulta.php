@@ -18,6 +18,30 @@ if(isset($_GET['consulta'])) {
         case 'ficha':
             $data = $consultaController->getFile(); // Supongamos que esta función obtiene los archivos por ficha
             break;
+        case 'proyecto':
+            $data = $consultaController->getProject();
+            break;   
+        case 'contract':
+            $data = $consultaController->getContract();
+            break;   
+        case 'genero':
+            $data = $consultaController->getGenero();
+            break;     
+        case 'phase':
+            $data = $consultaController->getPhase();   
+            break;  
+        case 'formation_lvl':
+            $data = $consultaController->getFormation_lvl();
+            break; 
+        case 'activity':
+            $data = $consultaController->getActivity();
+            break;    
+        case 'competition':
+            $data = $consultaController->getCompetition();
+            break;    
+        case 'result':
+            $data = $consultaController->getResult();
+            break;    
         default:
             // Si el valor seleccionado no coincide con ninguna consulta conocida, devuelve un mensaje de error
             echo json_encode(array('error' => 'Consulta no válida'));

@@ -79,7 +79,7 @@
       <?php }?>
 
       <label for=""><strong>TIPO DE CONTRATO: </strong></label>
-      <input type="" name="contrato_id" id="contrato" placeholder=""><br><br>
+      <input type="" disabled name="contrato_id" id="contrato" placeholder=""><br><br>
 
       <?php if($_SESSION['getSessionRol'] === "Coordinador" || $_SESSION['getSessionRol'] === "Instructor"){?>
 

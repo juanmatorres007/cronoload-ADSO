@@ -133,6 +133,62 @@ class ConsultaController
     return $getFile;
   }
 
+  public function getProject(){
+    $consultaModel = new ConsultaModel();
+    $getProject = $consultaModel->getProject();
+
+    return $getProject;
+  }
+
+  public function getContract(){
+    $consultaModel = new ConsultaModel();
+    $getContract = $consultaModel->getContract();
+
+    return $getContract;
+  }
+
+  public function getGenero(){
+    $consultaModel = new ConsultaModel();
+    $getGenero = $consultaModel->getGenero();
+
+    return $getGenero;
+  }
+
+  public function getPhase(){
+    $consultaModel = new ConsultaModel();
+    $getPhase = $consultaModel->getPhase();
+
+    return $getPhase;
+  }
+
+  public function getFormation_lvl(){
+    $consultaModel = new ConsultaModel();
+    $getFormation_lvl = $consultaModel->getFormation_lvl();
+
+    return $getFormation_lvl;
+  }
+
+  public function getCompetition(){
+    $consultaModel = new ConsultaModel();
+    $getCompetition = $consultaModel->getCompetition();
+
+    return $getCompetition;
+  }
+
+  public function getActivity(){
+    $consultaModel = new ConsultaModel();
+    $getActivity = $consultaModel->getActivity();
+
+    return $getActivity;
+  }
+
+  public function getResult(){
+    $consultaModel = new ConsultaModel();
+    $getResult = $consultaModel->getResult();
+
+    return $getResult;
+  }
+
 
   //-----------------CONSULTA GENERAL-------------------//
 

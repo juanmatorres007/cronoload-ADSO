@@ -10,6 +10,14 @@
                     <option value="areaConocimiento">area de Conocimiento</option>
                     <option value="programa">Programa</option>
                     <option value="ficha">Ficha</option>
+                    <option value="proyecto">Proyecto</option>
+                    <option value="contract">Tipos de Contratos</option>
+                    <option value="genero">Genero</option|>
+                    <option value="phase">Fases</option>
+                    <option value="formation_lvl">Niveles formativos</option>
+                    <option value="activity">Actividades</option>
+                    <option value="competition">Competencias</option>
+                    <option value="result">Resultados</option>
                 </select>
         </form><br>
         <?php }?>
@@ -17,18 +25,10 @@
             <table class="table table-dark table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>FECHA DE REGISTRO</th>
-                        <th>ESTADO</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>-------</td>
-                        <td>-------</td>
-                        <td>-------</td>
-                        <td>-------</td>
                     </tr>
                 </tbody>
             </table>
@@ -109,6 +109,79 @@ function updateTable(data) {
                 function(rowData) { return rowData.end_date_file; }
             ];
             break;
+        case 'proyecto':  
+            columnNames = ['ID', 'Nombre', 'Número', 'Estado', 'Fecha de registro'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_proj ; },
+                function(rowData) { return rowData.name_proj; },
+                function(rowData) { return rowData.number_proj; },
+                function(rowData) { return rowData.state_proj; },
+                function(rowData) { return rowData.register_date_proj; }
+            ];
+            break;  
+        case 'contract':  
+            columnNames = ['ID', 'Nombre'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_cont  ; },
+                function(rowData) { return rowData.name_cont; }
+            ];
+        break; 
+        case 'genero':  
+            columnNames = ['ID', 'Nombre', 'Estado'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_genero_auto   ; },
+                function(rowData) { return rowData.name_gen; },
+                function(rowData) { return rowData.estate_gen; }
+            ];
+        break; 
+        case 'phase':  
+            columnNames = ['ID', 'Nombre', 'Fecha de registro','Estado'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_pha; },
+                function(rowData) { return rowData.name_pha; },
+                function(rowData) { return rowData.date_register_pha; },
+                function(rowData) { return rowData.state_pha; },
+            ];
+        break; 
+        case 'formation_lvl':  
+            columnNames = ['ID', 'Nombre'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_flvl; },
+                function(rowData) { return rowData.name_flvl; },
+            ];
+        break; 
+        case 'activity':  
+            columnNames = ['ID', 'Nombre', 'Fecha de registro', 'Estado', 'ID Fase'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_acti; },
+                function(rowData) { return rowData.name_acti; },
+                function(rowData) { return rowData.date_register_acti; },
+                function(rowData) { return rowData.state_acti; },
+                function(rowData) { return rowData.id_pha_acti; },
+            ];
+        break; 
+        case 'competition':  
+            columnNames = ['ID', 'Nombre', 'Número', 'Fecha de registro', 'Estado', 'ID Actividad'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_comp ; },
+                function(rowData) { return rowData.name_comp; },
+                function(rowData) { return rowData.number_comp; },
+                function(rowData) { return rowData.date_register_comp; },
+                function(rowData) { return rowData.state_comp; },
+                function(rowData) { return rowData.id_acti_comp; },
+            ];
+        break; 
+        case 'result':
+            columnNames = ['ID', 'Nombre', 'Fecha de registro', 'Estado', 'ID Competencia', 'ID Area de Conocimiento'];
+            cellFunctions = [
+                function(rowData) { return rowData.id_auto_res; },
+                function(rowData) { return rowData.name_res; },
+                function(rowData) { return rowData.date_register_res; },
+                function(rowData) { return rowData.state_res; },
+                function(rowData) { return rowData.id_comp_res; },
+                function(rowData) { return rowData.id_know_res; },
+            ];
+        break; 
         default:
             // Si no se selecciona ninguna opción válida, no se agrega ninguna celda
             break;

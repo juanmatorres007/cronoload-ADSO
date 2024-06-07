@@ -22,7 +22,7 @@
         </form><br>
         <?php } ?>
         <div class="table-const">
-            <table class="table table-dark table-striped table-bordered table-hover">
+            <table class="table table-dark table-striped table-bordered table-hover" id="myTable">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -44,6 +44,9 @@
             </table>
         </div>
 </div>
+
+
+<!-- <script>let table = new DataTable('#myTable');</script> -->
 
 <script>
 

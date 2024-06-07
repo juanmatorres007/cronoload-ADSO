@@ -273,6 +273,166 @@ class ConsultaModel{
         } 
     }
 
+    public function getProject(){
+        $project = "SELECT * FROM project";
+        $stmt = $this->conn->prepare($project);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+    public function getContract(){
+        $contract = "SELECT * FROM contracts";
+        $stmt = $this->conn->prepare($contract);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+    public function getGenero(){
+        $genero = "SELECT * FROM genero";
+        $stmt = $this->conn->prepare($genero);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+    public function getPhase(){
+        $phase = "SELECT * FROM phase";
+        $stmt = $this->conn->prepare($phase);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+    public function getFormation_lvl(){
+        $formation_lvl = "SELECT * FROM formation_lvl";
+        $stmt = $this->conn->prepare($formation_lvl);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+    public function getCompetition(){
+        $competition = "SELECT * FROM competition";
+        $stmt = $this->conn->prepare($competition);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+    public function getActivity(){
+        $activity = "SELECT * FROM activity";
+        $stmt = $this->conn->prepare($activity);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+    public function getResult(){
+        $result = "SELECT * FROM result";
+        $stmt = $this->conn->prepare($result);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
     //----------------CONSULTA GENERAL-----------------//
 
 
