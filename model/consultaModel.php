@@ -197,17 +197,13 @@ class ConsultaModel{
     }
 
     public function getAllDataUser($rol){
-        // $user_query = "SELECT * FROM user, relation_rol_user WHERE id_rol_relaru = :rol ";
-        $user_query = "SELECT user.* FROM user INNER JOIN relation_rol_user ON user.id_auto_user = relation_rol_user.id_user_relaru WHERE relation_rol_user.id_rol_relaru = :rol";
-        $sql = $this->conn->prepare($user_query);
-        $sql->bindParam(':rol', $rol);
+        $sql = $this->conn->prepare("SELECT * FROM user, relation_rol_user WHERE id_rol_relaru=? AND id_user_relaru = id_auto_user");
+        $sql->bindParam(1,$rol);
+        $sql->execute();
 
-        if($sql->execute()){
-            return $sql->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            $errorInfo = $sql->errorInfo();
-            return array('error' => 'Error encontrando el género: ' . $errorInfo[2]);
-        }
+        $resultados = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultados;
     }
 
     //----------------CONSULTA GENERAL-----------------//
