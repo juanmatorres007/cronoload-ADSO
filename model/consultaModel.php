@@ -211,21 +211,26 @@ class ConsultaModel{
     public function getKnowArea(){
         $knowArea = "SELECT * FROM knowledge_area";
         $stmt = $this->conn->prepare($knowArea);
+        $stmt->execute();
+
+        $knowArea = $stmt->fetchALL(PDO::FETCH_ASSOC);
+
+        return $knowArea;
         
-        if($stmt->execute()){
+        // if($stmt->execute()){
 
-            $data = array();
+        //     $data = array();
 
-            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $data[] = $results;
-            }
+        //     while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+        //         $data[] = $results;
+        //     }
             
-            return $data;
+        //     return $data;
 
-        } else {
-            $errorInfo = $stmt->errorInfo();
-            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
-        } 
+        // } else {
+        //     $errorInfo = $stmt->errorInfo();
+        //     return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        // } 
     }
 
 
