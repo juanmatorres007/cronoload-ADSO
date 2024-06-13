@@ -25,9 +25,9 @@
             <label for="start">Area de Formacion</label><br><br>
             <select name="area" id="">
 
-            <!-- </select>
+            </select>
             <label for="start">Ficha Tecnica</label><br><br>
-            <select name="ficha" id=""> -->
+            <select name="ficha" id="">
 
             </select>
             <label for="">Resultado de Aprendizaje</label>
