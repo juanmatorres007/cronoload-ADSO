@@ -93,8 +93,8 @@ $birth = $_REQUEST['birth_id'];
                 }
             }
 
-            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-            echo "Lo sentimos, solo se permiten archivos JPG, JPEG, PNG y GIF.";
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+            echo "Lo sentimos, solo se permiten archivos JPG, JPEG y PNG";
             $uploadOk = 0;
             }
 

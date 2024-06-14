@@ -192,5 +192,17 @@ class ConsultaController
 
   //-----------------CONSULTA GENERAL-------------------//
 
+  //-----------------ACTUALIZAR CONSULTA GENERAL-----------------//
+
+
+      public function updateData($table, $idField, $data) {
+        $consultaModel = new ConsultaModel();
+        $updateData = $consultaModel->updateData($table, $idField, $data);
+        
+        return $updateData;
+      }
+
+    
+  //-----------------ACTUALIZAR CONSULTA GENERAL-----------------//
 
 }

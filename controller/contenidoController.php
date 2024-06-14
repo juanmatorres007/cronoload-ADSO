@@ -26,4 +26,8 @@ class ContenidoController{
                 public function view6(){
                   include "../view/Consultas/Consultas.php";
                 }
+
+                  public function viewUpdate(){
+                    include "../view/Consultas/updateGeneral.php";
+                  }
 }

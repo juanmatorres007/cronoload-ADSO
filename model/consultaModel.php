@@ -436,5 +436,32 @@ class ConsultaModel{
 
     //----------------CONSULTA GENERAL-----------------//
 
+    //----------------ACTUALIZAR CONSULTA GENERAL----------------//
+
+    public function updateData($table, $idField, $data) {
+        $setPart = [];
+        foreach ($data as $key => $value) {
+            if ($key !== $idField) { // Asumiendo que tienes un campo 'id' que no debe actualizarse
+                $setPart[] = "$key = :$key";
+            }
+        }
+        $setString = implode(', ', $setPart);
+
+        // Asumiendo que tienes un campo 'idField' para identificar el registro
+        $idValue = $data[$idField];
+
+        $query = "UPDATE $table SET $setString WHERE $idField = :$idField";
+        $stmt = $this->conn->prepare($query);
+
+        // Vincular los parámetros
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+        $stmt->bindValue(":$idField", $idValue);
+
+        return $stmt->execute();
+    }
+
+    //----------------ACTUALIZAR CONSULTA GENERAL----------------//
 
 }
