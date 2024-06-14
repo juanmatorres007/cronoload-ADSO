@@ -71,134 +71,155 @@
             info: true
         });
 
-        // Listener para el cambio de consulta
+        //---------------------------------------------------------------------//
+        //Mapeo para verificar los nombres e id de cada tabla segun el option del
+        //select que se haya seleccionado para enviarlo al formulario de update
+
+        var optionMappings = {
+        "areaConocimiento": { table: "knowledge_area", idField: "id_auto_know" },
+        "programa": { table: "program", idField: "id_auto_prog" },
+        "ficha": { table: "ficha", idField: "id_auto_fil" },
+        "proyecto": { table: "project", idField: "id_auto_proj" },
+        "contract": { table: "contracts", idField: "id_auto_cont" },
+        "genero": { table: "genero", idField: "id_genero_auto" },
+        "phase": { table: "phase", idField: "id_auto_pha" },
+        "formation_lvl": { table: "formation_lvl", idField: "id_auto_flvl" },
+        "activity": { table: "activity", idField: "id_auto_acti" },
+        "competition": { table: "competition", idField: "id_auto_comp" },
+        "result": { table: "result", idField: "id_auto_res" }
+    };
+
+        //---------------------------------------------------------------------//
+
+
         $('#consultaSelect').on('change', function() {
-            var selectedValue = this.value;
-            if (selectedValue) {
-                // Hacer la solicitud AJAX
-                $.ajax({
-                    url: "../routes/Consultas/generalConsulta.php?action=consulta",
-                    type: "GET",
-                    data: {consulta: selectedValue},
-                    dataType: "json",
-                    success: function(data) {
-                        if (data.length > 0) {
-                            updateTable(data);
-                        } else {
-                            console.warn("No se encontraron datos para la consulta seleccionada");
-                            generalTable.clear().draw();
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error al obtener los datos:", status, error);
+        var selectedValue = this.value;
+        if (selectedValue && optionMappings[selectedValue]) {
+            var table = optionMappings[selectedValue].table;
+            var idField = optionMappings[selectedValue].idField;
+
+            $.ajax({
+                url: "../routes/Consultas/generalConsulta.php?action=consulta",
+                type: "GET",
+                data: { consulta: selectedValue },
+                dataType: "json",
+                success: function(data) {
+                    if (data.length > 0) {
+                        updateTable(data);
+                    } else {
+                        console.warn("No se encontraron datos para la consulta seleccionada");
+                        generalTable.clear().draw();
                     }
-                });
-            } else {
-                generalTable.clear().draw(); // Limpiar la tabla si no se selecciona nada
-            }
-        });
-
-        // Función para actualizar la tabla con los nuevos datos
-        function updateTable(data) {
-            // Definir las columnas basadas en los datos recibidos
-            var columns = Object.keys(data[0]).map(function(key) {
-                return {
-                    data: key,
-                    title: key
-                };
-            });
-
-            // Añadir la columna de acciones
-            columns.push({
-                data: null,
-                title: 'Actualizar',
-                render: function(data, type, row) {
-                    return '<button class="btn btn-dark update-btn" data-row=\'' + JSON.stringify(row) + '\'>Actualizar</button>';
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error al obtener los datos:", status, error);
                 }
             });
-
-            // Destruir la instancia existente de DataTable
-            generalTable.clear().destroy();
-            $('#generalTable thead').empty();
-            $('#generalTable tbody').empty();
-
-            // Añadir nueva fila de encabezado
-            var headerRow = $('<th></th>');
-            $('#generalTable thead').append('<tr></tr>');
-            columns.forEach(function(col) {
-                $('#generalTable thead tr').append('<th>' + col.title + '</th>');
-            });
-
-            // Inicializar DataTable con nuevas columnas y datos
-            generalTable = $('#generalTable').DataTable({
-                data: data,
-                columns: columns,
-                paging: true,
-                searching: true,
-                ordering: true,
-                info: true
-            });
-
-            $('#generalTable tbody').on('click', '.update-btn', function() {
-                var rowData = $(this).data('row');
-                openUpdateModal(rowData);
-            });
+        } else {
+            generalTable.clear().draw();
         }
+    });
 
-        function openUpdateModal(rowData) {
-            $('#updateForm').empty();
-            Object.keys(rowData).forEach(function(key) {
-                $('#updateForm').append(`
+   function updateTable(data) {
+    // Definir las columnas basadas en los datos recibidos
+    var columns = Object.keys(data[0]).map(function(key) {
+        return { data: key, title: key };
+    });
+
+    // Añadir la columna de acciones
+    columns.push({
+        data: null,
+        title: 'Acciones',
+        render: function(data, type, row) {
+            return '<button class="btn btn-dark update-btn" data-row=\'' + JSON.stringify(row) + '\'>Actualizar</button>';
+        }
+    });
+
+    // Destruir la instancia existente de DataTable
+    generalTable.clear().destroy();
+
+    // Limpiar encabezado y cuerpo de la tabla
+    $('#generalTable thead').empty();
+    $('#generalTable tbody').empty();
+
+    // Añadir nueva fila de encabezado
+    $('#generalTable thead').append('<tr></tr>');
+    columns.forEach(function(col) {
+        $('#generalTable thead tr').append('<th>' + col.title + '</th>');
+    });
+
+    // Inicializar DataTable con nuevas columnas y datos
+    generalTable = $('#generalTable').DataTable({
+        data: data,
+        columns: columns,
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true
+    });
+
+    // Asignar evento click al botón de actualizar
+    $('#generalTable tbody').on('click', '.update-btn', function() {
+        var rowData = $(this).data('row');
+        openUpdateModal(rowData);
+    });
+}
+
+
+    function openUpdateModal(rowData) {
+        $('#updateForm').empty();
+        Object.keys(rowData).forEach(function(key) {
+            $('#updateForm').append(`
                 <div class="form-group">
                     <label for="${key}">${key}</label>
                     <input type="text" class="form-control" id="${key}" name="${key}" value="${rowData[key]}">
                 </div>
             `);
-            });
-            $('#updateModal').modal('show');
-        }
+        });
+        $('#updateModal').modal('show');
+    }
 
-        $('#saveChangesBtn').on('click', function() {
-            var formData = $('#updateForm').serializeArray();
-            var data = {};
-            formData.forEach(function(item) {
-                data[item.name] = item.value;
-            });
+    $('#saveChangesBtn').on('click', function() {
+        var formData = $('#updateForm').serializeArray();
+        var data = {};
+        formData.forEach(function(item) {
+            data[item.name] = item.value;
+        });
 
-            var table = $('#consultaSelect').val();
-            var idField = 'id'; // Ajusta esto según sea necesario
+        var selectedValue = $('#consultaSelect').val();
+        var table = optionMappings[selectedValue].table;
+        var idField = optionMappings[selectedValue].idField;
 
-            $.ajax({
-                url: "../routes/Consultas/generalConsulta.php?action=update",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify({
-                    table: table,
-                    idField: idField,
-                    ...data
-                }),
-
-                success: function(response) {
-                    if (response.success) {
-                        console.log("Datos actualizados correctamente");
-                        $('#updateModal').modal('hide');
-                        $('#consultaSelect').trigger('change');
-                    } else {
-                        console.error("Error al actualizar los datos:", response.error);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error en la solicitud de actualización:", status, error);
+        $.ajax({
+            url: "../routes/Consultas/generalConsulta.php?action=update",
+            type: "POST",
+            dataType: "json",
+            data: {
+                table: table,
+                idField: idField,
+                ...data
+            },
+            success: function(response) {
+                if (response.success) {
+                    console.log("Datos actualizados correctamente");
+                    $('#updateModal').modal('hide');
+                    $('#consultaSelect').trigger('change');
+                } else {
+                    console.error("Error al actualizar los datos:", response.error);
                 }
-            });
-        });
-
-        $(document).on('click', '#closeModalBtn', function(){
-            $('#updateModal').modal('hide')
-        });
-
-        $('#updateModal').on('hidden.bs.modal', function(){
-            $('#updateForm').trigger('reset');
+            },
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud de actualización:", status, error);
+            }
         });
     });
+
+    $('#closeModalBtn').on('click', function() {
+        $('#updateModal').modal('hide');
+    });
+
+    $('#updateModal').on('hidden.bs.modal', function() {
+        $('#updateForm').trigger('reset');
+    });
+});
 </script>

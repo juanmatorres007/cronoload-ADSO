@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 include "../../controller/consultaController.php";
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
@@ -61,25 +62,48 @@ if ($action === 'consulta') {
     }
 } elseif ($action === 'update') {
 
-    $input = json_decode(file_get_contents('php//input'), true);
-    $table = $input['table'];
-    $idField = $input['idField'];
-    $id = $input[$idField];
+    // Recibir datos directamente de $_POST
+     $table = $_POST['table'] ?? null;
+     $idField = $_POST['idField'] ?? null;
+     $id = $_POST[$idField] ?? null;
 
+     echo $table;
+
+    // Verificar si los datos recibidos son válidos
+    if (!$table || !$idField || !$id || !isset($_POST[$idField])) {
+        echo json_encode(['error' => 'Datos de actualización no válidos']);
+        exit; // Terminar el script si los datos no son válidos
+    }
+     
+    // Crear conexión a la base de datos (reemplazar con tus datos de conexión)
+    $conn = new mysqli('localhost', 'root', '', 'programador2');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+ 
+
+    $// Construir la cadena SET para la consulta UPDATE
     $setValues = [];
-    foreach ($input as $key => $value) {
-        if ($key !== 'table' && $key !== 'idField') {
+    foreach ($_POST as $key => $value) {
+        if ($key !== 'table' && $key !== 'idField' && $key !== $idField) {
             $setValues[] = "$key = '$value'";
         }
     }
     $setString = implode(', ', $setValues);
-    
+
+    // Construir y ejecutar la consulta UPDATE
     $updateQuery = "UPDATE $table SET $setString WHERE $idField = '$id'";
     
-    if (mysqli_query($conn, $updateQuery)) {
+    if ($conn->query($updateQuery) === TRUE) {
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'error' => 'Error actualizando los datos']);
+        echo json_encode(['success' => false, 'error' => 'Error actualizando los datos: ' . $conn->error]);
     }
+
+    $conn->close();
+
+} else {
+    echo json_encode(['error' => 'Acceso no permitido']); // Manejar acceso incorrecto al script
+
 
 }
