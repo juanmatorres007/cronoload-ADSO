@@ -201,8 +201,19 @@ class ConsultaController
         
         return $updateData;
       }
-
     
   //-----------------ACTUALIZAR CONSULTA GENERAL-----------------//
+
+
+  //-----------------CONSULTA USUARIO MEDIANTE ID-----------------//
+
+  public function getUserData($userId){
+    $consultaModel = new ConsultaModel();
+    $getUserData = $consultaModel->getUserData($userId);
+
+    return $getUserData;
+  }
+   
+  //-----------------CONSULTA USUARIO MEDIANTE ID-----------------//
 
 }

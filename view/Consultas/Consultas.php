@@ -3,21 +3,21 @@
 
     <?php if ($_SESSION['getSessionRol'] === "Administrador") { ?>
 
-            <label for="data">Datos que quiere consultar:</label>
-            <select name="consulta" id="consultaSelect">
-                <option value="">Seleccione un dato</option>
-                <option value="areaConocimiento">area de Conocimiento</option>
-                <option value="programa">Programa</option>
-                <option value="ficha">Ficha</option>
-                <option value="proyecto">Proyecto</option>
-                <option value="contract">Tipos de Contratos</option>
-                <option value="genero">Genero</option>
-                <option value="phase">Fases</option>
-                <option value="formation_lvl">Niveles formativos</option>
-                <option value="activity">Actividades</option>
-                <option value="competition">Competencias</option>
-                <option value="result">Resultados</option>
-            </select><br>
+        <label for="data">Datos que quiere consultar:</label>
+        <select name="consulta" id="consultaSelect">
+            <option value="">Seleccione un dato</option>
+            <option value="areaConocimiento">area de Conocimiento</option>
+            <option value="programa">Programa</option>
+            <option value="ficha">Ficha</option>
+            <option value="proyecto">Proyecto</option>
+            <option value="contract">Tipos de Contratos</option>
+            <option value="genero">Genero</option>
+            <option value="phase">Fases</option>
+            <option value="formation_lvl">Niveles formativos</option>
+            <option value="activity">Actividades</option>
+            <option value="competition">Competencias</option>
+            <option value="result">Resultados</option>
+        </select><br>
     <?php } ?>
     <div class="table-const">
         <table class="table table-dark table-striped table-bordered table-hover" id="generalTable">
@@ -62,37 +62,68 @@
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
 
 <script>
-    $(document).ready(function() {
-        // Inicializar DataTable sin datos
-        var generalTable = $('#generalTable').DataTable({
-            paging: true,
-            searching: true,
-            ordering: true,
-            info: true
-        });
+$(document).ready(function() {
+    var generalTable = $('#generalTable').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true
+    });
 
-        //---------------------------------------------------------------------//
-        //Mapeo para verificar los nombres e id de cada tabla segun el option del
-        //select que se haya seleccionado para enviarlo al formulario de update
+    //---------------------------------------------------------------------//
+    // Mapeo para verificar los nombres e id de cada tabla según el option del
+    // select que se haya seleccionado para enviarlo al formulario de update
 
-        var optionMappings = {
-        "areaConocimiento": { table: "knowledge_area", idField: "id_auto_know" },
-        "programa": { table: "program", idField: "id_auto_prog" },
-        "ficha": { table: "ficha", idField: "id_auto_fil" },
-        "proyecto": { table: "project", idField: "id_auto_proj" },
-        "contract": { table: "contracts", idField: "id_auto_cont" },
-        "genero": { table: "genero", idField: "id_genero_auto" },
-        "phase": { table: "phase", idField: "id_auto_pha" },
-        "formation_lvl": { table: "formation_lvl", idField: "id_auto_flvl" },
-        "activity": { table: "activity", idField: "id_auto_acti" },
-        "competition": { table: "competition", idField: "id_auto_comp" },
-        "result": { table: "result", idField: "id_auto_res" }
+    var optionMappings = {
+        "areaConocimiento": {
+            table: "knowledge_area",
+            idField: "id_auto_know"
+        },
+        "programa": {
+            table: "program",
+            idField: "id_auto_prog"
+        },
+        "ficha": {
+            table: "ficha",
+            idField: "id_auto_fil"
+        },
+        "proyecto": {
+            table: "project",
+            idField: "id_auto_proj"
+        },
+        "contract": {
+            table: "contracts",
+            idField: "id_auto_cont"
+        },
+        "genero": {
+            table: "genero",
+            idField: "id_genero_auto"
+        },
+        "phase": {
+            table: "phase",
+            idField: "id_auto_pha"
+        },
+        "formation_lvl": {
+            table: "formation_lvl",
+            idField: "id_auto_flvl"
+        },
+        "activity": {
+            table: "activity",
+            idField: "id_auto_acti"
+        },
+        "competition": {
+            table: "competition",
+            idField: "id_auto_comp"
+        },
+        "result": {
+            table: "result",
+            idField: "id_auto_res"
+        }
     };
 
-        //---------------------------------------------------------------------//
+    //---------------------------------------------------------------------//
 
-
-        $('#consultaSelect').on('change', function() {
+    $('#consultaSelect').on('change', function() {
         var selectedValue = this.value;
         if (selectedValue && optionMappings[selectedValue]) {
             var table = optionMappings[selectedValue].table;
@@ -101,7 +132,9 @@
             $.ajax({
                 url: "../routes/Consultas/generalConsulta.php?action=consulta",
                 type: "GET",
-                data: { consulta: selectedValue },
+                data: {
+                    consulta: selectedValue
+                },
                 dataType: "json",
                 success: function(data) {
                     if (data.length > 0) {
@@ -120,51 +153,49 @@
         }
     });
 
-   function updateTable(data) {
-    // Definir las columnas basadas en los datos recibidos
-    var columns = Object.keys(data[0]).map(function(key) {
-        return { data: key, title: key };
-    });
+    function updateTable(data) {
+        var columns = Object.keys(data[0]).map(function(key) {
+            return {
+                data: key,
+                title: key
+            };
+        });
 
-    // Añadir la columna de acciones
-    columns.push({
-        data: null,
-        title: 'Acciones',
-        render: function(data, type, row) {
-            return '<button class="btn btn-dark update-btn" data-row=\'' + JSON.stringify(row) + '\'>Actualizar</button>';
-        }
-    });
+        columns.push({
+            data: null,
+            title: 'Acciones',
+            render: function(data, type, row) {
+                return '<button class="btn btn-dark update-btn" data-row=\'' + JSON.stringify(row) + '\'>Actualizar</button>';
+            }
+        });
 
-    // Destruir la instancia existente de DataTable
-    generalTable.clear().destroy();
+        generalTable.clear().destroy();
 
-    // Limpiar encabezado y cuerpo de la tabla
-    $('#generalTable thead').empty();
-    $('#generalTable tbody').empty();
+        // Limpiar encabezado y cuerpo de la tabla
+        $('#generalTable thead').empty();
+        $('#generalTable tbody').empty();
 
-    // Añadir nueva fila de encabezado
-    $('#generalTable thead').append('<tr></tr>');
-    columns.forEach(function(col) {
-        $('#generalTable thead tr').append('<th>' + col.title + '</th>');
-    });
+        // Añadir nueva fila de encabezado
+        $('#generalTable thead').append('<tr></tr>');
+        columns.forEach(function(col) {
+            $('#generalTable thead tr').append('<th>' + col.title + '</th>');
+        });
 
-    // Inicializar DataTable con nuevas columnas y datos
-    generalTable = $('#generalTable').DataTable({
-        data: data,
-        columns: columns,
-        paging: true,
-        searching: true,
-        ordering: true,
-        info: true
-    });
+        generalTable = $('#generalTable').DataTable({
+            data: data,
+            columns: columns,
+            paging: true,
+            searching: true,
+            ordering: true,
+            info: true
+        });
 
-    // Asignar evento click al botón de actualizar
-    $('#generalTable tbody').on('click', '.update-btn', function() {
-        var rowData = $(this).data('row');
-        openUpdateModal(rowData);
-    });
-}
-
+        // Asignar evento click al botón de actualizar
+        $('#generalTable tbody').on('click', '.update-btn', function() {
+            var rowData = $(this).data('row');
+            openUpdateModal(rowData);
+        });
+    }
 
     function openUpdateModal(rowData) {
         $('#updateForm').empty();
@@ -203,7 +234,7 @@
                 if (response.success) {
                     console.log("Datos actualizados correctamente");
                     $('#updateModal').modal('hide');
-                    $('#consultaSelect').trigger('change');
+                    updateTableAfterUpdate(); 
                 } else {
                     console.error("Error al actualizar los datos:", response.error);
                 }
@@ -214,12 +245,49 @@
         });
     });
 
+    //------------------MODAL------------------//
+
     $('#closeModalBtn').on('click', function() {
         $('#updateModal').modal('hide');
+        $('#updateForm').trigger('reset'); 
     });
 
     $('#updateModal').on('hidden.bs.modal', function() {
         $('#updateForm').trigger('reset');
     });
+
+    function updateTableAfterUpdate() {
+        var selectedValue = $('#consultaSelect').val();
+        if (selectedValue && optionMappings[selectedValue]) {
+            var table = optionMappings[selectedValue].table;
+            var idField = optionMappings[selectedValue].idField;
+
+            $.ajax({
+                url: "../routes/Consultas/generalConsulta.php?action=consulta",
+                type: "GET",
+                data: {
+                    consulta: selectedValue
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.length > 0) {
+                        updateTable(data);
+                    } else {
+                        console.warn("No se encontraron datos para la consulta seleccionada");
+                        generalTable.clear().draw();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error al obtener los datos:", status, error);
+                }
+            });
+        } else {
+            generalTable.clear().draw();
+        }
+    }
+     
+    //------------------MODAL------------------//
+
 });
+
 </script>

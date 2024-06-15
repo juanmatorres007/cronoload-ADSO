@@ -196,15 +196,32 @@ class ConsultaModel{
         }
     }
 
-    public function getAllDataUser($rol){
-        $sql = $this->conn->prepare("SELECT * FROM user, relation_rol_user WHERE id_rol_relaru=? AND id_user_relaru = id_auto_user");
-        $sql->bindParam(1,$rol);
+    public function getAllDataUser($rol) {
+        $sql = $this->conn->prepare("SELECT user.id_auto_user,
+            user.name_user,
+            user.lastname_user,
+            user.type_id_user,
+            user.number_id_user,
+            user.birth_user,
+            user.id_gen_user,
+            user.state_user,
+            contracts.name_cont AS type_contract_name,
+            knowledge_area.area_name_know AS know_area_name,
+            formation_lvl.name_flvl AS formation_lvl_name
+        FROM user
+            INNER JOIN relation_rol_user ON user.id_auto_user = relation_rol_user.id_user_relaru
+            LEFT JOIN contracts ON user.id_type_contract_user = contracts.id_auto_cont
+            LEFT JOIN knowledge_area ON user.id_know_user = knowledge_area.id_auto_know
+            LEFT JOIN formation_lvl ON user.id_formation_lvl_user  = formation_lvl.id_auto_flvl
+        WHERE relation_rol_user.id_rol_relaru = ?
+        ");
+        $sql->bindParam(1, $rol);
         $sql->execute();
-
+    
         $resultados = $sql->fetchAll(PDO::FETCH_ASSOC);
-
+    
         return $resultados;
-    }
+    }    
 
     //----------------CONSULTA GENERAL-----------------//
 
@@ -463,5 +480,32 @@ class ConsultaModel{
     }
 
     //----------------ACTUALIZAR CONSULTA GENERAL----------------//
+
+
+    //----------------CONSULTA USUARIO MEDIANTE ID----------------//
+
+    public function getUserData($userId){
+        $userData = "SELECT * FROM user WHERE id_auto_user = :userId";
+        $stmt = $this->conn->prepare($userData);
+        $stmt->bindParam(':userId', $userId);
+        
+        if($stmt->execute()){
+
+            $data = array();
+
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
+            
+            return $data;
+
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
+    }
+
+
+    //----------------CONSULTA USUARIO MEDIANTE ID----------------//
 
 }
