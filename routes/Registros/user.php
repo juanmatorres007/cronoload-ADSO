@@ -57,9 +57,9 @@ extract($_REQUEST);
 
 $id_user = $_REQUEST['id'];
 $name = $_REQUEST['name_user'];
-$lastname = $_REQUEST['lastname'];
+$lastName = $_REQUEST['lastname'];
 // $type_id = $_REQUEST['type_id'];
-$number_id = $_REQUEST['number_id'];
+$numberId = $_REQUEST['number_id'];
 // $genero = $_REQUEST['genero_id'];
 $birth = $_REQUEST['birth_id'];
 // $phone_user = $_REQUEST['phone_id'];
@@ -111,9 +111,46 @@ $birth = $_REQUEST['birth_id'];
 
     $updateUserPhoto = $userController->updateUserPhoto($imagen, $id_user);
     if($updateUserPhoto > 0){
-        $updateUser = $userController->updateUser($id_user, $name, $lastname, $number_id, $birth);
+        $updateUser = $userController->updateUser($id_user, $name, $lastName, $numberId, $birth);
         if($updateUser > 0){
             
         }
     }
+}elseif($action === 'updates'){
+    error_log(print_r($_REQUEST, true));
+
+    extract($_REQUEST);
+
+    $id_user = $_REQUEST['userId'];
+    $rol = $_REQUEST['rolId']; // "1" == "Aprendiz" -- "4" == "Instructor" -- "7" == "Coordinador" -- "18" == "Administrador"
+    $name = $_REQUEST['userName'];
+    $lastName = $_REQUEST['userLastName'];
+    $typeId = $_REQUEST['userTypeId'];
+    $numberId = $_REQUEST['userNumberId'];
+    $birth = $_REQUEST['userBirth'];
+    $genero = $_REQUEST['userGenero'];
+    $estado = $_REQUEST['userEstado'];
+
+    if($rol == "1"){
+        $updateUser = $userController->updateUser($id_user, $name, $lastName, $typeId, $numberId, $birth, $genero, $estado);
+    } elseif ($rol == "4" || $rol == "7") {
+
+            //----------FOREIGN KEYS----------//
+        $typeContract = $_REQUEST['userTypeContract'];
+        $knowArea = $_REQUEST['userknowArea'];
+        $formationLvl = $_REQUEST['userFormationLvl'];
+            //----------FOREIGN KEYS----------//
+
+        $updateUser = $userController->updateUserWithExtras($id_user, $name, $lastName, $typeId, $numberId, $birth, $genero, $estado, $typeContract, $knowArea, $formationLvl);
+    }
+
+    // Manejo de la respuesta de la actualización
+    if ($updateUser > 0) {
+        // Éxito en la actualización
+        echo json_encode(['status' => 'success', 'message' => 'Usuario actualizado correctamente']);
+    } else {
+        // Error en la actualización
+        echo json_encode(['status' => 'error', 'message' => 'Error al actualizar usuario']);
+    }
+
 }

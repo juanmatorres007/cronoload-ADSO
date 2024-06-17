@@ -57,37 +57,37 @@ class UserModel
     return $rta;
   }
 
-  public function registerArea($Nombre, $Fecha, $Estado){
+  // public function registerArea($Nombre, $Fecha, $Estado){
 
-    $sql = $this->conn->prepare("INSERT INTO knowledge_area(area_name_know, date_register_know, state_know) VALUES(?,?,?)");
-    $sql->bindParam(1, $Nombre);
-    $sql->bindParam(2, $Fecha);
-    $sql->bindParam(3, $Estado);
-    $sql->execute();
-    $rta = $sql->rowCount();
-    return $rta;
-  }
+  //   $sql = $this->conn->prepare("INSERT INTO knowledge_area(area_name_know, date_register_know, state_know) VALUES(?,?,?)");
+  //   $sql->bindParam(1, $Nombre);
+  //   $sql->bindParam(2, $Fecha);
+  //   $sql->bindParam(3, $Estado);
+  //   $sql->execute();
+  //   $rta = $sql->rowCount();
+  //   return $rta;
+  // }
 
-  public function registerFile($registerUser, $file){
+  // public function registerFile($registerUser, $file){
 
-    $sql = $this->conn->prepare("INSERT INTO relation_user_file(id_user_reluf, id_file_reluf) VALUES (?,?)");
-    $sql->bindParam(1, $registerUser);
-    $sql->bindParam(2, $file);
-    $sql->execute();
-    $rta = $sql->rowCount();
+  //   $sql = $this->conn->prepare("INSERT INTO relation_user_file(id_user_reluf, id_file_reluf) VALUES (?,?)");
+  //   $sql->bindParam(1, $registerUser);
+  //   $sql->bindParam(2, $file);
+  //   $sql->execute();
+  //   $rta = $sql->rowCount();
 
-    return $rta;
-  }
+  //   return $rta;
+  // }
 
-  public function registerContract($contract_name){
-    $sql = $this->conn->prepare("INSERT INTO contracts(name_cont) Values (?)");
-    $sql->bindParam(1,$contract_name);
-    $sql->execute();
+  // public function registerContract($contract_name){
+  //   $sql = $this->conn->prepare("INSERT INTO contracts(name_cont) Values (?)");
+  //   $sql->bindParam(1,$contract_name);
+  //   $sql->execute();
 
-    $rta = $sql->rowCount();
-    $id_contract = $this->conn->lastInsertId();
-    return $id_contract;
-  }
+  //   $rta = $sql->rowCount();
+  //   $id_contract = $this->conn->lastInsertId();
+  //   return $id_contract;
+  // }
 
   public function registerContact($email_user, $phone_user, $registerUser){
     $sql = $this->conn->prepare("INSERT INTO contact(email_con, phone_con, id_user_con) VALUES (?,?,?)");
@@ -275,18 +275,18 @@ class UserModel
   }
 
 
-  public function registerProyect($name, $number, $estado, $var_fecha, $id_area){
-    $sql = $this->conn->prepare("INSERT INTO project(name_proj, number_proj, state_proj, register_date_proj, id_knowledge_area_proj)
-        VALUES(?,?,?,?,?)");
-    $sql->bindParam(1, $name);
-    $sql->bindParam(2, $number);
-    $sql->bindParam(3, $estado);
-    $sql->bindParam(4, $var_fecha);
-    $sql->bindParam(5, $id_area);
-    $sql->execute();
-    $rta = $sql->rowCount();
-    return $rta;
-  }
+  // public function registerProyect($name, $number, $estado, $var_fecha, $id_area){
+  //   $sql = $this->conn->prepare("INSERT INTO project(name_proj, number_proj, state_proj, register_date_proj, id_knowledge_area_proj)
+  //       VALUES(?,?,?,?,?)");
+  //   $sql->bindParam(1, $name);
+  //   $sql->bindParam(2, $number);
+  //   $sql->bindParam(3, $estado);
+  //   $sql->bindParam(4, $var_fecha);
+  //   $sql->bindParam(5, $id_area);
+  //   $sql->execute();
+  //   $rta = $sql->rowCount();
+  //   return $rta;
+  // }
 
   public function registerFicha($id_proyect, $numero_ficha, $estado, $f_ini, $f_fin){
     $sql = $this->conn->prepare("INSERT INTO ficha(number_file, state_file, start_date_file, end_date_file, id_proj_file ) VALUES (?,?,?,?,?)");
@@ -309,16 +309,8 @@ class UserModel
       }
   }
 
-  // public function updateUser($type_id, $phone_user, $email_user, $genero){
-  //   $sql = $this ->conn -> prepare("UPDATE user SET phone_user=?, email_user=? where id_auto_user=? ");
-  //   $sql -> bindParam(1,$phone_user);
-  //   $sql -> bindParam(2,$email_user);
-  //   $sql -> bindParam(3,$type_id);
-  //   $sql -> execute();
-  //   $rta = $sql -> rowCount();
+  //--------------------------------FORMULARIOS ACTUALIZACION--------------------------------//
 
-  //   return $rta;
-  // }
 
   public function updateUserPhoto($imagen, $id_user){
     $sql = $this->conn->prepare("UPDATE user SET photo_user=? where id_auto_user=?");
@@ -330,18 +322,49 @@ class UserModel
     return $updateUserPhoto;
   }
 
-  public function updateUser($id_user, $name, $lastname, $number_id, $birth){
-    $sql = $this->conn->prepare("UPDATE user SET name_user=?, lastname_user=?, number_id_user=?, birth_user=?
-    WHERE id_auto_user=?");
+  public function updateUser($id_user, $name, $lastName, $typeId, $numberId, $birth, $genero, $estado){
+    $sql = $this->conn->prepare("UPDATE user SET name_user=?, lastname_user=?, type_id_user=?, number_id_user=?,
+    birth_user=?, id_gen_user=?, state_user=? WHERE id_auto_user=?");
     $sql->bindParam(1, $name);
-    $sql->bindParam(2, $lastname);
-    $sql->bindParam(3, $number_id);
-    $sql->bindParam(4, $birth);
-    $sql->bindParam(5, $id_user);
+    $sql->bindParam(2, $lastName);
+    $sql->bindParam(3, $typeId);
+    $sql->bindParam(4, $numberId);
+    $sql->bindParam(5, $birth);
+    $sql->bindParam(6, $genero);
+    $sql->bindParam(7, $estado);
+    $sql->bindParam(8, $id_user);
     $sql->execute();
 
     $updateUser = $sql->rowCount();
 
     return $updateUser;
   }
+
+  public function updateUserWithExtras($id_user, $name, $lastName, $typeId, $numberId, $birth, $genero, $estado,
+  $typeContract, $knowArea, $formationLvl){
+
+    $sql = $this->conn->prepare("UPDATE user SET name_user=?, lastname_user=?, type_id_user=?, number_id_user=?,
+    birth_user=?, id_gen_user=?, state_user=?, id_type_contract_user=?, id_know_user=?, id_formation_lvl_user=? 
+    WHERE id_auto_user=?");
+    $sql->bindParam(1, $name);
+    $sql->bindParam(2, $lastName);
+    $sql->bindParam(3, $typeId);
+    $sql->bindParam(4, $numberId);
+    $sql->bindParam(5, $birth);
+    $sql->bindParam(6, $genero);
+    $sql->bindParam(7, $estado);
+    $sql->bindParam(8, $typeContract);
+    $sql->bindParam(9, $knowArea);
+    $sql->bindParam(10, $formationLvl);
+    $sql->bindParam(11, $id_user);
+
+    $sql->execute();
+
+    $updateUser = $sql->rowCount();
+
+    return $updateUser;
+  }
+
+  //--------------------------------FORMULARIOS ACTUALIZACION--------------------------------//
+
 }

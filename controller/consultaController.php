@@ -112,11 +112,11 @@ class ConsultaController
 
   //-----------------CONSULTA GENERAL-------------------//
 
-  public function getKnowArea(){
+  public function getTypeId(){
     $consultaModel = new ConsultaModel();
-    $getKnowFile = $consultaModel->getKnowArea();
+    $getTypeId = $consultaModel->getTypeId();
 
-    return $getKnowFile;
+    return $getTypeId;
   }
 
   public function getProgram(){
@@ -188,6 +188,40 @@ class ConsultaController
 
     return $getResult;
   }
+
+
+    //-------FOREIGN KEYS-------//
+
+    public function getContractType(){
+      $consultaModel = new ConsultaModel();
+      $getContractType = $consultaModel->getContractType();
+
+      return $getContractType;
+    }
+
+    public function getKnowArea(){
+      $consultaModel = new ConsultaModel();
+      $getKnowArea = $consultaModel->getKnowArea();
+  
+      return $getKnowArea;
+    }
+
+    public function getFormationLvl(){
+      $consultaModel = new ConsultaModel();
+      $getFormationLvl = $consultaModel->getFormationLvl();
+
+      return $getFormationLvl;
+    }
+
+    public function getState(){
+      $consultaModel = new ConsultaModel();
+      $getState = $consultaModel->getState();
+
+      return $getState;
+    }
+
+    //-------FOREIGN KEYS-------//
+
 
 
   //-----------------CONSULTA GENERAL-------------------//

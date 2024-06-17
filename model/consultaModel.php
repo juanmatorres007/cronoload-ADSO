@@ -225,29 +225,24 @@ class ConsultaModel{
 
     //----------------CONSULTA GENERAL-----------------//
 
-    public function getKnowArea(){
-        $knowArea = "SELECT * FROM knowledge_area";
-        $stmt = $this->conn->prepare($knowArea);
-        $stmt->execute();
-
-        $knowArea = $stmt->fetchALL(PDO::FETCH_ASSOC);
-
-        return $knowArea;
+    public function getTypeId(){
+        $typeId = "SELECT * FROM type_id";
+        $stmt = $this->conn->prepare($typeId);
         
-        // if($stmt->execute()){
+        if($stmt->execute()){
 
-        //     $data = array();
+            $data = array();
 
-        //     while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
-        //         $data[] = $results;
-        //     }
+            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $data[] = $results;
+            }
             
-        //     return $data;
+            return $data;
 
-        // } else {
-        //     $errorInfo = $stmt->errorInfo();
-        //     return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
-        // } 
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
+        } 
     }
 
 
@@ -451,6 +446,52 @@ class ConsultaModel{
         } 
     }
 
+
+        //-------FOREIGN KEYS-------//
+
+        public function getContractType(){
+            $contractType = "SELECT * FROM contracts";
+            $stmt = $this->conn->prepare($contractType);
+            $stmt->execute();
+    
+            $contractType = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    
+            return $contractType;
+        }
+
+        public function getKnowArea(){
+            $knowArea = "SELECT * FROM knowledge_area";
+            $stmt = $this->conn->prepare($knowArea);
+            $stmt->execute();
+    
+            $knowArea = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    
+            return $knowArea;
+        }
+
+        public function getFormationLvl(){
+            $formationLvl = "SELECT * FROM formation_lvl";
+            $stmt = $this->conn->prepare($formationLvl);
+            $stmt->execute();
+    
+            $formationLvl = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    
+            return $formationLvl;
+        }
+
+        public function getState(){
+            $state = "SELECT * FROM states";
+            $stmt = $this->conn->prepare($state);
+            $stmt->execute();
+    
+            $state = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    
+            return $state;
+        }
+
+         //-------FOREIGN KEYS-------//
+
+
     //----------------CONSULTA GENERAL-----------------//
 
     //----------------ACTUALIZAR CONSULTA GENERAL----------------//
@@ -485,24 +526,33 @@ class ConsultaModel{
     //----------------CONSULTA USUARIO MEDIANTE ID----------------//
 
     public function getUserData($userId){
-        $userData = "SELECT * FROM user WHERE id_auto_user = :userId";
-        $stmt = $this->conn->prepare($userData);
-        $stmt->bindParam(':userId', $userId);
-        
-        if($stmt->execute()){
-
-            $data = array();
-
-            while($results = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $data[] = $results;
-            }
-            
-            return $data;
-
-        } else {
-            $errorInfo = $stmt->errorInfo();
-            return array('error' => 'Error encontrando el area de conocimiento: ' . $errorInfo[2]);
-        } 
+        $sql = $this->conn->prepare("SELECT user.id_auto_user,
+            user.name_user,
+            user.lastname_user,
+            user.type_id_user,
+            user.number_id_user,
+            user.birth_user,
+            user.id_gen_user,
+            user.state_user,
+            contracts.name_cont AS type_contract_name,
+            knowledge_area.area_name_know AS know_area_name,
+            formation_lvl.name_flvl AS formation_lvl_name,
+            rol.name_rol AS rol_name,
+            rol.id_auto_rol AS rol_id
+        FROM user
+            INNER JOIN relation_rol_user ON user.id_auto_user = relation_rol_user.id_user_relaru
+            LEFT JOIN rol ON relation_rol_user.id_rol_relaru = rol.id_auto_rol 
+            LEFT JOIN contracts ON user.id_type_contract_user = contracts.id_auto_cont
+            LEFT JOIN knowledge_area ON user.id_know_user = knowledge_area.id_auto_know
+            LEFT JOIN formation_lvl ON user.id_formation_lvl_user  = formation_lvl.id_auto_flvl
+        WHERE user.id_auto_user = ?
+        ");
+        $sql->bindParam(1, $userId);
+        $sql->execute();
+    
+        $resultados = $sql->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $resultados;
     }
 
 

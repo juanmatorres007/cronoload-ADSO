@@ -9,11 +9,13 @@ if ($action === 'consulta') {
     if (isset($_GET['consulta'])) {
 
         $consultaController = new ConsultaController();
-        // $data = null;
 
         if ($_GET['consulta'] === 'areaConocimiento') {
             $data = $consultaController->getKnowArea();
             header('Content-Type: application/json');
+            echo json_encode($data);
+        } elseif($_GET['consulta'] === 'tipo_documento'){
+            $data = $consultaController->getTypeId();
             echo json_encode($data);
         } elseif ($_GET['consulta'] === 'programa') {
             $data = $consultaController->getProgram();
@@ -55,7 +57,26 @@ if ($action === 'consulta') {
             $data = $consultaController->getResult();
             header('Content-Type: application/json');
             echo json_encode($data);
+            //------------CONSULTAS TABLAS FOREIGN KEYS------------//
+        } elseif($_GET['consulta'] === 'tipo_contrato'){
+            $data = $consultaController->getContractType();
+            header('Content-Type: application/json');
+            echo json_encode($data);
+        } elseif($_GET['consulta'] === 'area_conocimiento'){
+            $data = $consultaController->getKnowArea();
+            header('Content-Type: application/json');
+            echo json_encode($data);
+        } elseif($_GET['consulta'] === 'nivel_formativo'){
+            $data = $consultaController->getFormationLvl();
+            header('Content-Type: application/json');
+            echo json_encode($data);
+        } elseif($_GET['consulta'] === 'estado'){
+            $data = $consultaController->getstate();
+            header('Content-Type: application/json');
+            echo json_encode($data);
         }
+         //------------CONSULTAS TABLAS FOREIGN KEYS------------//
+
     } else {
         // Si no se proporcionó un valor de consulta, devuelve un mensaje de error
         echo json_encode(array('error' => 'No se proporcionó un valor de consulta'));

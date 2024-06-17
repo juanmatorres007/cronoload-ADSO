@@ -17,7 +17,8 @@
             <option value="activity">Actividades</option>
             <option value="competition">Competencias</option>
             <option value="result">Resultados</option>
-        </select><br>
+        </select>
+        <button type="button" class="btn btn-dark ms-1" id="btnNewRegistro">Nuevo Registro</button>
     <?php } ?>
     <div class="table-const">
         <table class="table table-dark table-striped table-bordered table-hover" id="generalTable">
@@ -45,7 +46,6 @@
             </div>
             <div class="modal-body">
                 <form id="updateForm">
-                    <!-- Campos del formulario se generarán dinámicamente -->
                 </form>
             </div>
             <div class="modal-footer">
@@ -70,7 +70,7 @@ $(document).ready(function() {
         info: true
     });
 
-    //---------------------------------------------------------------------//
+    //---------------------------------MAPEO---------------------------------//
     // Mapeo para verificar los nombres e id de cada tabla según el option del
     // select que se haya seleccionado para enviarlo al formulario de update
 
@@ -92,7 +92,7 @@ $(document).ready(function() {
             idField: "id_auto_proj"
         },
         "contract": {
-            table: "contracts",
+            table: "contract",
             idField: "id_auto_cont"
         },
         "genero": {
@@ -121,7 +121,48 @@ $(document).ready(function() {
         }
     };
 
-    //---------------------------------------------------------------------//
+    //---------------------------------MAPEO---------------------------------//
+
+    //---------------------------FORMULARIO REGISTRO---------------------------//
+
+    $(document).ready(function() {
+        $('#btnNewRegistro').on('click', function() {
+            var selectedValue = $('#consultaSelect').val();
+            if (selectedValue && optionMappings[selectedValue]) {
+                var table = optionMappings[selectedValue].table;
+                
+                // Redirigir o cargar el formulario de registro correspondiente
+                $.ajax({
+                    url: '../routes/contenido.php',
+                    type: 'GET',
+                    data: {
+                        dato: 'forms',
+                        tabla: table
+                    },
+                    dataType: 'html',
+                    success: function(response) {
+                        $('.usersContent').html(response); // Reemplaza el contenido actual con el formulario de registro
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error al cargar el formulario de registro:', status, error);
+                    }
+                });
+            } else {
+                console.error('Seleccione una opción válida para registrar.');
+            }
+        });
+    });
+
+    $('#consultaSelect').on('change', function() {
+        var selectedValue = this.value;
+        if (selectedValue && optionMappings[selectedValue]) {
+            var buttonText = `Registrar nuev@ ${$(this).find('option:selected').text()}`;
+            $('#btnNewRegistro').text(buttonText);
+        }
+    });
+
+    //---------------------------FORMULARIO REGISTRO---------------------------//
+
 
     $('#consultaSelect').on('change', function() {
         var selectedValue = this.value;

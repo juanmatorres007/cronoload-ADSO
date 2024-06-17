@@ -27,6 +27,13 @@ if(isset($_GET['dato'])) {
     $view->view1();
     $view->view2();
     $view->viewUpdate($_GET);
+  }else if($miVariable == "forms"){
+    if(isset($_GET['tabla'])) {
+      $tabla = $_GET['tabla'];
+      $view->view1();
+      $view->view2();
+      $view->viewRegisterForm($tabla);
+    }
   }else {
     http_response_code(400);
     echo "Error: Vista desconocida.";

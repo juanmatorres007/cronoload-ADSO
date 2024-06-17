@@ -136,6 +136,8 @@ class UserController{
    //    echo"actualizacion exitosa";
    // }
 
+   //--------------------------------FORMULARIOS ACTUALIZACION--------------------------------//
+
    public function updateUserPhoto($imagen, $id_user){
       $userModel = new UserModel();
       $updateUserPhoto = $userModel->updateUserPhoto($imagen, $id_user);
@@ -143,10 +145,23 @@ class UserController{
       return $updateUserPhoto;
    }
 
-   public function updateUser($id_user, $name, $lastname, $number_id, $birth){
+   public function updateUser($id_user, $name, $lastName, $typeId, $numberId, $birth, $genero, $estado){
       $userModel = new UserModel();
-      $updateUser = $userModel->updateUser($id_user, $name, $lastname, $number_id, $birth);
+      $updateUser = $userModel->updateUser($id_user, $name, $lastName, $typeId, $numberId, $birth, $genero, $estado);
 
       return $updateUser;
    }
+
+   public function updateUserWithExtras($id_user, $name, $lastName, $typeId, $numberId, $birth, $genero, $estado, 
+   $typeContract, $knowArea, $formationLvl){
+      $userModel = new UserModel();
+      $updateUserWithExtras = $userModel->updateUserWithExtras($id_user, $name, $lastName, $typeId, $numberId, $birth, 
+      $genero, $estado, $typeContract, $knowArea, $formationLvl);
+
+      return $updateUserWithExtras;
+   }
+
+
+   //--------------------------------FORMULARIOS ACTUALIZACION--------------------------------//
+
 }

@@ -30,4 +30,8 @@ class ContenidoController{
                   public function viewUpdate(){
                     include "../view/Consultas/updateGeneral.php";
                   }
+
+                    public function viewRegisterForm(){
+                      include "../routes/Registros/generalRegistros.php";
+                  }
 }
