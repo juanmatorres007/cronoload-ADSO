@@ -32,6 +32,7 @@ class ContenidoController{
                   }
 
                     public function viewRegisterForm(){
-                      include "../routes/Registros/generalRegistros.php";
+                      include "../controller/formController.php";
                   }
+
 }

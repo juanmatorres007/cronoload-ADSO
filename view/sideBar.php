@@ -20,9 +20,6 @@
         <a id="usuario" href="#"><strong>
             <h5>Usuario</h5>
           </strong></a>
-        <a href=""><strong>
-            <h5><?php echo $_SESSION['getSessionRol'] ?></h5>
-          </strong></a>
           <a id="back" href="../index.php"><strong>
             <h5>Salir</h5>
           </strong></a>
@@ -43,9 +40,6 @@
           </strong></a>
         <a id="registro" href="#"><strong>
             <h5>Registro</h5>
-          </strong></a>
-        <a href=""><strong>
-            <h5><?php echo $_SESSION['getSessionRol'] ?></h5>
           </strong></a>
           <a id="const" href="#"><strong>
             <h5>Consulta</h5>
@@ -71,9 +65,6 @@
         <a id="registro" href="#"><strong>
             <h5>Registro</h5>
           </strong></a>
-        <a href=""><strong>
-            <h5><?php echo $_SESSION['getSessionRol'] ?></h5>
-          </strong></a>
           <a id="const" href="#"><strong>
             <h5>Consulta</h5>
           </strong></a>
@@ -92,14 +83,14 @@
 
     <div class="cont-menu" id="miSidebar">
       <nav>
+      <a id="calendar" href="../routes/contenido.php"><strong>
+            <h5>Calendario</h5>
+          </strong></a>
         <a id="usuario" href="#"><strong>
             <h5>Usuario</h5>
           </strong></a>
         <a id="registro" href="#"><strong>
             <h5>Registro</h5>
-          </strong></a>
-        <a href=""><strong>
-            <h5><?php echo $_SESSION['getSessionRol'] ?></h5>
           </strong></a>
           <a id="const" href="#"><strong>
             <h5>Consulta</h5>

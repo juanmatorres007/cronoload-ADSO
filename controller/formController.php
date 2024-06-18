@@ -1,7 +1,7 @@
 <?php
 
-include_once "../../conexion/conexion.php";
-require_once '../../model/registerModel.php';
+include_once "../conexion/conexion.php";
+require_once '../model/registerModel.php';
 
 
 class FormController {

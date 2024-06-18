@@ -11,19 +11,19 @@ if(isset($_GET['dato'])) {
     $view->view1();
     $view->view2();
     $view->view3();
-  } elseif ($miVariable == "registro") {
+  } else if($miVariable == "registro") {
     $view->view1();
     $view->view2();
     $view->view4();
-  } elseif ($miVariable == "const"){
+  } else if($miVariable == "const"){
     $view->view1();
     $view->view2();
     $view->view5();
-  } elseif($miVariable == "consulta_general"){
+  } else if($miVariable == "consulta_general"){
     $view->view1();
     $view->view2();
     $view->view6();
-  }elseif($miVariable == "updateForm"){
+  }else if($miVariable == "updateForm"){
     $view->view1();
     $view->view2();
     $view->viewUpdate($_GET);
@@ -34,6 +34,10 @@ if(isset($_GET['dato'])) {
       $view->view2();
       $view->viewRegisterForm($tabla);
     }
+  }else if($miVariable == "calendar"){
+    $view->view1();
+    $view->view2();
+    // $view->showCalendar();
   }else {
     http_response_code(400);
     echo "Error: Vista desconocida.";

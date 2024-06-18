@@ -82,15 +82,24 @@ class registerModel{
     }
 
     public function registerFile($numberFicha, $state, $startDate, $endDate, $projectId){
-        $sql = $this->conn->prepare("INSERT INTO ficha(number_file, state_file, start_date_file, end_date_file, id_proj_file) VALUES(?,?,?,?,?,?)");
+        $sql = $this->conn->prepare("INSERT INTO ficha(number_file, state_file, start_date_file, end_date_file, id_proj_file) VALUES(?,?,?,?,?)");
         $sql->bindParam(1, $numberFicha);
         $sql->bindParam(2, $state);
         $sql->bindParam(3, $startDate);
         $sql->bindParam(4, $endDate);
         $sql->bindParam(5, $projectId);
-        $sql->execute();
-        $rta = $sql->rowCount();
-        return $rta;
+
+        if($sql->execute()){
+
+            $ficha_id = $this->conn->lastInsertId();
+    
+            $sql2 = $this->conn->prepare("INSERT INTO calendar(id_fil_cal ) VALUES (?)");
+            $sql2->bindParam(1, $ficha_id);
+            $sql2->execute();
+              
+            $registerFicha = $sql->rowCount();
+            return $registerFicha;
+        }
     }
 
     public function registerProject($nameProject, $numberProject, $state, $registerDate, $areaKnowId){

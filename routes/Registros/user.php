@@ -111,7 +111,7 @@ $birth = $_REQUEST['birth_id'];
 
     $updateUserPhoto = $userController->updateUserPhoto($imagen, $id_user);
     if($updateUserPhoto > 0){
-        $updateUser = $userController->updateUser($id_user, $name, $lastName, $numberId, $birth);
+        // $updateUser = $userController->updateUser($id_user, $name, $lastName, $numberId, $birth);
         if($updateUser > 0){
             
         }

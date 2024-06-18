@@ -88,6 +88,9 @@
         <?php endforeach; ?>
 
         <br><button type="submit">Guardar</button>
+        <button type="button" onclick="window.location.href='../routes/contenido.php?dato=consulta_general'">Volver a Consultas</button>
+
+
     </form>
 </body>
 </html>

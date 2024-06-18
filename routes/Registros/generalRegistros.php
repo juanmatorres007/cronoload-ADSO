@@ -1,5 +1,5 @@
 <?php
-include_once "../controller/registerController.php";
+include_once "../../controller/registerController.php";
 
 extract($_REQUEST);
 
@@ -112,7 +112,7 @@ $registerController = new RegisterController();
             break;
     }
 
-    header("Location: ../../view/Consultas/consultas.php");
+    header("Location: ../contenido.php?dato=consulta_general");
     exit();
 
 
