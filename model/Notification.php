@@ -18,3 +18,19 @@ class Notification {
     }
 }
 
+class NotificationModel {
+    private $conn;
+
+    public function __construct($dbConnection) {
+        $this->conn = $dbConnection;
+    }
+
+    public function getAllNotifications() {
+        try {
+            $stmt = $this->conn->query("SELECT * FROM notification");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error en la consulta: " . $e->getMessage());
+        }
+    }
+}

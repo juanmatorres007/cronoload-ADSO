@@ -47,3 +47,19 @@ class NotificationController {
         }
     }
 }
+class NotiController {
+    private $model;
+
+    public function __construct($dbConnection) {
+        $this->model = new NotificationModel($dbConnection);
+    }
+
+    public function showNotifications() {
+        try {
+            $notifications = $this->model->getAllNotifications();
+            include '../view/notification.php';
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+}

@@ -12,7 +12,7 @@
     <script type="text/javascript">
         function tiempoReal() {
             var not = $.ajax({
-                url: '../view/notification.php',
+                url: '../routes/showNotification.php',
                 dataType: 'text',
                 async: false
             }).responseText;
