@@ -107,6 +107,9 @@
           <a id="consulta_general" href="#"><strong>
             <h5>Consulta General</h5>
           </strong></a>
+          <a id="consulta_general" href="../view/viewNotification.php"><strong>
+            <h5>Notificaciones</h5>
+          </strong></a>
         <a id="back" href="../index.php"><strong>
             <h5>Salir</h5>
           </strong></a>
