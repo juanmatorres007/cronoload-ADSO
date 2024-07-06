@@ -26,10 +26,11 @@
 
 <body>
     <header>
-        <h1>NOTIFICACIONES ENVIADAS </h1>
+
     </header>
     <section id="notifications">
     </section>
+    
 </body>
 
 </html>
