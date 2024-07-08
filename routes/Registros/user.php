@@ -20,38 +20,42 @@ $phone_user = $_REQUEST['phone_user'];
 $departament = $_REQUEST['id_dept_user'];
 $city = $_REQUEST['id_mun_user'];
 $address = $_REQUEST['address_user'];
+$state = $_REQUEST['state'];
 $rol = $_REQUEST['rol'];
-$file = $_REQUEST['file_user'];
-$contract_type = $_REQUEST['tcontrato'];
-$start_date = $_REQUEST['startDate'];
-$end_date = $_REQUEST['endDate'];
 $know = $_REQUEST['id_know_user'];
 $form_lvl = $_REQUEST['id_formation_lvl_user'];
 
-    $registerUser = $userController->registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero, $birth);
+//TERMINAR EL IFROL PARA CADA PROCESO 
+    $registerUser = $userController->registerUser($name, $lastname, $type_id, $number_id, $birth, $genero, $state, $know, $form_lvl);
     if ($registerUser > 0) {
         $rolRegistered = $userController->registerRolUser($rol, $registerUser);
         if ($rolRegistered > 0) {
-            $registerVinculation = $userController->registerVinculation($start_date, $end_date, $contract_type, $registerUser);
-            if ($registerVinculation > 0) {
-                $registerFile = $userController->registerFile($registerUser, $file);
-                if ($registerFile > 0) {
-                    $registerContacts = $userController->registerContact($email_user, $phone_user, $registerUser);
-                    if ($registerContacts > 0) {
-                        $registerAccess = $userController->registerAccess($number_id, $registerUser);
-                        if($registerAccess > 0) {
-                            $registerAddress = $userController->registerAddress($departament, $city, $address, $registerUser);
-                        }if ($registerAddress > 0){
-                            // echo "Registro finalizado hasta el acceso";
+            $registerContacts = $userController->registerContact($email_user, $phone_user, $registerUser);
+            if ($registerContacts > 0) {
+                $registerAccess = $userController->registerAccess($number_id, $registerUser);
+                if($registerAccess > 0) {
+                    $registerAddress = $userController->registerAddress($departament, $city, $address, $registerUser);
+                    if ($rol == "1"){
+                        $file = $_REQUEST['file_user'];
+                        $registerFile = $userController->registerFile($registerUser, $file);
+                        if ($registerFile > 0) {
+                            echo "Registro de aprendiz exitoso";
+                        }
+                    }else if($rol == "4" || $rol == "7"){
+                        $contract_type = $_REQUEST['tcontrato'];
+                        $start_date = $_REQUEST['startDate'];
+                        $end_date = $_REQUEST['endDate'];
+                        $registerVinculation = $userController->registerVinculation($start_date, $end_date, $contract_type, $registerUser);
+                        if ($registerVinculation > 0) {
+                            echo "Registro de Instructor Exitoso";
                         }
                     }
                 }
             }
         }
     }
-}
 
-elseif($action === 'update'){
+}else if($action === 'update'){
 
 extract($_REQUEST);
 
@@ -120,7 +124,6 @@ $birth = $_REQUEST['birth_id'];
     error_log(print_r($_REQUEST, true));
 
     extract($_REQUEST);
-
     $id_user = $_REQUEST['userId'];
     $rol = $_REQUEST['rolId']; // "1" == "Aprendiz" -- "4" == "Instructor" -- "7" == "Coordinador" -- "18" == "Administrador"
     $name = $_REQUEST['userName'];

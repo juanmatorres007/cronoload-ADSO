@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2024 a las 00:12:44
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Tiempo de generación: 20-06-2024 a las 05:10:25
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -58,6 +58,13 @@ CREATE TABLE `activity` (
   `id_pha_acti` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `activity`
+--
+
+INSERT INTO `activity` (`id_auto_acti`, `name_acti`, `date_register_acti`, `state_acti`, `id_pha_acti`) VALUES
+(1, 'Programar', '2024-06-17', 1, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -85,6 +92,24 @@ INSERT INTO `address_u` (`id_auto_add`, `department_add`, `municipality_add`, `a
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `calendar`
+--
+
+CREATE TABLE `calendar` (
+  `id_auto_cal` int(11) NOT NULL,
+  `id_fil_cal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `calendar`
+--
+
+INSERT INTO `calendar` (`id_auto_cal`, `id_fil_cal`) VALUES
+(1, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `competition`
 --
 
@@ -96,6 +121,14 @@ CREATE TABLE `competition` (
   `state_comp` tinyint(1) NOT NULL DEFAULT 1,
   `id_acti_comp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `competition`
+--
+
+INSERT INTO `competition` (`id_auto_comp`, `name_comp`, `number_comp`, `date_register_comp`, `state_comp`, `id_acti_comp`) VALUES
+(1, 'Programar', 26, '2024-06-17', 1, 0),
+(2, 'Nadar', 32665, '2024-06-04', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -210,6 +243,21 @@ INSERT INTO `departamentos` (`id_departamento`, `departamento`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `events`
+--
+
+CREATE TABLE `events` (
+  `id_auto_events` int(11) NOT NULL,
+  `date_eve` date NOT NULL,
+  `id_user_eve` int(11) NOT NULL,
+  `id_comp_eve` int(11) NOT NULL,
+  `id_res_eve` int(11) NOT NULL,
+  `id_cal_eve` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `facility_model`
 --
 
@@ -239,7 +287,11 @@ CREATE TABLE `ficha` (
 --
 
 INSERT INTO `ficha` (`id_auto_fil`, `number_file`, `state_file`, `start_date_file`, `end_date_file`, `id_proj_file`) VALUES
-(1, 2620480, 1, '2024-05-17', '2024-05-18', 3);
+(1, 2620480, 1, '2024-05-17', '2024-05-18', 3),
+(2, 3265488, 1, '2024-06-05', '2025-10-14', 3),
+(3, 2653478, 1, '2024-05-30', '2026-10-13', 3),
+(4, 3659847, 1, '2023-04-05', '2024-06-29', 3),
+(5, 3569874, 1, '2024-06-05', '2024-06-20', 3);
 
 -- --------------------------------------------------------
 
@@ -349,9 +401,14 @@ CREATE TABLE `knowledge_area` (
 --
 
 INSERT INTO `knowledge_area` (`id_auto_know`, `area_name_know`, `date_register_know`, `state_know`) VALUES
-(1, 'Tecnologia', '2024-04-30', 1),
-(2, 'Biologia', '2024-05-14', 1),
-(3, 'Ingles', '2024-05-21', 1);
+(1, 'ECONOMIA', '2024-04-30', 1),
+(2, 'AGRONOMIA', '2024-05-14', 1),
+(3, 'BELLAS ARTES', '2024-05-21', 1),
+(4, 'CIENCIAS DE LA SALUD', '2024-06-17', 1),
+(5, 'CIENCIAS DE EDUCACIÓN', '2024-06-17', 1),
+(12, 'INGENIERÍA', '2024-06-17', 1),
+(13, 'MATEMÁTICA', '2024-06-17', 1),
+(14, 'CIENCIAS SOCIALES', '2024-06-17', 1);
 
 -- --------------------------------------------------------
 
@@ -1501,6 +1558,16 @@ CREATE TABLE `phase` (
   `id_project_pha` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `phase`
+--
+
+INSERT INTO `phase` (`id_auto_pha`, `name_pha`, `date_register_pha`, `state_pha`, `id_project_pha`) VALUES
+(1, 'ANÁLISIS', '2024-06-17', 1, 0),
+(2, 'PLANEACIÓN', '2024-06-17', 1, 0),
+(3, 'EJECUCIÓN', '2024-06-17', 1, 0),
+(4, 'EVALUACIÓN', '2024-06-17', 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -1509,14 +1576,21 @@ CREATE TABLE `phase` (
 
 CREATE TABLE `program` (
   `id_auto_prog` int(11) NOT NULL,
-  `name_prog` int(11) NOT NULL,
+  `name_prog` varchar(50) NOT NULL,
   `date_register_prog` date NOT NULL,
   `code_prog` int(11) NOT NULL,
   `version_prog` float NOT NULL,
   `type_prog` tinyint(1) NOT NULL DEFAULT 1,
   `state_prog` tinyint(1) NOT NULL DEFAULT 1,
-  `id_project-prog` int(11) NOT NULL
+  `id_project_prog` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='codigo solo numercio (creo según Gilberto)';
+
+--
+-- Volcado de datos para la tabla `program`
+--
+
+INSERT INTO `program` (`id_auto_prog`, `name_prog`, `date_register_prog`, `code_prog`, `version_prog`, `type_prog`, `state_prog`, `id_project_prog`) VALUES
+(2, 'ADSO', '2024-05-28', 32659, 3.2, 0, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -1594,10 +1668,18 @@ CREATE TABLE `result` (
   `id_auto_res` int(11) NOT NULL,
   `name_res` varchar(50) NOT NULL,
   `date_register_res` date NOT NULL,
-  `state_res` tinyint(1) NOT NULL DEFAULT 1,
+  `state_res` tinyint(1) NOT NULL,
   `id_comp_res` int(11) NOT NULL,
   `id_know_res` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `result`
+--
+
+INSERT INTO `result` (`id_auto_res`, `name_res`, `date_register_res`, `state_res`, `id_comp_res`, `id_know_res`) VALUES
+(1, 'kjbkabds', '2024-05-29', 0, 1, 0),
+(2, 'csfdefd', '2024-06-04', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -1621,6 +1703,25 @@ INSERT INTO `rol` (`id_auto_rol`, `name_rol`, `state_rol`, `date_register_rol`) 
 (4, 'Instructor', 2, '2024-04-01'),
 (7, 'Coordinador', 1, '2024-04-03'),
 (18, 'Administrador', 1, '2024-05-14');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `states`
+--
+
+CREATE TABLE `states` (
+  `id_auto_sta` int(11) NOT NULL,
+  `name_state` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `states`
+--
+
+INSERT INTO `states` (`id_auto_sta`, `name_state`) VALUES
+(1, 'ACTIVO'),
+(2, 'INACTIVO');
 
 -- --------------------------------------------------------
 
@@ -1671,7 +1772,7 @@ CREATE TABLE `user` (
   `photo_user` varchar(200) DEFAULT NULL,
   `birth_user` date DEFAULT NULL,
   `id_gen_user` int(11) DEFAULT NULL,
-  `state_user` tinyint(1) DEFAULT 1,
+  `state_user` int(11) DEFAULT NULL,
   `id_type_contract_user` int(11) DEFAULT NULL,
   `id_know_user` int(11) DEFAULT NULL,
   `id_formation_lvl_user` int(11) DEFAULT NULL
@@ -1683,9 +1784,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_auto_user`, `name_user`, `lastname_user`, `type_id_user`, `number_id_user`, `photo_user`, `birth_user`, `id_gen_user`, `state_user`, `id_type_contract_user`, `id_know_user`, `id_formation_lvl_user`) VALUES
 (70, 'Samuel Esteban', 'Salazar Trejos', 1, 1138524258, NULL, '2005-04-20', 1, 1, NULL, 1, 1),
-(71, 'Instructor xd', 'prueba 1', 1, 1, NULL, '2014-06-10', 1, 1, NULL, 1, 3),
-(72, 'Administrador', '1 Prueba', 1, 2, NULL, '2024-06-03', 1, 1, NULL, 1, 1),
-(73, 'hdjhs', 'Jdjkhs', 1, 92389034, NULL, '2023-10-31', 1, 1, NULL, 1, 1);
+(71, 'Instructor xd', 'prueba 1', 1, 1, NULL, '2014-06-10', 1, 1, 1, 3, 1),
+(72, 'Administrador', '1 Prueba', 1, 2, NULL, '2024-06-03', 1, 1, 2, 1, 1),
+(73, 'hdjhs', 'Jdjkhs', 2, 92389034, NULL, '2023-10-31', 1, 1, NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1762,6 +1863,13 @@ ALTER TABLE `address_u`
   ADD KEY `municipality_add` (`municipality_add`);
 
 --
+-- Indices de la tabla `calendar`
+--
+ALTER TABLE `calendar`
+  ADD PRIMARY KEY (`id_auto_cal`),
+  ADD KEY `id_fil_cal` (`id_fil_cal`);
+
+--
 -- Indices de la tabla `competition`
 --
 ALTER TABLE `competition`
@@ -1786,6 +1894,17 @@ ALTER TABLE `contracts`
 --
 ALTER TABLE `departamentos`
   ADD PRIMARY KEY (`id_departamento`);
+
+--
+-- Indices de la tabla `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id_auto_events`),
+  ADD KEY `id_user_eve` (`id_user_eve`),
+  ADD KEY `id_comp_eve` (`id_comp_eve`),
+  ADD KEY `id_res_eve` (`id_res_eve`),
+  ADD KEY `id_fil_eve` (`id_cal_eve`),
+  ADD KEY `id_cal_eve` (`id_cal_eve`);
 
 --
 -- Indices de la tabla `facility_model`
@@ -1851,7 +1970,7 @@ ALTER TABLE `phase`
 --
 ALTER TABLE `program`
   ADD PRIMARY KEY (`id_auto_prog`),
-  ADD KEY `id_project-prog` (`id_project-prog`);
+  ADD KEY `id_project-prog` (`id_project_prog`);
 
 --
 -- Indices de la tabla `project`
@@ -1892,6 +2011,12 @@ ALTER TABLE `rol`
   ADD UNIQUE KEY `name_rol` (`name_rol`);
 
 --
+-- Indices de la tabla `states`
+--
+ALTER TABLE `states`
+  ADD PRIMARY KEY (`id_auto_sta`);
+
+--
 -- Indices de la tabla `time_tracking`
 --
 ALTER TABLE `time_tracking`
@@ -1913,7 +2038,8 @@ ALTER TABLE `user`
   ADD KEY `id_formation_lvl_user` (`id_formation_lvl_user`),
   ADD KEY `Type_contract_user` (`id_type_contract_user`),
   ADD KEY `id_gen_user` (`id_gen_user`),
-  ADD KEY `type_id_user` (`type_id_user`);
+  ADD KEY `type_id_user` (`type_id_user`),
+  ADD KEY `state_user` (`state_user`);
 
 --
 -- Indices de la tabla `vinculation`
@@ -1937,7 +2063,7 @@ ALTER TABLE `acceso`
 -- AUTO_INCREMENT de la tabla `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `id_auto_acti` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_auto_acti` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `address_u`
@@ -1946,10 +2072,16 @@ ALTER TABLE `address_u`
   MODIFY `id_auto_add` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `calendar`
+--
+ALTER TABLE `calendar`
+  MODIFY `id_auto_cal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `competition`
 --
 ALTER TABLE `competition`
-  MODIFY `id_auto_comp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_auto_comp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `contact`
@@ -1961,13 +2093,19 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT de la tabla `contracts`
 --
 ALTER TABLE `contracts`
-  MODIFY `id_auto_cont` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_auto_cont` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
   MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
+--
+-- AUTO_INCREMENT de la tabla `events`
+--
+ALTER TABLE `events`
+  MODIFY `id_auto_events` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `facility_model`
@@ -1979,7 +2117,7 @@ ALTER TABLE `facility_model`
 -- AUTO_INCREMENT de la tabla `ficha`
 --
 ALTER TABLE `ficha`
-  MODIFY `id_auto_fil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_auto_fil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `formation_lvl`
@@ -2003,7 +2141,7 @@ ALTER TABLE `img`
 -- AUTO_INCREMENT de la tabla `knowledge_area`
 --
 ALTER TABLE `knowledge_area`
-  MODIFY `id_auto_know` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_auto_know` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `municipios`
@@ -2021,19 +2159,19 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT de la tabla `phase`
 --
 ALTER TABLE `phase`
-  MODIFY `id_auto_pha` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_auto_pha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `program`
 --
 ALTER TABLE `program`
-  MODIFY `id_auto_prog` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_auto_prog` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `project`
 --
 ALTER TABLE `project`
-  MODIFY `id_auto_proj` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_auto_proj` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `relation_rol_user`
@@ -2051,13 +2189,19 @@ ALTER TABLE `relation_user_file`
 -- AUTO_INCREMENT de la tabla `result`
 --
 ALTER TABLE `result`
-  MODIFY `id_auto_res` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_auto_res` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
   MODIFY `id_auto_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de la tabla `states`
+--
+ALTER TABLE `states`
+  MODIFY `id_auto_sta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `time_tracking`
@@ -2092,6 +2236,25 @@ ALTER TABLE `vinculation`
 --
 ALTER TABLE `activity`
   ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_pha_acti`) REFERENCES `phase` (`id_auto_pha`);
+
+--
+-- Filtros para la tabla `calendar`
+--
+ALTER TABLE `calendar`
+  ADD CONSTRAINT `calendar_ibfk_1` FOREIGN KEY (`id_fil_cal`) REFERENCES `ficha` (`id_auto_fil`);
+
+--
+-- Filtros para la tabla `events`
+--
+ALTER TABLE `events`
+  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`id_cal_eve`) REFERENCES `calendar` (`id_auto_cal`);
+
+--
+-- Filtros para la tabla `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_type_contract_user`) REFERENCES `contracts` (`id_auto_cont`),
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`state_user`) REFERENCES `states` (`id_auto_sta`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -35,7 +35,7 @@
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
 
-<!----------------------------- MODAL PARA ACTUALIZAR LOS USUARIOS ---------l-------------------->
+<!-----------------------------MODAL PARA ACTUALIZAR LOS USUARIOS----------------------------->
 <div class="modal fade" id="updateUserModal" tabindex="-1" aria-labelledby="updateUserModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -43,7 +43,6 @@
                 <h5 class="modal-title" id="updateUserModalLabel">Actualizar Usuario</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-- <p id="selectedRol">Rol seleccionado: <span id="selectedRolValue"></span></p> -->
             <div class="modal-body">
                 <form id="updateUserForm" action="../routes/Registros/user.php?action=updates">
                     <input type="hidden" id="userId" name="userId">
@@ -79,11 +78,6 @@
                         <select class="form-select" id="userEstado" name="userEstado">
                         </select>
                     </div>
-                    <div class="mb-3" id="userTypeContractDiv">
-                        <label for="userTypeContract" class="form-label">Tipo de contrato</label>
-                        <select class="form-select" id="userTypeContract" name="userTypeContract">
-                        </select>
-                    </div>
                     <div class="mb-3" id="userknowAreaDiv">
                         <label for="userknowArea" class="form-label">Área de conocimiento</label>
                         <select class="form-select" id="userknowArea" name="userknowArea">
@@ -101,16 +95,10 @@
     </div>
 </div>
 
-
-
-<!----------------------------- MODAL PARA ACTUALIZAR LOS USUARIOS ---------l-------------------->
-
+<!-----------------------------MODAL PARA ACTUALIZAR LOS USUARIOS----------------------------->
 
 <script>
-
 $(document).ready(function() {
-    // Función para actualizar el valor seleccionado del rol
-
     var role = $('#rolSelect').val();
 
     function getColumnsDefsByRole(role) {
@@ -180,7 +168,6 @@ $(document).ready(function() {
                         return data == "1" ? "ACTIVO" : data == "2" ? "INACTIVO" : data;
                     }
                 },
-                { "data": "type_contract_name", "title": "Tipo de Contrato" },
                 { "data": "know_area_name", "title": "Área de conocimiento" },
                 { "data": "formation_lvl_name", "title": "Nivel formativo" },
                 {
@@ -214,14 +201,20 @@ $(document).ready(function() {
                 "data": function(d) {
                     d.rol = $('#rolSelect').val();
                 },
-                "dataSrc": ""
+                "dataSrc": "",
+                "complete": function(xhr, status) {
+                    console.log('Datos recibidos del servidor:', xhr.responseJSON);
+                },
+                "error": function(xhr, status, error) {
+                    console.error('Error en la solicitud AJAX:', error);
+                }
             },
             "columns": columns,
             "destroy": true,
             "initComplete": function() {
                 $(document).on('click', '.btn-edit', function() {
                     var userId = $(this).data('userid');
-                    console.log('Botón de actualizar clickeado para el usuario con ID: ' + userId);
+                    console.log('Botón de actualizar clickeado para el usuario con ID:', userId);
 
                     $.ajax({
                         url: '../routes/Consultas/consultaAllUser.php',
@@ -243,12 +236,11 @@ $(document).ready(function() {
                                 $('#userGenero').val(userData.id_gen_user);
                                 $('#userEstado').val(userData.state_user);
                                 $('#rolId').val(userData.rol_id);
-                            
+
                                 if (userData.rol_id == "1") {
-                                    $('#userTypeContractDiv, #userknowAreaDiv, #userFormationLvlDiv').hide();
+                                    $('#userknowAreaDiv, #userFormationLvlDiv').hide();
                                 } else {
-                                    $('#userTypeContractDiv, #userknowAreaDiv, #userFormationLvlDiv').show();
-                                    $('#userTypeContract').val(userData.type_contract_name);
+                                    $('#userknowAreaDiv, #userFormationLvlDiv').show();
                                     $('#userknowArea').val(userData.know_area_name);
                                     $('#userFormationLvl').val(userData.formation_lvl_name);
                                 }
@@ -273,56 +265,52 @@ $(document).ready(function() {
 
     $('#rolSelect').on('change', function() {
         var selectedValue = $(this).val();
-        console.log("Rol seleccionado", selectedValue);
+        console.log("Rol seleccionado:", selectedValue);
 
         table.clear().destroy();
         table = initializeDataTable(selectedValue);
     });
 
     function fillSelectOptions(selectId, endpoint, paramName){
-    $.ajax({
-        url: endpoint,
-        method: 'GET',
-        dataType: 'json',
-        data: { action: 'consulta', consulta: paramName},
-        success: function(data){
-            console.log('Respuesta del servidor: ', data);
+        $.ajax({
+            url: endpoint,
+            method: 'GET',
+            dataType: 'json',
+            data: { action: 'consulta', consulta: paramName},
+            success: function(data){
+                console.log('Respuesta del servidor para', selectId, ':', data);
 
-            var selectElement = $('#' + selectId);
-            selectElement.empty();
+                var selectElement = $('#' + selectId);
+                selectElement.empty();
 
-            if(Array.isArray(data)) {
+                if(Array.isArray(data)) {
+                    data.forEach(function(option) {
+                        var idKey = Object.keys(option).find(key => key.toLowerCase().includes('id'));
+                        var nameKey = Object.keys(option).find(key => key.toLowerCase().includes('name'));
 
-                data.forEach(function(option) {
-                    var idKey = Object.keys(option).find(key => key.toLowerCase().includes('id'));
-                    var nameKey = Object.keys(option).find(key => key.toLowerCase().includes('name'));
-
-                    if(idKey && nameKey) {
-                        selectElement.append('<option value="' + option[idKey] + '">' + option[nameKey] + '</option>');
-                    }else {
-                        console.error('No se encontraron claves "id" y "name" válidas en el objeto:', option);
-                    }
-                });
-            }else {
-                console.error('La respuesta del servidor no es un array válido:', data);
+                        if(idKey && nameKey) {
+                            selectElement.append('<option value="' + option[idKey] + '">' + option[nameKey] + '</option>');
+                        }else {
+                            console.error('No se encontraron claves "id" y "name" válidas en el objeto:', option);
+                        }
+                    });
+                }else {
+                    console.error('La respuesta del servidor no es un array válido:', data);
+                }
+            },
+            error: function(xhr, status, error){
+                console.error('Error al obtener opciones para', selectId, ':', error);
             }
-        },
-        error: function(xhr, status, error){
-            console.error('Error al obtener opciones para ' + selectId, error);
-        }
-    });
+        });
     }
 
     // Llenar selects al cargar el modal
-    $(document).ready(function(){
-        $('#updateUserModal').on('shown.bs.modal', function () {
-            fillSelectOptions('userTypeId', '../routes/Consultas/generalConsulta.php', 'tipo_documento');
-            fillSelectOptions('userGenero', '../routes/Consultas/generalConsulta.php', 'genero');
-            fillSelectOptions('userEstado', '../routes/Consultas/generalConsulta.php', 'estado');
-            fillSelectOptions('userTypeContract', '../routes/Consultas/generalConsulta.php', 'tipo_contrato');
-            fillSelectOptions('userknowArea', '../routes/Consultas/generalConsulta.php', 'area_conocimiento');
-            fillSelectOptions('userFormationLvl', '../routes/Consultas/generalConsulta.php', 'nivel_formativo');
-        });
+    $('#updateUserModal').on('shown.bs.modal', function () {
+        fillSelectOptions('userTypeId', '../routes/Consultas/generalConsulta.php', 'tipo_documento');
+        fillSelectOptions('userGenero', '../routes/Consultas/generalConsulta.php', 'genero');
+        fillSelectOptions('userEstado', '../routes/Consultas/generalConsulta.php', 'estado');
+        fillSelectOptions('userknowArea', '../routes/Consultas/generalConsulta.php', 'area_conocimiento');
+        fillSelectOptions('userFormationLvl', '../routes/Consultas/generalConsulta.php', 'nivel_formativo');
     });
 
     // Maneja el envío del formulario de actualización de usuario
@@ -338,7 +326,7 @@ $(document).ready(function() {
             method: 'POST',
             data: formData,
             success: function(response) {
-                // alert('¡Usuario actualizado correctamente!');
+                console.log('Respuesta del servidor al actualizar usuario:', response);
                 table.ajax.reload(null, false);
                 $('#updateUserModal').modal('hide');
             },
@@ -349,4 +337,5 @@ $(document).ready(function() {
         });
     });
 });
+
 </script>

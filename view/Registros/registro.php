@@ -61,6 +61,8 @@
             <input type="date" id="birth_id" name="birth">
         </div><br>
 
+        <input type="hidden" name="state" value="1">
+
         <label><strong>Correo Electronico: </strong></label>
         <input type="email" name="email_user" placeholder="Ingrese su Correo Electronico"><br><br>
 
@@ -325,7 +327,7 @@
 
         //Carga de forma dinamica los departamentos en el campo de deptSelect
 
-        function loadMun() {
+    function loadMun() {
     const deptSelect = document.getElementById('deptSelect');
     const munSelect = document.getElementById('munSelect');
 

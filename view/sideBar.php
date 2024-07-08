@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ejemplo de AJAX</title>
+  <title></title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -97,6 +97,9 @@
           </strong></a>
           <a id="consulta_general" href="#"><strong>
             <h5>Consulta General</h5>
+          </strong></a>
+          <a id="consulta_general" href="../view/viewNotification.php"><strong>
+            <h5>Notificaciones</h5>
           </strong></a>
         <a id="back" href="../index.php"><strong>
             <h5>Salir</h5>

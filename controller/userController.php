@@ -6,9 +6,9 @@ include_once "../../model/rolModel.php";
 
 class UserController{
 
-   public function registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero, $birth){
+   public function registerUser($name, $lastname, $type_id, $number_id, $birth, $genero, $state, $know, $form_lvl){
       $userModel = new UserModel();
-      $registerUser = $userModel->registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero, $birth);
+      $registerUser = $userModel->registerUser($name, $lastname, $type_id, $number_id, $birth, $genero, $state, $know, $form_lvl);
       return $registerUser;
    }
 
@@ -116,12 +116,6 @@ class UserController{
 
       return $typeId;
     }
-
-   public function registerProyect($name, $number, $estado, $var_fecha, $id_area){
-      $proyect = new UserModel();
-      $rta = $proyect->registerProyect($name, $number, $estado, $var_fecha, $id_area);
-      echo "Registro exitoso";
-   }
 
    public function registerFicha($id_proyect, $numero_ficha, $estado, $f_ini, $f_fin){
       $userModel = new UserModel();

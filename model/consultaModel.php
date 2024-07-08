@@ -4,13 +4,10 @@ class ConsultaModel{
     private $conn;
 
     public function __construct() {
-        // Inicializar la conexión a la base de datos
         $this->db();
     }
 
-    // Función para inicializar la conexión a la base de datos
     public function db() {
-        // Establecer la conexión a la base de datos
         $this-> conn = conectaDb();
     }
 
@@ -205,12 +202,10 @@ class ConsultaModel{
             user.birth_user,
             user.id_gen_user,
             user.state_user,
-            contracts.name_cont AS type_contract_name,
             knowledge_area.area_name_know AS know_area_name,
             formation_lvl.name_flvl AS formation_lvl_name
         FROM user
             INNER JOIN relation_rol_user ON user.id_auto_user = relation_rol_user.id_user_relaru
-            LEFT JOIN contracts ON user.id_type_contract_user = contracts.id_auto_cont
             LEFT JOIN knowledge_area ON user.id_know_user = knowledge_area.id_auto_know
             LEFT JOIN formation_lvl ON user.id_formation_lvl_user  = formation_lvl.id_auto_flvl
         WHERE relation_rol_user.id_rol_relaru = ?
@@ -499,19 +494,17 @@ class ConsultaModel{
     public function updateData($table, $idField, $data) {
         $setPart = [];
         foreach ($data as $key => $value) {
-            if ($key !== $idField) { // Asumiendo que tienes un campo 'id' que no debe actualizarse
+            if ($key !== $idField) { // Hacer que un campo no se modifique
                 $setPart[] = "$key = :$key";
             }
         }
         $setString = implode(', ', $setPart);
 
-        // Asumiendo que tienes un campo 'idField' para identificar el registro
         $idValue = $data[$idField];
 
         $query = "UPDATE $table SET $setString WHERE $idField = :$idField";
         $stmt = $this->conn->prepare($query);
 
-        // Vincular los parámetros
         foreach ($data as $key => $value) {
             $stmt->bindValue(":$key", $value);
         }

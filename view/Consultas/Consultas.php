@@ -131,7 +131,6 @@ $(document).ready(function() {
             if (selectedValue && optionMappings[selectedValue]) {
                 var table = optionMappings[selectedValue].table;
                 
-                // Redirigir o cargar el formulario de registro correspondiente
                 $.ajax({
                     url: '../routes/contenido.php',
                     type: 'GET',
@@ -141,7 +140,7 @@ $(document).ready(function() {
                     },
                     dataType: 'html',
                     success: function(response) {
-                        $('.usersContent').html(response); // Reemplaza el contenido actual con el formulario de registro
+                        $('.usersContent').html(response); 
                     },
                     error: function(xhr, status, error) {
                         console.error('Error al cargar el formulario de registro:', status, error);
@@ -162,7 +161,6 @@ $(document).ready(function() {
     });
 
     //---------------------------FORMULARIO REGISTRO---------------------------//
-
 
     $('#consultaSelect').on('change', function() {
         var selectedValue = this.value;
@@ -212,11 +210,9 @@ $(document).ready(function() {
 
         generalTable.clear().destroy();
 
-        // Limpiar encabezado y cuerpo de la tabla
         $('#generalTable thead').empty();
         $('#generalTable tbody').empty();
 
-        // Añadir nueva fila de encabezado
         $('#generalTable thead').append('<tr></tr>');
         columns.forEach(function(col) {
             $('#generalTable thead tr').append('<th>' + col.title + '</th>');

@@ -14,9 +14,9 @@ class UserModel
     $this->conn = conectaDb();
   }
 
-  public function registerUser($name, $lastname, $type_id, $number_id, $know, $form_lvl, $genero, $birth){
+  public function registerUser($name, $lastname, $type_id, $number_id, $birth, $genero, $state, $know, $form_lvl){
     $sql = $this->conn->prepare("INSERT INTO user(name_user, lastname_user, type_id_user, number_id_user, birth_user,
-    id_gen_user, id_know_user, id_formation_lvl_user) VALUES (?,?,?,?,?,?,?,?)");
+    id_gen_user, state_user, id_know_user, id_formation_lvl_user) VALUES (?,?,?,?,?,?,?,?,?)");
 
     $sql->bindParam(1, $name);
     $sql->bindParam(2, $lastname);
@@ -24,8 +24,9 @@ class UserModel
     $sql->bindParam(4, $number_id);
     $sql->bindParam(5, $birth);
     $sql->bindParam(6, $genero);
-    $sql->bindParam(7, $know);
-    $sql->bindParam(8, $form_lvl);
+    $sql->bindParam(7, $state);
+    $sql->bindParam(8, $know);
+    $sql->bindParam(9, $form_lvl);
     $sql->execute();
 
     $rta = $sql->rowCount();
@@ -57,37 +58,37 @@ class UserModel
     return $rta;
   }
 
-  // public function registerArea($Nombre, $Fecha, $Estado){
+  public function registerArea($Nombre, $Fecha, $Estado){
 
-  //   $sql = $this->conn->prepare("INSERT INTO knowledge_area(area_name_know, date_register_know, state_know) VALUES(?,?,?)");
-  //   $sql->bindParam(1, $Nombre);
-  //   $sql->bindParam(2, $Fecha);
-  //   $sql->bindParam(3, $Estado);
-  //   $sql->execute();
-  //   $rta = $sql->rowCount();
-  //   return $rta;
-  // }
+    $sql = $this->conn->prepare("INSERT INTO knowledge_area(area_name_know, date_register_know, state_know) VALUES(?,?,?)");
+    $sql->bindParam(1, $Nombre);
+    $sql->bindParam(2, $Fecha);
+    $sql->bindParam(3, $Estado);
+    $sql->execute();
+    $rta = $sql->rowCount();
+    return $rta;
+  }
 
-  // public function registerFile($registerUser, $file){
+  public function registerFile($registerUser, $file){
 
-  //   $sql = $this->conn->prepare("INSERT INTO relation_user_file(id_user_reluf, id_file_reluf) VALUES (?,?)");
-  //   $sql->bindParam(1, $registerUser);
-  //   $sql->bindParam(2, $file);
-  //   $sql->execute();
-  //   $rta = $sql->rowCount();
+    $sql = $this->conn->prepare("INSERT INTO relation_user_file(id_user_reluf, id_file_reluf) VALUES (?,?)");
+    $sql->bindParam(1, $registerUser);
+    $sql->bindParam(2, $file);
+    $sql->execute();
+    $rta = $sql->rowCount();
 
-  //   return $rta;
-  // }
+    return $rta;
+  }
 
-  // public function registerContract($contract_name){
-  //   $sql = $this->conn->prepare("INSERT INTO contracts(name_cont) Values (?)");
-  //   $sql->bindParam(1,$contract_name);
-  //   $sql->execute();
+  public function registerContract($contract_name){
+    $sql = $this->conn->prepare("INSERT INTO contracts(name_cont) Values (?)");
+    $sql->bindParam(1,$contract_name);
+    $sql->execute();
 
-  //   $rta = $sql->rowCount();
-  //   $id_contract = $this->conn->lastInsertId();
-  //   return $id_contract;
-  // }
+    $rta = $sql->rowCount();
+    $id_contract = $this->conn->lastInsertId();
+    return $id_contract;
+  }
 
   public function registerContact($email_user, $phone_user, $registerUser){
     $sql = $this->conn->prepare("INSERT INTO contact(email_con, phone_con, id_user_con) VALUES (?,?,?)");
@@ -273,20 +274,6 @@ class UserModel
 
     return $typeId_data;
   }
-
-
-  // public function registerProyect($name, $number, $estado, $var_fecha, $id_area){
-  //   $sql = $this->conn->prepare("INSERT INTO project(name_proj, number_proj, state_proj, register_date_proj, id_knowledge_area_proj)
-  //       VALUES(?,?,?,?,?)");
-  //   $sql->bindParam(1, $name);
-  //   $sql->bindParam(2, $number);
-  //   $sql->bindParam(3, $estado);
-  //   $sql->bindParam(4, $var_fecha);
-  //   $sql->bindParam(5, $id_area);
-  //   $sql->execute();
-  //   $rta = $sql->rowCount();
-  //   return $rta;
-  // }
 
   public function registerFicha($id_proyect, $numero_ficha, $estado, $f_ini, $f_fin){
     $sql = $this->conn->prepare("INSERT INTO ficha(number_file, state_file, start_date_file, end_date_file, id_proj_file ) VALUES (?,?,?,?,?)");

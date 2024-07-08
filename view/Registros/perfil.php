@@ -205,7 +205,7 @@
   });
 
 //-------------------------------------------------------------//
-    // SIN TERMINAR!!
+  
 
 document.addEventListener("DOMContentLoaded", function() {
     var id_auto_dept = <?php echo $_SESSION['usuario']['id_auto_user']; ?>;
